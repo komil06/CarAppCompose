@@ -24,7 +24,6 @@ fun SplashScreen(navController:NavController){
     LaunchedEffect(key1 = true) {
         delay(6000)
         navController.navigate("SignIn")
-
     }
     Box(modifier = Modifier
         .fillMaxSize()
