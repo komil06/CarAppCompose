@@ -5,7 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.carappcompose.fragments.MainScreen
 import com.example.carappcompose.fragments.SignInScreen
+import com.example.carappcompose.fragments.SignUpScreen
 import com.example.carappcompose.fragments.SplashScreen
 
 @Composable
@@ -16,6 +18,13 @@ NavHost(navController = navController, startDestination = Screens.Splash.route){
     }
     composable(route = Screens.SignIn.route){
         SignInScreen(navController = navController)
+    }
+    composable(route = Screens.SignUp.route){
+        SignUpScreen(navController = navController)
+    }
+
+    composable(route = Screens.Main.route){
+        MainScreen(navController = navController)
     }
 
 }

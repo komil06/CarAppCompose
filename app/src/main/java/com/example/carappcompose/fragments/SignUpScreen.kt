@@ -1,7 +1,5 @@
 package com.example.carappcompose.fragments
 
-import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,10 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -38,7 +36,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -46,12 +43,10 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.google.android.material.button.MaterialButton
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignInScreen(navController: NavController){
+fun SignUpScreen(navController: NavController){
     Surface(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp)
@@ -63,39 +58,51 @@ fun SignInScreen(navController: NavController){
             .fillMaxSize()
             .padding(12.dp),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Login", fontFamily = FontFamily.SansSerif, fontSize = 20.sp,   color = Color(255,165,0), fontWeight = FontWeight(700))
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Welcome to CarStore", fontFamily = FontFamily.SansSerif, fontSize = 20.sp)
+            Text(text = "Register", fontFamily = FontFamily.SansSerif, fontSize = 20.sp,   color = Color(255,165,0), fontWeight = FontWeight(700))
             Spacer(modifier = Modifier.height(10.dp))
 
 
             var text by remember { mutableStateOf(TextFieldValue("")) }
             var password by remember { mutableStateOf(TextFieldValue("")) }
+            var name by remember {
+                mutableStateOf(TextFieldValue(""))
+            }
+            OutlinedTextField(
+                value = name,
+                leadingIcon = { Icon(imageVector = Icons.Default.Create, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                onValueChange = { text = it },
+                label = { Text("Full Name") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+
+                shape = RoundedCornerShape(12.dp)
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+
             OutlinedTextField(
                 value = text,
-                leadingIcon = {Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                leadingIcon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
                 onValueChange = { text = it },
                 label = { Text("Username") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
 
-                        shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp)
             )
             Spacer(modifier = Modifier.height(10.dp))
             OutlinedTextField(
                 value = password,
-                leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = null, modifier = Modifier.padding(8.dp)) },
                 onValueChange = { password = it },
                 label = { Text("Password") },
                 shape = RoundedCornerShape(12.dp),
-                        keyboardOptions = KeyboardOptions(
-                        capitalization = KeyboardCapitalization.None,
-                autoCorrect = true,
-                keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Next
-            ),
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.None,
+                    autoCorrect = true,
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Next
+                ),
             )
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(text="Forgot Password?", fontFamily = FontFamily.SansSerif, fontSize = 15.sp)
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 modifier = Modifier
@@ -104,44 +111,37 @@ fun SignInScreen(navController: NavController){
                 onClick = {navController.navigate("Main")},
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(Color(255,165,0))
-                ){
+            ){
                 Text(
                     modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
-                    text = "Login",
+                    text = "Register",
                     fontFamily = FontFamily.SansSerif, fontSize = 15.sp)
 
             }
             Spacer(modifier = Modifier.height(30.dp))
             Row{
-                Text(text="Don't have an account?", fontFamily = FontFamily.SansSerif, fontSize = 15.sp)
-
-
-
-
-//                Text(text="  Sign Up", fontFamily = FontFamily.SansSerif, fontSize = 15.sp,
-//                    color = Color(255,165,0),
-//
-//                    )
-
+                Text(text="Already have an account?", fontFamily = FontFamily.SansSerif, fontSize = 15.sp)
 
 
             }
+
             Button(
                 modifier = Modifier
                     .padding(20.dp)
                     .height(50.dp)
                     .width(150.dp)
                 ,
-                onClick = { navController.navigate("SignUp")},
+                onClick = { navController.navigate("SignIn")},
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(Color(255,165,0))
             ){
                 Text(
                     modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
-                    text = "Sign Up",
+                    text = "Sign In",
                     fontFamily = FontFamily.SansSerif, fontSize = 15.sp)
 
             }
+
         }
 
 
@@ -152,6 +152,6 @@ fun SignInScreen(navController: NavController){
 }
 //@Preview
 //@Composable
-//fun SingInPreview(){
-//    SignInScreen()
+//fun SingUpPreview(){
+//    SignUpScreen()
 //}
