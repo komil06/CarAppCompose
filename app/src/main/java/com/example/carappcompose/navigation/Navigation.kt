@@ -17,5 +17,6 @@ NavHost(navController = navController, startDestination = Screens.Splash.route){
     composable(route = Screens.SignIn.route){
         SignInScreen(navController = navController)
     }
+
 }
 }
