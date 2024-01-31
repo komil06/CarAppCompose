@@ -154,7 +154,7 @@ fun SignInScreen(navController: NavController){
                 Text(
                     modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
                     text = "Sign Up",
-                    fontFamily = FontFamily.SansSerif, fontSize = 15.sp)
+                    fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium)
 
             }
         }

@@ -43,6 +43,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.carappcompose.ui.theme.poppinsFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,8 +60,9 @@ fun SignUpScreen(navController: NavController){
             .fillMaxSize()
             .padding(top = 90.dp),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Register", fontFamily = FontFamily.SansSerif, fontSize = 20.sp,   color = Color(255,165,0), fontWeight = FontWeight(700))
+            Text(text = "Register", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(255,165,0))
             Spacer(modifier = Modifier.height(10.dp))
+            Text(text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
 
 
             var text by remember { mutableStateOf(TextFieldValue("")) }
@@ -72,7 +74,7 @@ fun SignUpScreen(navController: NavController){
                 value = name,
                 leadingIcon = { Icon(imageVector = Icons.Default.Create, contentDescription = null, modifier = Modifier.padding(8.dp), ) },
                 onValueChange = { name = it },
-                label = { Text("Full Name") },
+                label = { Text("Full Name",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
 
                 shape = RoundedCornerShape(12.dp)
@@ -85,7 +87,7 @@ fun SignUpScreen(navController: NavController){
                 value = text,
                 leadingIcon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
                 onValueChange = { text = it },
-                label = { Text("Username") },
+                label = { Text("Username",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
 
                 shape = RoundedCornerShape(12.dp)
@@ -95,7 +97,7 @@ fun SignUpScreen(navController: NavController){
                 value = password,
                 leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = null, modifier = Modifier.padding(8.dp)) },
                 onValueChange = { password = it },
-                label = { Text("Password") },
+                label = { Text("Password",  color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
                 shape = RoundedCornerShape(12.dp),
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
@@ -116,12 +118,12 @@ fun SignUpScreen(navController: NavController){
                 Text(
                     modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
                     text = "Register",
-                    fontFamily = FontFamily.SansSerif, fontSize = 15.sp)
+                    fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
 
             }
             Spacer(modifier = Modifier.height(30.dp))
             Row{
-                Text(text="Already have an account?", fontFamily = FontFamily.SansSerif, fontSize = 15.sp)
+                Text(text="Already have an account?", fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium,   color = Color(168,175,185))
 
 
             }
@@ -139,7 +141,7 @@ fun SignUpScreen(navController: NavController){
                 Text(
                     modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
                     text = "Sign In",
-                    fontFamily = FontFamily.SansSerif, fontSize = 15.sp)
+                    fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium)
 
             }
 
