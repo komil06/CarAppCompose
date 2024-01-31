@@ -71,7 +71,7 @@ fun SignUpScreen(navController: NavController){
             OutlinedTextField(
                 value = name,
                 leadingIcon = { Icon(imageVector = Icons.Default.Create, contentDescription = null, modifier = Modifier.padding(8.dp), ) },
-                onValueChange = { text = it },
+                onValueChange = { name = it },
                 label = { Text("Full Name") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
 
@@ -144,15 +144,6 @@ fun SignUpScreen(navController: NavController){
             }
 
         }
-
-
-
-
-
     }
 }
-//@Preview
-//@Composable
-//fun SingUpPreview(){
-//    SignUpScreen()
-//}
+

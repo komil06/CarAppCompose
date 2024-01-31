@@ -75,7 +75,8 @@ fun SignInScreen(navController: NavController){
             .fillMaxSize()
             .padding(top = 90.dp),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "Login", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(text = "Login", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(255,165,0))
+
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
             Spacer(modifier = Modifier.height(10.dp))
@@ -85,17 +86,13 @@ fun SignInScreen(navController: NavController){
             var password by remember { mutableStateOf(TextFieldValue("")) }
             OutlinedTextField(
                 value = text,
-                leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp),
-
-                   ) },
+                leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
 
                 onValueChange = { text = it },
                 label = { Text("Username",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-
-                        shape = RoundedCornerShape(12.dp),
-
-            )
+                shape = RoundedCornerShape(12.dp),
+                )
             Spacer(modifier = Modifier.height(10.dp))
             OutlinedTextField(
                 value = password,
