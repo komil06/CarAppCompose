@@ -53,10 +53,11 @@ fun SignUpScreen(navController: NavController){
     ) {
         Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             val composition by rememberLottieComposition(spec = LottieCompositionSpec.Url("https://lottie.host/3ae5a037-9bbf-4c01-88f5-5b0800a40d67/h2uAKVCBce.lottie"))
-            LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever) }
+            LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever)
+        }
         Column(modifier = Modifier
             .fillMaxSize()
-            .padding(12.dp),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
+            .padding(top = 90.dp),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = "Register", fontFamily = FontFamily.SansSerif, fontSize = 20.sp,   color = Color(255,165,0), fontWeight = FontWeight(700))
             Spacer(modifier = Modifier.height(10.dp))
@@ -69,7 +70,7 @@ fun SignUpScreen(navController: NavController){
             }
             OutlinedTextField(
                 value = name,
-                leadingIcon = { Icon(imageVector = Icons.Default.Create, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                leadingIcon = { Icon(imageVector = Icons.Default.Create, contentDescription = null, modifier = Modifier.padding(8.dp), ) },
                 onValueChange = { text = it },
                 label = { Text("Full Name") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
