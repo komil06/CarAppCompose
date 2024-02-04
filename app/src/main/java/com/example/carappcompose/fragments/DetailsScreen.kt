@@ -1,5 +1,6 @@
 package com.example.carappcompose.fragments
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,10 +11,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,6 +28,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -36,42 +41,35 @@ import androidx.navigation.NavController
 import com.example.carappcompose.R
 import com.example.carappcompose.ui.theme.poppinsFamily
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
+@Composable
 fun DetailsScreen(navController: NavController){
-//   Scaffold(
-//      topBar = {
-//         CenterAlignedTopAppBar(
-//            title = {
-//               Text(
-//                  text = " ",
-//                  maxLines = 1,
-//                  overflow = TextOverflow.Ellipsis,
-//                  fontFamily = poppinsFamily,
-//                  fontWeight = FontWeight.Bold,
-//                  fontSize = 20.sp
-//               )
-//            },
-//            navigationIcon = {
-//               IconButton(onClick = { /* do something */ }) {
-//                  Icon(
-//                     imageVector = Icons.Filled.Menu,
-//                     contentDescription = "Localized description"
-//                  )
-//               }
-//            },
-//            actions = {
-//               IconButton(onClick = { /* do something */ }) {
-//                  Icon(
-//                     imageVector = Icons.Filled.Menu,
-//                     contentDescription = "Localized description"
-//                  )
-//               }
-//            },
-//            )
-//      }
-//   ){
-//
-//   }
+     Scaffold(
+         topBar = {
+             CenterAlignedTopAppBar(title = {},
+                 navigationIcon = {
+                     IconButton(onClick = { /* do something */ }) {
+                         Icon(
+                             imageVector = Icons.Filled.ArrowBack,
+                             contentDescription = "Localized description",
+                             modifier = Modifier.height(35.dp).width(40.dp)
+                         )
+                     }
+                 },
+                 actions = {
+                     IconButton(onClick = { /* do something */ }) {
+                         Icon(
+                             imageVector = Icons.Default.Share,
+                             contentDescription = "Localized description",
+                             modifier = Modifier.height(35.dp).width(40.dp)
+                         )
+                     }
+                 },
+
+                 )
+         }
+     ) {}
 
 }
 
