@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.fragments.DetailsScreen
 import com.example.carappcompose.fragments.MainScreen
 import com.example.carappcompose.fragments.SignInScreen
@@ -15,7 +16,7 @@ import com.example.carappcompose.fragments.SplashScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Navigation(navController:NavHostController){
-NavHost(navController = navController, startDestination = Screens.Splash.route){
+NavHost(navController = navController, startDestination = Screens.RItem.route){
     composable(route = Screens.Splash.route) {
        SplashScreen(navController = navController)
     }
@@ -31,6 +32,9 @@ NavHost(navController = navController, startDestination = Screens.Splash.route){
     }
     composable(route = Screens.Details.route) {
         DetailsScreen(navController = navController)
+    }
+    composable(route = Screens.RItem.route){
+        RecommendItem(navController = navController)
     }
 }
 }

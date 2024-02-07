@@ -85,13 +85,13 @@ fun DetailsScreen(navController: NavController){
                  )
          }
      ) {}
-    Spacer(modifier = Modifier.height(50.dp))
+    Spacer(modifier = Modifier.height(30.dp))
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(25.dp), verticalArrangement = Arrangement.spacedBy(20.dp)){
         Box(modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp), contentAlignment = Alignment.Center){
+            .height(200.dp), contentAlignment = Alignment.Center){
             Image(painter = painterResource(id = R.drawable.login_image), contentDescription = "Car name")
 
         }
@@ -102,10 +102,11 @@ fun DetailsScreen(navController: NavController){
         }
         Text(text = "Car price", fontSize = 20.sp)
         Text(text = "Car description", fontSize = 20.sp)
-        Spacer(modifier = Modifier.height(120.dp))
+        Spacer(modifier = Modifier.height(180.dp))
         Button(
             modifier = Modifier
                 .padding(20.dp)
+                .height(55.dp)
                 .width(400.dp),
             onClick = {},
             shape = RoundedCornerShape(12.dp),
