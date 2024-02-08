@@ -16,7 +16,7 @@ import com.example.carappcompose.fragments.SplashScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Navigation(navController:NavHostController){
-NavHost(navController = navController, startDestination = Screens.RItem.route){
+NavHost(navController = navController, startDestination = Screens.Splash.route){
     composable(route = Screens.Splash.route) {
        SplashScreen(navController = navController)
     }

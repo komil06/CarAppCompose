@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -78,17 +80,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import com.example.carappcompose.NavigationItem
+import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
 
-data class NavigationItem(
-    val title: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-    val badgeCount: Int? = null
-)
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -125,23 +125,7 @@ fun MainScreen(navController: NavController){
 
 
 
-    val bottom_items = listOf(
-        NavigationItem(
-            title = "Home",
-            selectedIcon = Icons.Filled.Home,
-            unselectedIcon = Icons.Outlined.Home,
-        ),
-        NavigationItem(
-            title = "Liked",
-            selectedIcon = Icons.Filled.Favorite,
-            unselectedIcon = Icons.Outlined.Favorite,
-        ),
-        NavigationItem(
-            title = "Person",
-            selectedIcon = Icons.Filled.Person,
-            unselectedIcon = Icons.Outlined.Person,
-        ),
-    )
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -154,7 +138,10 @@ fun MainScreen(navController: NavController){
         ModalNavigationDrawer(
             drawerContent = {
                 ModalDrawerSheet {
-                    Spacer(modifier = Modifier.height(16.dp))
+
+
+
+                    Spacer(modifier = Modifier.height(100.dp))
                     items.forEachIndexed { index, item ->
                         NavigationDrawerItem(
                             label = {
@@ -212,7 +199,9 @@ fun MainScreen(navController: NavController){
                                 Icon(
                                     imageVector = Icons.Default.Menu,
                                     contentDescription = "Menu",
-                                    modifier = Modifier.height(35.dp).width(40.dp)
+                                    modifier = Modifier
+                                        .height(35.dp)
+                                        .width(40.dp)
                                 )
                             }
                         },
@@ -221,7 +210,9 @@ fun MainScreen(navController: NavController){
                                 Icon(
                                     imageVector = Icons.Filled.Notifications,
                                     contentDescription = "Localized description",
-                                    modifier = Modifier.height(35.dp).width(40.dp)
+                                    modifier = Modifier
+                                        .height(35.dp)
+                                        .width(40.dp)
                                 )
                             }
                         },
@@ -231,10 +222,12 @@ fun MainScreen(navController: NavController){
                     BottomAppBar(
 
                         modifier = Modifier
-                            .padding(bottom = 40.dp, start = 20.dp, end = 20.dp)
+                            .padding(bottom = 20.dp, start = 20.dp, end = 20.dp)
                             .clip(
                                 RoundedCornerShape(30.dp)
-                            ).fillMaxWidth().height(65.dp),
+                            )
+                            .fillMaxWidth()
+                            .height(65.dp),
 
 
                         containerColor = Color.White
@@ -246,43 +239,29 @@ fun MainScreen(navController: NavController){
 
                     ) {
 
-                        var checked by remember {
-                            mutableStateOf(true) // initially checked
-                        }
-                        var checked2 by remember {
-                            mutableStateOf(true) // initially checked
-                        }
 
 
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
-//                            IconToggleButton(
-//                                checked = checked,
-//                                onCheckedChange = { _checked ->
-//                                    checked = _checked
-//                                }
-//                            ) {
-//                                Icon(
-//                                    imageVector = Icons.Outlined.Home,
-//                                    contentDescription = "Favorite Item",
-//                                    modifier = Modifier
-//                                        .size(48.dp),
-//                                    tint = if (checked) Color.Red else Color.Black
-//                                )
-//                            }
 
 
                             IconButton(onClick = {
 
                             }){
-                                Icon(imageVector = Icons.Outlined.Home, contentDescription = null, modifier = Modifier.width(40.dp).height(35.dp),
+                                Icon(imageVector = Icons.Outlined.Home, contentDescription = null, modifier = Modifier
+                                    .width(40.dp)
+                                    .height(35.dp),
                                 )
                             }
                             IconButton(onClick = {}){
-                                Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = null, modifier = Modifier.width(40.dp).height(35.dp),
+                                Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = null, modifier = Modifier
+                                    .width(40.dp)
+                                    .height(35.dp),
                                 )
                             }
                             IconButton(onClick = {}){
-                                Icon(imageVector = Icons.Outlined.Person, contentDescription = null, modifier = Modifier.width(40.dp).height(35  .dp),
+                                Icon(imageVector = Icons.Outlined.Person, contentDescription = null, modifier = Modifier
+                                    .width(40.dp)
+                                    .height(35.dp),
                                 )
                             }
 
@@ -315,7 +294,9 @@ fun MainScreen(navController: NavController){
 
 
 
-            Row(modifier = Modifier.fillMaxWidth().padding(top = 70.dp),
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 70.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
 
@@ -333,7 +314,9 @@ fun MainScreen(navController: NavController){
                 )
 
                 IconButton(onClick = {}, modifier = Modifier.padding(top = 10.dp)){
-                    Icon(imageVector = Icons.Default.List, contentDescription = null, modifier = Modifier.width(50.dp).height(75.dp),
+                    Icon(imageVector = Icons.Default.List, contentDescription = null, modifier = Modifier
+                        .width(50.dp)
+                        .height(75.dp),
                     )
                 }
                 LazyRow (){
@@ -342,15 +325,24 @@ fun MainScreen(navController: NavController){
 
             }
 
-    Row(modifier = Modifier.fillMaxWidth().padding(top = 300.dp, start = 15.dp, end = 15.dp), horizontalArrangement = Arrangement.SpaceBetween,){
-        Text(text = "Recommended", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
-        Text(text = "See all", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold, color = Color(168,175,185))
 
-    }
+            Column() {
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 300.dp, start = 15.dp, end = 15.dp), horizontalArrangement = Arrangement.SpaceBetween,){
+                    Text(text = "Recommended", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                    Text(text = "See all", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold, color = Color(168,175,185))
 
-    LazyRow (){
+                }
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2), modifier = Modifier.height(250.dp).zIndex(3f)
+                ) {
+                    items(5) {
+                        RecommendItem(navController)
+                    }
+                }
+            }
 
-    }
 
         }
     }
