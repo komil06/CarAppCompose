@@ -82,8 +82,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import com.example.carappcompose.Item
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.RecommendItem
+import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
@@ -109,6 +111,7 @@ fun MainScreen(navController: NavController){
             title = "Profile",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
+
         ),
         NavigationItem(
             title = "Urgent",
@@ -141,11 +144,17 @@ fun MainScreen(navController: NavController){
 
 
 
-                    Spacer(modifier = Modifier.height(100.dp))
+                    Spacer(modifier = Modifier.height(50.dp))
+
+
                     items.forEachIndexed { index, item ->
                         NavigationDrawerItem(
                             label = {
-                                Text(text = item.title)
+                                Text(text = item.title,
+                                    fontFamily = poppinsFamily,
+                                    fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
+
+                                    )
                             },
                             selected = index == selectedItemIndex,
                             onClick = {
@@ -170,6 +179,10 @@ fun MainScreen(navController: NavController){
                             },
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
+
+                            ,
+
+
                         )
                     }
                 }
@@ -222,7 +235,7 @@ fun MainScreen(navController: NavController){
                     BottomAppBar(
 
                         modifier = Modifier
-                            .padding(bottom = 20.dp, start = 20.dp, end = 20.dp)
+                            .padding(bottom = 50.dp, start = 20.dp, end = 20.dp)
                             .clip(
                                 RoundedCornerShape(30.dp)
                             )
@@ -313,17 +326,29 @@ fun MainScreen(navController: NavController){
                     )
                 )
 
-                IconButton(onClick = {}, modifier = Modifier.padding(top = 10.dp)){
+                IconButton(onClick = {
+
+//                    navController.navigate("Filter")
+                }, modifier = Modifier.padding(top = 10.dp)){
                     Icon(imageVector = Icons.Default.List, contentDescription = null, modifier = Modifier
                         .width(50.dp)
                         .height(75.dp),
                     )
                 }
-                LazyRow (){
 
-                }
 
             }
+
+            Row(modifier = Modifier.fillMaxWidth().padding(top = 150.dp)){
+                LazyRow(
+                ) {
+                    items(9) {
+                        Item(navController)
+                    }
+                }
+            }
+
+
 
 
             Column() {
@@ -335,7 +360,7 @@ fun MainScreen(navController: NavController){
 
                 }
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(2), modifier = Modifier.height(250.dp).zIndex(3f)
+                    columns = GridCells.Fixed(2), modifier = Modifier.height(280.dp).zIndex(3f)
                 ) {
                     items(5) {
                         RecommendItem(navController)

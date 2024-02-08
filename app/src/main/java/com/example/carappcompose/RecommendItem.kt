@@ -64,7 +64,8 @@ fun RecommendItem(navController: NavController){
 
             Image(
                 painter = painterResource,
-                contentDescription = null
+                contentDescription = null,
+
             )
 
         }

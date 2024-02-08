@@ -8,4 +8,6 @@ sealed class Screens(val route:String){
 
      object Main:Screens("Main")
      object Details:Screens("Details")
+
+
 }

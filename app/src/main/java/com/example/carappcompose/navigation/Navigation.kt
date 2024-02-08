@@ -36,5 +36,8 @@ NavHost(navController = navController, startDestination = Screens.Splash.route){
     composable(route = Screens.RItem.route){
         RecommendItem(navController = navController)
     }
+
+
+
 }
 }

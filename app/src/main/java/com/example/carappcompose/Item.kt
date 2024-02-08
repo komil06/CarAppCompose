@@ -1,6 +1,7 @@
 package com.example.carappcompose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,7 +26,11 @@ import com.example.carappcompose.ui.theme.poppinsFamily
 fun Item(navController: NavController){
 
 
-    Card(modifier = Modifier.padding(5.dp).width(175.dp).height(200.dp),){
+    Card(modifier = Modifier.padding(5.dp).width(175.dp).height(150.dp)
+        .clickable {  },
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White,)
+        ){
 
         Column(modifier = Modifier){
             Image(
@@ -34,14 +40,6 @@ fun Item(navController: NavController){
 
 
                 )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-
-            Text(text = "Car name",modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
-
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "$50,000",modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium,textAlign = TextAlign.Center, color = Color(255,165,0))
 
 
         }
