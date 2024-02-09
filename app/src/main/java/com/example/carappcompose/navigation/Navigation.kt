@@ -10,9 +10,11 @@ import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.fragments.DetailsScreen
 import com.example.carappcompose.fragments.FilterScreen
 import com.example.carappcompose.fragments.MainScreen
+import com.example.carappcompose.fragments.PersonalScreen
 import com.example.carappcompose.fragments.SignInScreen
 import com.example.carappcompose.fragments.SignUpScreen
 import com.example.carappcompose.fragments.SplashScreen
+import com.example.carappcompose.fragments.WishlistScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,6 +42,14 @@ NavHost(navController = navController, startDestination = Screens.Splash.route){
     composable(route = Screens.Filter.route){
         FilterScreen(navController = navController)
     }
+    composable(route = Screens.Personal.route){
+        PersonalScreen(navController = navController)
+    }
+
+    composable(route = Screens.Wishlist.route){
+        WishlistScreen(navController = navController)
+    }
+
 
 
 }

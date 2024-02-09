@@ -1,6 +1,8 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +18,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
@@ -55,9 +59,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -65,6 +71,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.carappcompose.Item
 import com.example.carappcompose.NavigationItem
+import com.example.carappcompose.R
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
@@ -80,23 +87,27 @@ fun MainScreen(navController: NavController){
 
     val items = listOf(
         NavigationItem(
-            title = "Profile",
-            selectedIcon = Icons.Filled.Person,
-            unselectedIcon = Icons.Outlined.Person,
+            title = "Main",
+            selectedIcon = Icons.Filled.Home,
+            unselectedIcon = Icons.Outlined.Home,
 
         ),
         NavigationItem(
-            title = "Urgent",
-            selectedIcon = Icons.Filled.Info,
-            unselectedIcon = Icons.Outlined.Info,
-            badgeCount = 45
+            title = "Personal",
+            selectedIcon = Icons.Filled.Person,
+            unselectedIcon = Icons.Outlined.Person,
+//            badgeCount = 45
+
+
         ),
         NavigationItem(
-            title = "Settings",
-            selectedIcon = Icons.Filled.Settings,
-            unselectedIcon = Icons.Outlined.Settings,
+            title = "Wishlist",
+            selectedIcon = Icons.Filled.Favorite,
+            unselectedIcon = Icons.Outlined.FavoriteBorder,
+
         ),
     )
+
 
 
 
@@ -110,11 +121,24 @@ fun MainScreen(navController: NavController){
             mutableStateOf(0)
         }
         ModalNavigationDrawer(
+
             drawerContent = {
                 ModalDrawerSheet {
 
+                Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
+                    Image(
+                        painter = painterResource(id = R.drawable.baseline_account_circle_24),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .padding(top = 40.dp)
+                            .fillMaxWidth()
+                            .height(100.dp),
 
+                        )
 
+                    Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
+
+                }
                     Spacer(modifier = Modifier.height(50.dp))
 
 
@@ -150,7 +174,9 @@ fun MainScreen(navController: NavController){
                             },
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
-
+                                .clickable {
+                                    navController.navigate("Wishlist")
+                                }
                             ,
 
 
@@ -228,21 +254,19 @@ fun MainScreen(navController: NavController){
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
 
 
-                            IconButton(onClick = {
-
-                            }){
+                            IconButton( onClick = {navController.navigate("Main")},){
                                 Icon(imageVector = Icons.Outlined.Home, contentDescription = null, modifier = Modifier
                                     .width(40.dp)
                                     .height(35.dp),
                                 )
                             }
-                            IconButton(onClick = {}){
+                            IconButton( onClick = {navController.navigate("Wishlist")},){
                                 Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = null, modifier = Modifier
                                     .width(40.dp)
                                     .height(35.dp),
                                 )
                             }
-                            IconButton(onClick = {}){
+                            IconButton( onClick = {navController.navigate("Personal")},){
                                 Icon(imageVector = Icons.Outlined.Person, contentDescription = null, modifier = Modifier
                                     .width(40.dp)
                                     .height(35.dp),
@@ -307,7 +331,9 @@ fun MainScreen(navController: NavController){
 
             }
 
-            Row(modifier = Modifier.fillMaxWidth().padding(top = 150.dp)){
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 150.dp)){
                 LazyRow(
                 ) {
                     items(9) {
@@ -328,7 +354,9 @@ fun MainScreen(navController: NavController){
 
                 }
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(2), modifier = Modifier.height(280.dp).zIndex(3f)
+                    columns = GridCells.Fixed(2), modifier = Modifier
+                        .height(280.dp)
+                        .zIndex(3f)
                 ) {
                     items(5) {
                         RecommendItem(navController)

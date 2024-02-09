@@ -8,4 +8,9 @@ sealed class Screens(val route: String){
     object Details:Screens("Details")
     object Filter:Screens("Filter")
     object RItem:Screens("RItem")
+
+
+    object Personal:Screens("Personal")
+
+    object Wishlist:Screens("Wishlist")
 }
