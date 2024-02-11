@@ -4,14 +4,14 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -27,15 +27,14 @@ import androidx.navigation.NavController
 import com.example.carappcompose.ui.theme.poppinsFamily
 
 @Composable
-fun Item(navController: NavController){
+fun MyCarItem(navController: NavController){
 
 
-    Card(modifier = Modifier.padding(5.dp).width(175.dp).height(150.dp)
+    Card(modifier = Modifier.padding(5.dp).fillMaxWidth().height(150.dp)
         .clickable {  }
         .border(
             BorderStroke(1.dp, Color.Gray),
-            CircleShape
-            )
+        )
 
         ,
         colors = CardDefaults.cardColors(
@@ -43,19 +42,20 @@ fun Item(navController: NavController){
 
         ){
 
-        Column(modifier = Modifier){
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly){
             Image(
                 painter = painterResource(id = R.drawable.hyundai),
                 contentDescription = null,
-                modifier = Modifier.fillMaxWidth()
 
 
-                ,
 
 
 
 
                 )
+
+            Text(textAlign = TextAlign.Center,text = "My Username", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
+
 
 
         }

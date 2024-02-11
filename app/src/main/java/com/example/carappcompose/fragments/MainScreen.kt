@@ -91,6 +91,7 @@ fun MainScreen(navController: NavController){
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
 
+
         ),
         NavigationItem(
             title = "Personal",
@@ -101,7 +102,7 @@ fun MainScreen(navController: NavController){
 
         ),
         NavigationItem(
-            title = "Wishlist",
+            title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
 
@@ -153,8 +154,9 @@ fun MainScreen(navController: NavController){
                             },
                             selected = index == selectedItemIndex,
                             onClick = {
-//                                            navController.navigate(item.route)
+
                                 selectedItemIndex = index
+                                navController.navigate("${item.title}")
                                 scope.launch {
                                     drawerState.close()
                                 }
@@ -167,15 +169,14 @@ fun MainScreen(navController: NavController){
                                     contentDescription = item.title
                                 )
                             },
-                            badge = {
-                                item.badgeCount?.let {
-                                    Text(text = item.badgeCount.toString())
-                                }
-                            },
+//                            badge = {
+//                                item.badgeCount?.let {
+//                                    Text(text = item.badgeCount.toString())
+//                                }
+//                            },
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
                                 .clickable {
-                                    navController.navigate("Wishlist")
                                 }
                             ,
 
@@ -240,7 +241,8 @@ fun MainScreen(navController: NavController){
                             .height(65.dp),
 
 
-                        containerColor = Color.White
+                        containerColor = Color.White,
+
 
 
 
@@ -254,20 +256,25 @@ fun MainScreen(navController: NavController){
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
 
 
-                            IconButton( onClick = {navController.navigate("Main")},){
-                                Icon(imageVector = Icons.Outlined.Home, contentDescription = null, modifier = Modifier
+                            IconButton( onClick = {navController.navigate("Main")},
+
+                                ){
+                                Icon(imageVector = Icons.Filled.Home, contentDescription = null, modifier = Modifier
                                     .width(40.dp)
                                     .height(35.dp),
+
                                 )
                             }
                             IconButton( onClick = {navController.navigate("Wishlist")},){
-                                Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = null, modifier = Modifier
+                                Icon(imageVector = Icons.Filled.Favorite, contentDescription = null, modifier = Modifier
                                     .width(40.dp)
-                                    .height(35.dp),
+                                    .height(35.dp)
+
+                                    ,
                                 )
                             }
                             IconButton( onClick = {navController.navigate("Personal")},){
-                                Icon(imageVector = Icons.Outlined.Person, contentDescription = null, modifier = Modifier
+                                Icon(imageVector = Icons.Filled.Person, contentDescription = null, modifier = Modifier
                                     .width(40.dp)
                                     .height(35.dp),
                                 )
@@ -348,14 +355,14 @@ fun MainScreen(navController: NavController){
             Column() {
                 Row(modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 300.dp, start = 15.dp, end = 15.dp), horizontalArrangement = Arrangement.SpaceBetween,){
+                    .padding(top = 320.dp, start = 15.dp, end = 15.dp), horizontalArrangement = Arrangement.SpaceBetween,){
                     Text(text = "Recommended", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
                     Text(text = "See all", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold, color = Color(168,175,185))
 
                 }
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2), modifier = Modifier
-                        .height(280.dp)
+                        .height(300.dp)
                         .zIndex(3f)
                 ) {
                     items(5) {

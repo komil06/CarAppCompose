@@ -12,10 +12,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
@@ -28,8 +30,10 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
@@ -54,11 +58,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import com.example.carappcompose.Item
+import com.example.carappcompose.MyCarItem
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
-import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
@@ -66,7 +70,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PersonalScreen(navController: NavController){
+fun SellingCarScreen(navController: NavController){
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -145,6 +149,8 @@ fun PersonalScreen(navController: NavController){
                 }
             },
             drawerState = drawerState
+
+
         ) {
             Scaffold(
                 topBar = {
@@ -196,6 +202,7 @@ fun PersonalScreen(navController: NavController){
                             .fillMaxWidth()
                             .height(65.dp),
                         containerColor = Color.White,
+                      
                     ) {
 
 
@@ -230,6 +237,8 @@ fun PersonalScreen(navController: NavController){
 
 
                         }
+
+
                     }
                 },
 
@@ -260,30 +269,18 @@ fun PersonalScreen(navController: NavController){
 
 // Shu yerga yoziladi
 
-            Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), verticalArrangement = Arrangement.Center) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_account_circle_24),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .padding(top = 40.dp)
-                        .fillMaxWidth()
-                        .height(100.dp),
-
-                    )
-
-                Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "My Username", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
-
-                Text(modifier = Modifier.fillMaxWidth().clickable {
-                    navController.navigate("Selling")
-
-                }, textAlign = TextAlign.Center,text = "My Cars", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
-
+            LazyColumn(modifier = Modifier.fillMaxWidth().padding(top = 50.dp, bottom = 120.dp)            ) {
+                items(9) {
+                    MyCarItem(navController)
+                }
             }
 
 
 
-
-
+//
+//                                    FloatingActionButton(onClick = {}, modifier = Modifier.fillMaxWidth()) {
+//                Icon(Icons.Default.Add, contentDescription = "Add")//            }
+//        }
 
 
 
