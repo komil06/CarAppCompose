@@ -272,7 +272,6 @@ fun WishlistScreen(navController: NavController){
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2), modifier = Modifier
-                    .height(650.dp)
                     .padding(top = 50.dp, bottom = 100.dp)
 
             ) {
