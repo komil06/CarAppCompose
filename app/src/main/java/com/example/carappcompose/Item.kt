@@ -31,7 +31,9 @@ fun Item(navController: NavController){
 
 
     Card(modifier = Modifier.padding(5.dp).width(175.dp).height(150.dp)
-        .clickable {  }
+        .clickable {
+            navController.navigate("Details")
+        }
         .border(
             BorderStroke(1.dp, Color.Gray),
             CircleShape

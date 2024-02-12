@@ -60,7 +60,7 @@ fun DetailsScreen(navController: NavController){
          topBar = {
              CenterAlignedTopAppBar(title = {},
                  navigationIcon = {
-                     IconButton(onClick = { /* do something */ }) {
+                     IconButton(onClick = {navController.navigate("Main")}) {
                          Icon(
                              imageVector = Icons.Filled.ArrowBack,
                              contentDescription = "Localized description",
@@ -95,14 +95,15 @@ fun DetailsScreen(navController: NavController){
             Image(painter = painterResource(id = R.drawable.login_image), contentDescription = "Car name")
 
         }
-        Row (modifier = Modifier.padding(0.dp,10.dp)){
-            Text(text = "Car name", fontSize = 30.sp, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.padding(35.dp, 10.dp))
-            Text(text = "Car rate", fontSize = 20.sp, color = Color.Magenta, modifier = Modifier.padding(28.dp,5.dp))
-        }
+        Text(text = "Car name", fontSize = 30.sp, fontWeight = FontWeight.Bold)
+//        Row (modifier = Modifier.padding(0.dp,10.dp)){
+//
+////            Spacer(modifier = Modifier.padding(35.dp, 10.dp))
+////            Text(text = "Car rate", fontSize = 20.sp, color = Color.Magenta, modifier = Modifier.padding(28.dp,5.dp))
+//        }
         Text(text = "Car price", fontSize = 20.sp)
-        Text(text = "Car description", fontSize = 20.sp)
-        Spacer(modifier = Modifier.height(180.dp))
+        Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque ante sem, vel mattis erat ultrices vel. Suspendisse ligula enim, commodo quis nisi at, sodales varius sem.Aliquam sem nibh, porttitor ut imperdiet et, ultricies vitae lacus. Ut vestibulum non enim vitae sollicitudin."
+                , fontSize = 20.sp)
         Button(
             modifier = Modifier
                 .padding(20.dp)
