@@ -94,7 +94,6 @@ fun WishlistScreen(navController: NavController){
             title = "Personal",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
-//            badgeCount = 45
         ),
     )
     Surface(
@@ -162,7 +161,7 @@ fun WishlistScreen(navController: NavController){
                     CenterAlignedTopAppBar(
                         title = {
                             Text(
-                                "CarStore",
+                                "Wishlist",
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                                 fontFamily = poppinsFamily,

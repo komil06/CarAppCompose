@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.carappcompose.ui.theme.poppinsFamily
+import com.example.carappcompose.ui.theme.primaryColor
 
 @Composable
 fun Item(navController: NavController){
@@ -35,10 +36,10 @@ fun Item(navController: NavController){
             navController.navigate("Details")
         }
         .border(
-            BorderStroke(1.dp, Color.Gray),
-            CircleShape
-            )
+            BorderStroke(1.dp, primaryColor),
+            shape = RoundedCornerShape(25.dp),
 
+            )
         ,
         colors = CardDefaults.cardColors(
             containerColor = Color.White,),
