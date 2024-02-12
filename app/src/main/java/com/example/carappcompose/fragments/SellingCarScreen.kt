@@ -104,7 +104,7 @@ fun SellingCarScreen(navController: NavController){
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
         var selectedItemIndex by rememberSaveable {
-            mutableStateOf(1)
+            mutableStateOf(2)
         }
         ModalNavigationDrawer(
             drawerContent = {

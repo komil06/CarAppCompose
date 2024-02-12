@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -25,18 +26,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.carappcompose.ui.theme.poppinsFamily
+import com.example.carappcompose.ui.theme.primaryColor
 
 @Composable
 fun MyCarItem(navController: NavController){
 
 
     Card(modifier = Modifier.padding(5.dp).fillMaxWidth().height(150.dp)
-        .clickable {  }
-        .border(
-            BorderStroke(1.dp, Color.Gray),
-        )
+        .clickable {
+                    navController.navigate("Details")
 
-        ,
+        }        .border(
+            BorderStroke(1.dp, primaryColor),
+            shape = RoundedCornerShape(20.dp),
+
+      ),
+
+
+
         colors = CardDefaults.cardColors(
             containerColor = Color.White,),
 
