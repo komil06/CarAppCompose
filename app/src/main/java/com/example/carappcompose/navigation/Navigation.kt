@@ -35,6 +35,7 @@ NavHost(navController = navController, startDestination = Screens.Splash.route){
         MainScreen(navController = navController)
     }
     composable(route = Screens.Details.route) {
+
         DetailsScreen(navController = navController)
     }
 //    composable(route = Screens.RItem.route){
