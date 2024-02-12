@@ -6,6 +6,8 @@ sealed class Screens(val route:String){
      object RItem:Screens("RItem")
      object SignUp:Screens("SignUp")
 
+
+     object Filter:Screens("Filter")
      object Main:Screens("Main")
      object Details:Screens("Details")
 

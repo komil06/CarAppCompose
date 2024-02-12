@@ -20,18 +20,14 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
@@ -56,6 +52,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -68,13 +65,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.carappcompose.Database.Car
 import com.example.carappcompose.Item
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 
@@ -82,9 +83,17 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavController){
-    var searchText by remember { mutableStateOf(TextFieldValue("")) }
 
+    var searchText by remember {
+        mutableStateOf(TextFieldValue("")) }
 
+//    val cars = listOf(
+//        Car("Audi",120000),
+//        Car("Merc",150000),
+//        Car("Bmw",150000),
+//        Car("Toyota",130000),
+//        Car("Range Rover",140000)
+//    )
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -98,9 +107,7 @@ fun MainScreen(navController: NavController){
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
 //            badgeCount = 45
-
-
-        ),
+            ),
         NavigationItem(
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
@@ -149,7 +156,6 @@ fun MainScreen(navController: NavController){
                                 Text(text = item.title,
                                     fontFamily = poppinsFamily,
                                     fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-
                                     )
                             },
                             selected = index == selectedItemIndex,
