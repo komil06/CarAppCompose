@@ -28,6 +28,8 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
@@ -37,6 +39,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.OutlinedTextField
@@ -94,6 +98,8 @@ fun MainScreen(navController: NavController){
 //        Car("Toyota",130000),
 //        Car("Range Rover",140000)
 //    )
+
+
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -101,18 +107,19 @@ fun MainScreen(navController: NavController){
             unselectedIcon = Icons.Outlined.Home,
 
 
+
         ),
-        NavigationItem(
-            title = "Personal",
-            selectedIcon = Icons.Filled.Person,
-            unselectedIcon = Icons.Outlined.Person,
-//            badgeCount = 45
-            ),
         NavigationItem(
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
 
+            ),
+        NavigationItem(
+            title = "Personal",
+            selectedIcon = Icons.Filled.Person,
+            unselectedIcon = Icons.Outlined.Person,
+//            badgeCount = 45
         ),
     )
 
@@ -121,7 +128,6 @@ fun MainScreen(navController: NavController){
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
     ) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
@@ -196,6 +202,7 @@ fun MainScreen(navController: NavController){
 
 
             Scaffold(
+
                 topBar = {
                     CenterAlignedTopAppBar(
                         title = {
@@ -236,58 +243,39 @@ fun MainScreen(navController: NavController){
                     )
                 },
                 bottomBar = {
-                    BottomAppBar(
 
-                        modifier = Modifier
-                            .padding(bottom = 50.dp, start = 20.dp, end = 20.dp)
-                            .clip(
-                                RoundedCornerShape(30.dp)
+                    NavigationBar(modifier = Modifier.zIndex(3f)) {
+                        items.forEachIndexed { index, item ->
+                            NavigationBarItem(
+                                selected = selectedItemIndex == index,
+                                onClick = {
+                                    selectedItemIndex = index
+                                    navController.navigate("${item.title}")
+
+                                },
+                                label = {
+                                    Text(text = item.title)
+                                },
+                                alwaysShowLabel = false,
+                                icon = {
+                                    BadgedBox(
+                                        badge = {
+                                            if(item.badgeCount != null) {
+                                                Badge {
+                                                    Text(text = item.badgeCount.toString())
+                                                }
+                                            }
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector = if (index == selectedItemIndex) {
+                                                item.selectedIcon
+                                            } else item.unselectedIcon,
+                                            contentDescription = item.title
+                                        )
+                                    }
+                                }
                             )
-                            .fillMaxWidth()
-                            .height(65.dp),
-
-
-                        containerColor = Color.White,
-
-
-
-
-
-
-
-                    ) {
-
-
-
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
-
-
-                            IconButton( onClick = {navController.navigate("Main")},
-
-                                ){
-                                Icon(imageVector = Icons.Filled.Home, contentDescription = null, modifier = Modifier
-                                    .width(40.dp)
-                                    .height(35.dp),
-
-                                )
-                            }
-                            IconButton( onClick = {navController.navigate("Wishlist")},){
-                                Icon(imageVector = Icons.Filled.Favorite, contentDescription = null, modifier = Modifier
-                                    .width(40.dp)
-                                    .height(35.dp)
-
-                                    ,
-                                )
-                            }
-                            IconButton( onClick = {navController.navigate("Personal")},){
-                                Icon(imageVector = Icons.Filled.Person, contentDescription = null, modifier = Modifier
-                                    .width(40.dp)
-                                    .height(35.dp),
-                                )
-                            }
-
-
-
                         }
                     }
                 },
@@ -358,7 +346,9 @@ fun MainScreen(navController: NavController){
 
 
 
-            Column() {
+            Column(modifier = Modifier,
+
+                ) {
                 Row(modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 320.dp, start = 15.dp, end = 15.dp), horizontalArrangement = Arrangement.SpaceBetween,){
@@ -368,8 +358,7 @@ fun MainScreen(navController: NavController){
                 }
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2), modifier = Modifier
-                        .height(300.dp)
-                        .zIndex(3f)
+                        .padding(bottom= 100.dp)
                 ) {
                     items(5) {
                         RecommendItem(navController)

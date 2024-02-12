@@ -24,6 +24,8 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
@@ -33,6 +35,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Scaffold
@@ -74,17 +78,17 @@ fun PersonalScreen(navController: NavController){
             unselectedIcon = Icons.Outlined.Home,
         ),
         NavigationItem(
-            title = "Personal",
-            selectedIcon = Icons.Filled.Person,
-            unselectedIcon = Icons.Outlined.Person,
-//            badgeCount = 45
-        ),
-        NavigationItem(
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
 
             ),
+        NavigationItem(
+            title = "Personal",
+            selectedIcon = Icons.Filled.Person,
+            unselectedIcon = Icons.Outlined.Person,
+//            badgeCount = 45
+        ),
     )
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -93,7 +97,7 @@ fun PersonalScreen(navController: NavController){
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
         var selectedItemIndex by rememberSaveable {
-            mutableStateOf(1)
+            mutableStateOf(2)
         }
         ModalNavigationDrawer(
             drawerContent = {
@@ -187,48 +191,38 @@ fun PersonalScreen(navController: NavController){
                     )
                 },
                 bottomBar = {
-                    BottomAppBar(
-                        modifier = Modifier
-                            .padding(bottom = 50.dp, start = 20.dp, end = 20.dp)
-                            .clip(
-                                RoundedCornerShape(30.dp)
+                    NavigationBar {
+                        items.forEachIndexed { index, item ->
+                            NavigationBarItem(
+                                selected = selectedItemIndex == index,
+                                onClick = {
+                                    selectedItemIndex = index
+                                    navController.navigate("${item.title}")
+
+                                },
+                                label = {
+                                    Text(text = item.title)
+                                },
+                                alwaysShowLabel = false,
+                                icon = {
+                                    BadgedBox(
+                                        badge = {
+                                            if(item.badgeCount != null) {
+                                                Badge {
+                                                    Text(text = item.badgeCount.toString())
+                                                }
+                                            }
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector = if (index == selectedItemIndex) {
+                                                item.selectedIcon
+                                            } else item.unselectedIcon,
+                                            contentDescription = item.title
+                                        )
+                                    }
+                                }
                             )
-                            .fillMaxWidth()
-                            .height(65.dp),
-                        containerColor = Color.White,
-                    ) {
-
-
-
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround){
-
-
-                            IconButton( onClick = {navController.navigate("Main")},
-
-                                ){
-                                Icon(imageVector = Icons.Filled.Home, contentDescription = null, modifier = Modifier
-                                    .width(40.dp)
-                                    .height(35.dp),
-
-                                    )
-                            }
-                            IconButton( onClick = {navController.navigate("Wishlist")},){
-                                Icon(imageVector = Icons.Filled.Favorite, contentDescription = null, modifier = Modifier
-                                    .width(40.dp)
-                                    .height(35.dp)
-
-                                    ,
-                                )
-                            }
-                            IconButton( onClick = {navController.navigate("Personal")},){
-                                Icon(imageVector = Icons.Filled.Person, contentDescription = null, modifier = Modifier
-                                    .width(40.dp)
-                                    .height(35.dp),
-                                )
-                            }
-
-
-
                         }
                     }
                 },

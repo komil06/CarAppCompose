@@ -45,7 +45,7 @@ import com.example.carappcompose.ui.theme.poppinsFamily
 fun RecommendItem(navController: NavController){
 
 
-    Card(modifier = Modifier.padding(5.dp).width(175.dp).height(320.dp).clickable {  },   colors = CardDefaults.cardColors(
+    Card(modifier = Modifier.padding(5.dp).width(175.dp).fillMaxHeight().clickable {  },   colors = CardDefaults.cardColors(
         containerColor = Color.White,
     ),){
         var isClicked by remember {
