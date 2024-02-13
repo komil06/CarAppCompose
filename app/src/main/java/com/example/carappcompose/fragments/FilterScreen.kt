@@ -3,19 +3,31 @@ package com.example.carappcompose.fragments
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,49 +38,85 @@ import androidx.navigation.NavController
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun FilterScreen(navController: NavController) {
-      Column(modifier = Modifier.padding(10.dp)){
-          val pagerState = rememberPagerState (
-              pageCount = {3}
-          )
-          val coroutineScope = rememberCoroutineScope()
-          TabRow(selectedTabIndex = pagerState.currentPage,
+    var sliderPosition by remember{ mutableFloatStateOf(0f)}
+    Column(modifier = Modifier.padding(10.dp)) {
+        val pagerState = rememberPagerState(
+            pageCount = { 3 }
+        )
+        val coroutineScope = rememberCoroutineScope()
+        TabRow(selectedTabIndex = pagerState.currentPage,
             containerColor = TabRowDefaults.containerColor,
             contentColor = TabRowDefaults.contentColor,
             divider = {},
-            indicator = {tabPositions -> TabRowDefaults.Indicator(
-               modifier = Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
-               height = 2.dp,
-               color = primaryColor
-            ) }) {
+            indicator = { tabPositions ->
+                TabRowDefaults.Indicator(
+                    modifier = Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
+                    height = 2.dp,
+                    color = primaryColor
+                )
+            }) {
             Tab(
-              selected = pagerState.currentPage == 0,
-              text = { Text(text = "All", color = Color(255, 87, 34, 255),fontWeight = FontWeight.Bold)},
-              onClick = {
-                  coroutineScope.launch { pagerState.scrollToPage(0) }
-              }
+                selected = pagerState.currentPage == 0,
+                text = {
+                    Text(
+                        text = "All",
+                        color = Color(255, 87, 34, 255),
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                onClick = {
+                    coroutineScope.launch { pagerState.scrollToPage(0) }
+                }
             )
             Tab(
-              selected = pagerState.currentPage == 1,
-              text = { Text(text = "New",color = Color(255, 87, 34, 255),fontWeight = FontWeight.Bold)},
-              onClick = { coroutineScope.launch { pagerState.scrollToPage(1) }}
+                selected = pagerState.currentPage == 1,
+                text = {
+                    Text(
+                        text = "New",
+                        color = Color(255, 87, 34, 255),
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                onClick = { coroutineScope.launch { pagerState.scrollToPage(1) } }
             )
             Tab(
-              selected = pagerState.currentPage == 2,
-              text = { Text(text = "Used",color = Color(255, 87, 34, 255), fontWeight = FontWeight.Bold)},
-              onClick = { coroutineScope.launch { pagerState.scrollToPage(2) }}
+                selected = pagerState.currentPage == 2,
+                text = {
+                    Text(
+                        text = "Used",
+                        color = Color(255, 87, 34, 255),
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                onClick = { coroutineScope.launch { pagerState.scrollToPage(2) } }
             )
-          }
+        }
         HorizontalPager(state = pagerState, userScrollEnabled = true) {
             if (pagerState.currentPage == 0) {
                 Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(60.dp, 0.dp, 50.dp, 0.dp),
+                    verticalArrangement = Arrangement.Center,
                 ) {
-                    Button(onClick = { /*TODO*/ },) {
+                    TextField(value = "", onValueChange = {}, label = { Text("Enter model name") })
+                    Spacer(modifier = Modifier.height(20.dp))
+                    TextField(value = "", onValueChange = {}, label = { Text("Enter brand name") })
+                    Spacer(modifier = Modifier.height(70.dp))
+                    Text(text = "Price Range", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                    Slider(value = sliderPosition, onValueChange = {sliderPosition = it}, colors = SliderDefaults.colors(thumbColor = Color(255,87,34,255), activeTrackColor = Color(255,150,90,255)), valueRange = 0f..1000f)
+                    Text(text = "${sliderPosition.toInt()}/1000",fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
+                    Spacer(modifier = Modifier.height(200.dp))
+                    Button(onClick = {}, modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(20.dp)
+                        .height(55.dp)
+                        .width(400.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(Color(255, 87, 34, 255))) {
                         Text(
                             text = "Search",
                             fontSize = 20.sp,
@@ -77,43 +125,46 @@ fun FilterScreen(navController: NavController) {
                         )
                     }
                 }
-            }
-            if (pagerState.currentPage == 1) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Button(onClick = { /*TODO*/ },) {
-                        Text(
-                            text = "New",
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
-                        )
-                    }
-                }
-            }
-            if (pagerState.currentPage == 2) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Button(onClick = { /*TODO*/ },) {
-                        Text(
-                            text = "Used",
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
-                        )
-                    }
-                }
-            }
 
+                if (pagerState.currentPage == 1) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+
+                            Button(onClick = { /*TODO*/ },) {
+                                Text(
+                                    text = "New",
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.White
+                                )
+                            }
+                        }
+                    }
+                    if (pagerState.currentPage == 2) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Button(onClick = { /*TODO*/ },) {
+                                Text(
+                                    text = "Used",
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.White
+                                )
+                            }
+                        }
+                    }
+
+                }
+            }
         }
-      }
-}
+    }
+
 
   
 
