@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
@@ -46,9 +47,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -57,6 +60,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
 import com.example.carappcompose.RecommendItem
@@ -68,6 +72,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PersonalScreen(navController: NavController){
+    val context = LocalContext.current
+
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -251,7 +257,9 @@ fun PersonalScreen(navController: NavController){
 
 // Shu yerga yoziladi
 
-            Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), verticalArrangement = Arrangement.Center) {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 50.dp), verticalArrangement = Arrangement.Center) {
                 Image(
                     painter = painterResource(id = R.drawable.baseline_account_circle_24),
                     contentDescription = null,
@@ -262,12 +270,96 @@ fun PersonalScreen(navController: NavController){
 
                     )
 
-                Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "My Username", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
 
-                Text(modifier = Modifier.fillMaxWidth().clickable {
-                    navController.navigate("Selling")
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp, end = 10.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    Text(
+                        text = "My Username: ",
+                        fontFamily = poppinsFamily,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color(168, 175, 185)
+                    )
 
-                }, textAlign = TextAlign.Center,text = "My Cars", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
+
+Row(modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVertically){
+                        Text(
+                            text = UserData.getUserSaved(context),
+                            fontFamily = poppinsFamily,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = primaryColor,
+
+                            )
+                    Icon(
+                        imageVector = Icons.Filled.KeyboardArrowRight,
+                        contentDescription = "Localized description",
+                        modifier = Modifier
+                            .padding(start = 0.dp)
+                    )
+
+}
+
+                }
+
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp, end = 10.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    Text(
+                        text = "My cars",
+                        fontFamily = poppinsFamily,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color(168, 175, 185)
+                    )
+
+
+                        Icon(
+                            imageVector = Icons.Filled.KeyboardArrowRight,
+                            contentDescription = "Localized description",
+                            modifier = Modifier
+                                .padding(start = 0.dp)
+                        )
+
+                    }
+
+
+
+
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp, end = 10.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    Text(
+                        text = "My Password: ",
+                        fontFamily = poppinsFamily,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color(168, 175, 185)
+                    )
+
+
+                    Row(modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVertically){
+                        Text(
+                            text = UserData.getUserSaved(context),
+                            fontFamily = poppinsFamily,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = primaryColor,
+
+                            )
+                        Icon(
+                            imageVector = Icons.Filled.KeyboardArrowRight,
+                            contentDescription = "Localized description",
+                            modifier = Modifier
+                                .padding(start = 0.dp)
+                        )
+
+                    }
+
+                }
+
+                }
 
             }
 
@@ -283,4 +375,3 @@ fun PersonalScreen(navController: NavController){
 
 
     }
-}

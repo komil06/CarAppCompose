@@ -1,5 +1,6 @@
 package com.example.carappcompose.fragments
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -44,6 +46,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 
@@ -51,6 +54,9 @@ import com.example.carappcompose.ui.theme.primaryColor
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(navController: NavController){
+    var username by remember { mutableStateOf(TextFieldValue("")) }
+    var password by remember { mutableStateOf(TextFieldValue("")) }
+    val context = LocalContext.current
     Surface(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp)
@@ -70,13 +76,11 @@ fun SignInScreen(navController: NavController){
             Spacer(modifier = Modifier.height(10.dp))
 
 
-            var text by remember { mutableStateOf(TextFieldValue("")) }
-            var password by remember { mutableStateOf(TextFieldValue("")) }
-            OutlinedTextField(
-                value = text,
+           OutlinedTextField(
+                value = username,
                 leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
 
-                onValueChange = { text = it },
+                onValueChange = { username = it },
                 label = { Text("Username",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 shape = RoundedCornerShape(12.dp),
@@ -108,7 +112,15 @@ fun SignInScreen(navController: NavController){
                 modifier = Modifier
                     .padding(20.dp)
                     .fillMaxWidth(),
-                onClick = {navController.navigate("Main")},
+                onClick = {
+                    UserData.UserGet(username, password) { result ->
+                        Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+                        if (result == "Successful Login") {
+                            UserData.UserSave(context, username.text)
+                            navController.navigate("Main")
+                        }
+                    }
+                          },
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(Color(255,165,0))
                 ){

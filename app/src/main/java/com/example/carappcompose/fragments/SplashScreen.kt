@@ -14,6 +14,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.carappcompose.Database.UserData
 import kotlinx.coroutines.delay
 
 @Composable
@@ -35,7 +36,8 @@ fun SplashScreen(navController: NavController) {
 //        )
 
         delay(3000)
-
+//        if (UserData.getUserSaved(context) == "") navController.navigate("SignIn")
+//        else navController.navigate("Main")
         navController.navigate("SignIn")
     }
 
