@@ -76,6 +76,7 @@ fun DetailsScreen(navController: NavController) {
                                     .width(40.dp)
                             )
                         }
+
                     },
                     actions = {
                         IconButton(onClick = { /* do something */ }) {
