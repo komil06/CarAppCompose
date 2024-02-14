@@ -346,9 +346,7 @@ fun MainScreen(navController: NavController){
 
 
 
-            Column(modifier = Modifier,
-
-                ) {
+            Column(modifier = Modifier) {
                 Row(modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 320.dp, start = 15.dp, end = 15.dp), horizontalArrangement = Arrangement.SpaceBetween,){

@@ -37,10 +37,7 @@ fun Item(navController: NavController){
         }
         .border(
             BorderStroke(1.dp, primaryColor),
-            shape = RoundedCornerShape(25.dp),
-
-            )
-        ,
+            shape = RoundedCornerShape(25.dp),),
         colors = CardDefaults.cardColors(
             containerColor = Color.White,),
 
@@ -50,14 +47,7 @@ fun Item(navController: NavController){
             Image(
                 painter = painterResource(id = R.drawable.hyundai),
                 contentDescription = null,
-                modifier = Modifier.fillMaxWidth()
-
-
-                ,
-
-
-
-
+                modifier = Modifier.fillMaxWidth(),
                 )
 
 

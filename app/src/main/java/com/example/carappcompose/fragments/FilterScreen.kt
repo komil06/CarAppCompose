@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,6 +39,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.carappcompose.Item
+import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
 
@@ -99,24 +105,48 @@ fun FilterScreen(navController: NavController) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(60.dp, 0.dp, 50.dp, 0.dp),
+                        .padding(50.dp, 0.dp, 50.dp, 0.dp),
                     verticalArrangement = Arrangement.Center,
                 ) {
                     TextField(value = "", onValueChange = {}, label = { Text("Enter model name") })
                     Spacer(modifier = Modifier.height(20.dp))
                     TextField(value = "", onValueChange = {}, label = { Text("Enter brand name") })
-                    Spacer(modifier = Modifier.height(70.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
                     Text(text = "Price Range", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
-                    Slider(value = sliderPosition, onValueChange = {sliderPosition = it}, colors = SliderDefaults.colors(thumbColor = Color(255,87,34,255), activeTrackColor = Color(255,150,90,255)), valueRange = 0f..1000f)
-                    Text(text = "${sliderPosition.toInt()}/1000",fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
-                    Spacer(modifier = Modifier.height(200.dp))
-                    Button(onClick = {}, modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(20.dp)
-                        .height(55.dp)
-                        .width(400.dp),
+                    Slider(
+                        value = sliderPosition,
+                        onValueChange = { sliderPosition = it },
+                        colors = SliderDefaults.colors(
+                            thumbColor = Color(255, 87, 34, 255),
+                            activeTrackColor = Color(255, 150, 90, 255)
+                        ),
+                        valueRange = 0f..1000f
+                    )
+                    Text(
+                        text = "${sliderPosition.toInt()}/1000",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2), modifier = Modifier
+                            .padding(bottom= 100.dp)
+                    ) {
+                        items(5) {
+                            RecommendItem(navController)
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(70.dp))
+                    Button(
+                        onClick = {}, modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .padding(20.dp)
+                            .height(55.dp)
+                            .width(400.dp),
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(Color(255, 87, 34, 255))) {
+                        colors = ButtonDefaults.buttonColors(Color(255, 87, 34, 255))
+                    ) {
                         Text(
                             text = "Search",
                             fontSize = 20.sp,
@@ -125,6 +155,7 @@ fun FilterScreen(navController: NavController) {
                         )
                     }
                 }
+            }
 
                 if (pagerState.currentPage == 1) {
                         Column(
@@ -132,14 +163,13 @@ fun FilterScreen(navController: NavController) {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-
-                            Button(onClick = { /*TODO*/ },) {
-                                Text(
-                                    text = "New",
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.White
-                                )
+                            LazyVerticalGrid(
+                                columns = GridCells.Fixed(2), modifier = Modifier
+                                    .padding(bottom= 100.dp)
+                            ) {
+                                items(5) {
+                                    RecommendItem(navController)
+                                }
                             }
                         }
                     }
@@ -149,18 +179,17 @@ fun FilterScreen(navController: NavController) {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Button(onClick = { /*TODO*/ },) {
-                                Text(
-                                    text = "Used",
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.White
-                                )
+                            LazyVerticalGrid(
+                                columns = GridCells.Fixed(2), modifier = Modifier
+                                    .padding(bottom= 100.dp)
+                            ) {
+                                items(5) {
+                                    RecommendItem(navController)
+                                }
                             }
                         }
                     }
 
-                }
             }
         }
     }

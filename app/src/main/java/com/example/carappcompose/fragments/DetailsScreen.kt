@@ -157,6 +157,7 @@ fun DetailsScreen(navController: NavController) {
 ////            Text(text = "Car rate", fontSize = 20.sp, color = Color.Magenta, modifier = Modifier.padding(28.dp,5.dp))
 //        }
                     Text(text = "Car price", fontSize = 20.sp, fontFamily = poppinsFamily)
+                    Text(text = "Condition", fontSize = 20.sp, fontFamily = poppinsFamily)
                     Text(
                         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque ante sem, vel mattis erat ultrices vel. Suspendisse ligula enim, commodo quis nisi at, sodales varius sem.Aliquam sem nibh, porttitor ut imperdiet et, ultricies vitae lacus. Ut vestibulum non enim vitae sollicitudin.",
                         fontSize = 20.sp, fontFamily = poppinsFamily
