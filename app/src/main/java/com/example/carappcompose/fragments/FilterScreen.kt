@@ -133,7 +133,7 @@ fun FilterScreen(navController: NavController) {
                             .padding(bottom= 100.dp)
                     ) {
                         items(5) {
-                            RecommendItem(navController)
+//                            RecommendItem(navController)
                         }
                     }
 
@@ -168,7 +168,7 @@ fun FilterScreen(navController: NavController) {
                                     .padding(bottom= 100.dp)
                             ) {
                                 items(5) {
-                                    RecommendItem(navController)
+//                                    RecommendItem(navController)
                                 }
                             }
                         }
@@ -184,7 +184,7 @@ fun FilterScreen(navController: NavController) {
                                     .padding(bottom= 100.dp)
                             ) {
                                 items(5) {
-                                    RecommendItem(navController)
+//                                    RecommendItem(navController)
                                 }
                             }
                         }

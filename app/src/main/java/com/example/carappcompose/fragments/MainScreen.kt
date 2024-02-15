@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -72,6 +74,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserClass
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.Item
@@ -97,7 +100,10 @@ fun MainScreen(navController: NavController){
 
 
 
-
+    var cars by remember { mutableStateOf<List<String>>(emptyList()) }
+    CarData.GetCars { list ->
+        cars = list
+    }
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -357,8 +363,8 @@ fun MainScreen(navController: NavController){
                     columns = GridCells.Fixed(2), modifier = Modifier
                         .padding(bottom= 100.dp)
                 ) {
-                    items(5) {
-                        RecommendItem(navController)
+                    items(cars) { item ->
+                        RecommendItem(name = item, year = item, navController)
                     }
                 }
             }

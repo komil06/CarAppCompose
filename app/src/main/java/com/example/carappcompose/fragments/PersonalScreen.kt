@@ -305,7 +305,9 @@ Row(modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVerti
 
                 Row(modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    .padding(start = 10.dp, end = 10.dp).clickable { navController.navigate("Selling")}, horizontalArrangement = Arrangement.SpaceEvenly,
+
+                    ) {
                     Text(
                         text = "My cars",
                         fontFamily = poppinsFamily,

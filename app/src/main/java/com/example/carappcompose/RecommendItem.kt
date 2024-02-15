@@ -42,7 +42,7 @@ import androidx.navigation.NavController
 import com.example.carappcompose.ui.theme.poppinsFamily
 
 @Composable
-fun RecommendItem(navController: NavController){
+fun RecommendItem(name: String, year:String, navController: NavController){
 
 
     Card(modifier = Modifier
@@ -89,10 +89,10 @@ Column(modifier = Modifier){
     Spacer(modifier = Modifier.height(10.dp))
 
 
-    Text(text = "Car name",modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+    Text(text = name,modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
 
     Spacer(modifier = Modifier.height(10.dp))
-    Text(text = "$50,000",modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium,textAlign = TextAlign.Center, color = Color(255,165,0))
+    Text(text = year,modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium,textAlign = TextAlign.Center, color = Color(255,165,0))
 
 
 }

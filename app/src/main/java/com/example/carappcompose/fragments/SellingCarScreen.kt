@@ -1,11 +1,12 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,19 +17,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,26 +50,36 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.carappcompose.Database.CarClass
+import com.example.carappcompose.Database.CarData
+import com.example.carappcompose.Database.UserClass
+import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.Item
 import com.example.carappcompose.MyCarItem
 import com.example.carappcompose.NavigationItem
@@ -75,6 +92,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SellingCarScreen(navController: NavController){
+    val context = LocalContext.current
+
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -262,22 +281,89 @@ fun SellingCarScreen(navController: NavController){
 
 
 // Shu yerga yoziladi
-
-            LazyColumn(modifier = Modifier.fillMaxWidth().padding(top = 50.dp, bottom = 120.dp)            ) {
-                items(9) {
-                    MyCarItem(navController)
-                }
-            }
-
-
-
 //
-//                                    FloatingActionButton(onClick = {}, modifier = Modifier.fillMaxWidth()) {
-//                Icon(Icons.Default.Add, contentDescription = "Add")//            }
-//        }
+//            LazyColumn(modifier = Modifier.fillMaxWidth().padding(top = 50.dp, bottom = 120.dp)            ) {
+//                items(9) {
+//                    MyCarItem(navController)
+//                }
+//            }
+//
+//            FloatingActionButton(
+//                onClick = { },
+//            ) {
+//                Icon(Icons.Filled.Add, "Floating action button.")
+//            }
+
+            var title by remember { mutableStateOf(TextFieldValue("")) }
+            var brand by remember { mutableStateOf(TextFieldValue("")) }
+            var year by remember { mutableStateOf(TextFieldValue("")) }
+Column(modifier = Modifier.fillMaxWidth().padding(top =100.dp), horizontalAlignment = Alignment.CenterHorizontally){
+
+            OutlinedTextField(
+                value = title,
+                leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+
+                onValueChange = { title = it },
+                label = { Text("Title",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                shape = RoundedCornerShape(12.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = primaryColor,
+                )
+            )
 
 
+            OutlinedTextField(
+                value = year,
+                leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp)) },
 
+                onValueChange = { year = it },
+                label = { Text("Enter year",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                shape = RoundedCornerShape(12.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = primaryColor,
+                )
+            )
+
+    OutlinedTextField(
+        value = brand,
+        leadingIcon = {Icon(imageVector =Icons.Default.Star, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+
+        onValueChange = { brand = it },
+        label = { Text("Brand",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+        shape = RoundedCornerShape(12.dp),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = primaryColor,
+        )
+    )
+
+    Button(
+        modifier = Modifier
+            .padding(20.dp)
+            .fillMaxWidth(),
+        onClick = {
+
+
+            CarData.CreateCar(CarClass(title.text, brand.text, year.text))
+//            UserData.UserSave(context, username.text)
+
+            Toast.makeText(
+                context, "Mashinangiz ro'yxatga muvaqqiyatli qo'shildi", Toast.LENGTH_SHORT
+            ).show()
+        },
+        shape = RoundedCornerShape(12.dp),
+        colors = ButtonDefaults.buttonColors(Color(255,165,0))
+    ){
+        Text(
+            modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
+            text = "Qo'shish",
+            fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+
+    }
+
+    }
         }
 
 

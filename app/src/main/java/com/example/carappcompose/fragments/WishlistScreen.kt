@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -66,6 +67,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Item
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
@@ -78,6 +80,11 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WishlistScreen(navController: NavController){
+
+    var cars by remember { mutableStateOf<List<String>>(emptyList()) }
+    CarData.GetCars { list ->
+        cars = list
+    }
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -274,8 +281,8 @@ fun WishlistScreen(navController: NavController){
                     .padding(top = 50.dp, bottom = 100.dp)
 
             ) {
-                items(5) {
-                    RecommendItem(navController)
+                items(cars) { item ->
+                    RecommendItem(name = item, navController)
                 }
             }
 

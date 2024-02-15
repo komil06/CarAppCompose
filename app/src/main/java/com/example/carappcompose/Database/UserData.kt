@@ -17,6 +17,11 @@ class UserData {
                 users.child(username).setValue(user)
             }
         }
+
+
+
+
+
         fun getUserSaved(context: Context): String {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             return preferences.getString("user", "") ?: ""
