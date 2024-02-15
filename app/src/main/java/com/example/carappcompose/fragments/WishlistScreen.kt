@@ -282,7 +282,7 @@ fun WishlistScreen(navController: NavController){
 
             ) {
                 items(cars) { item ->
-                    RecommendItem(name = item, navController)
+//                    RecommendItem(name = item, navController)
                 }
             }
 
