@@ -148,7 +148,7 @@ fun FilterScreen(navController: NavController) {
                         colors = ButtonDefaults.buttonColors(Color(255, 87, 34, 255))
                     ) {
                         Text(
-                            text = "Search",
+                            text = "Filter",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White

@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -39,6 +41,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -92,7 +95,6 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SellingCarScreen(navController: NavController){
-    val context = LocalContext.current
 
     val items = listOf(
         NavigationItem(
@@ -294,76 +296,32 @@ fun SellingCarScreen(navController: NavController){
 //                Icon(Icons.Filled.Add, "Floating action button.")
 //            }
 
-            var title by remember { mutableStateOf(TextFieldValue("")) }
-            var brand by remember { mutableStateOf(TextFieldValue("")) }
-            var year by remember { mutableStateOf(TextFieldValue("")) }
-Column(modifier = Modifier.fillMaxWidth().padding(top =100.dp), horizontalAlignment = Alignment.CenterHorizontally){
-
-            OutlinedTextField(
-                value = title,
-                leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
-
-                onValueChange = { title = it },
-                label = { Text("Title",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                shape = RoundedCornerShape(12.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = primaryColor,
-                )
-            )
 
 
-            OutlinedTextField(
-                value = year,
-                leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+            var cars by remember { mutableStateOf<List<String>>(emptyList()) }
+            CarData.GetCars { list ->
+                cars = list
+            }
 
-                onValueChange = { year = it },
-                label = { Text("Enter year",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                shape = RoundedCornerShape(12.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = primaryColor,
-                )
-            )
+            LazyColumn(modifier = Modifier.padding(top = 50.dp)){
 
-    OutlinedTextField(
-        value = brand,
-        leadingIcon = {Icon(imageVector =Icons.Default.Star, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                items(cars) { items ->
+                    MyCarItem(name = items, navController)
+                }
+            }
 
-        onValueChange = { brand = it },
-        label = { Text("Brand",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-        shape = RoundedCornerShape(12.dp),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = primaryColor,
-        )
-    )
-
-    Button(
-        modifier = Modifier
-            .padding(20.dp)
-            .fillMaxWidth(),
-        onClick = {
+            val ctx = LocalContext.current
+           Column(modifier = Modifier.fillMaxSize().padding(bottom = 90.dp, end = 20.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Bottom,){
+               FloatingActionButton(
+                   onClick = { navController.navigate("NewCar") },
+               ) {
+                   Icon(Icons.Filled.Add, "Floating action button.")
+               }
 
 
-            CarData.CreateCar(CarClass(title.text, brand.text, year.text))
-//            UserData.UserSave(context, username.text)
+           }
 
-            Toast.makeText(
-                context, "Mashinangiz ro'yxatga muvaqqiyatli qo'shildi", Toast.LENGTH_SHORT
-            ).show()
-        },
-        shape = RoundedCornerShape(12.dp),
-        colors = ButtonDefaults.buttonColors(Color(255,165,0))
-    ){
-        Text(
-            modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
-            text = "Qo'shish",
-            fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
 
-    }
-
-    }
         }
 
 

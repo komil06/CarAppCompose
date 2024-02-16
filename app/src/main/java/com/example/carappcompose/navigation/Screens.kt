@@ -16,4 +16,6 @@ sealed class Screens(val route:String){
 
      object Selling:Screens("Selling")
 
+     object NewCar:Screens("NewCar")
+
 }

@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.carappcompose.RecommendItem
+import com.example.carappcompose.fragments.AddNewCarScreen
 import com.example.carappcompose.fragments.DetailsScreen
 import com.example.carappcompose.fragments.FilterScreen
 import com.example.carappcompose.fragments.MainScreen
@@ -55,6 +56,8 @@ NavHost(navController = navController, startDestination = Screens.Splash.route){
         FilterScreen(navController = navController)
     }
 
-
+    composable(route = Screens.NewCar.route){
+        AddNewCarScreen(navController = navController)
+    }
 }
 }
