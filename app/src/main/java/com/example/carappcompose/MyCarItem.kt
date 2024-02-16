@@ -72,7 +72,7 @@ fun MyCarItem(name:String, navController: NavController){
             Text(textAlign = TextAlign.Center,text = name, fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
                 Text(textAlign = TextAlign.Center,text = name, fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
 
-                Text(textAlign = TextAlign.Center,text = name, fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
+//                Text(textAlign = TextAlign.Center,text = name, fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
 
             }
 
