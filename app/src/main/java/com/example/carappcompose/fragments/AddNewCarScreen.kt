@@ -96,7 +96,6 @@ fun AddNewCarScreen(navController: NavController){
     var description by remember { mutableStateOf(TextFieldValue("")) }
     var price by remember { mutableStateOf(TextFieldValue("")) }
 
-    var model by remember { mutableStateOf(TextFieldValue("")) }
 
 
 
@@ -278,7 +277,7 @@ fun AddNewCarScreen(navController: NavController){
                 leadingIcon = {Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
 
                 onValueChange = { title = it },
-                label = { Text("Title",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                label = { Text("Car Name",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -293,7 +292,7 @@ fun AddNewCarScreen(navController: NavController){
                 leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp)) },
 
                 onValueChange = { year = it },
-                label = { Text("Enter year",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                label = { Text("Manufactured year",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -302,9 +301,8 @@ fun AddNewCarScreen(navController: NavController){
             )
 
 
-                Row( modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 10.dp), horizontalArrangement = Arrangement.SpaceAround){
                     OutlinedTextField(
-                        modifier = Modifier.weight(0.5f),
+                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 10.dp).fillMaxWidth(),
                         value = brand,
                         leadingIcon = {Icon(imageVector =Icons.Default.Star, contentDescription = null, modifier = Modifier.padding(8.dp)) },
 
@@ -317,29 +315,8 @@ fun AddNewCarScreen(navController: NavController){
                         )
                     )
 
-                    Spacer(modifier = Modifier.width(10.dp))
 
-                    OutlinedTextField(
-                        modifier = Modifier.weight(0.5f),
-                        value = model,
-                        leadingIcon = {
-                            Image(
-                                painter = painterResource(id = R.drawable.baseline_directions_car_24),
-                                contentDescription = "Komilni puli",
-//                        modifier = Modifier.width(30.dp).height(20.dp)
-                            )
-                                      },
 
-                        onValueChange = { model = it },
-                        label = { Text("Model",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            focusedBorderColor = primaryColor,
-                        )
-                    )
-
-                }
                 Row( modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 10.dp), horizontalArrangement = Arrangement.SpaceAround){
                     OutlinedTextField(
                         modifier = Modifier.weight(0.5f),
@@ -389,7 +366,7 @@ fun AddNewCarScreen(navController: NavController){
 //                    leadingIcon =
 //                    {Icon(imageVector =Icons.Default.Info, contentDescription = null, modifier = Modifier.padding(8.dp)) },
                     onValueChange = { description = it },
-                    label = { Text("Description",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    label = { Text("Additional description",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     shape = RoundedCornerShape(12.dp),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -404,7 +381,7 @@ fun AddNewCarScreen(navController: NavController){
         onClick = {
 
 
-            CarData.CreateCar(CarClass(title.text, year.text, brand.text, model.text, price.text, description.text))
+            CarData.CreateCar(CarClass(title.text, year.text, brand.text, price.text, description.text))
 //            UserData.UserSave(context, username.text)
 
             Toast.makeText(

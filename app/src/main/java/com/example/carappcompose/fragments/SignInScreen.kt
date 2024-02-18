@@ -114,8 +114,9 @@ fun SignInScreen(navController: NavController){
                     .fillMaxWidth(),
                 onClick = {
                     UserData.UserGet(username, password) { result ->
-                        Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
                         if (result == "Successful Login") {
+                            Toast.makeText(context, "Welcome, ${username.text} ", Toast.LENGTH_SHORT)
+                                .show()
                             UserData.UserSave(context, username.text)
                             navController.navigate("Main")
                         }

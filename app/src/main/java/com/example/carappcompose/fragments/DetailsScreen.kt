@@ -151,17 +151,19 @@ fun DetailsScreen(navController: NavController) {
 //                        )
 //
 //                    }
-                    Text(text = "Car name", fontFamily = poppinsFamily, fontSize = 30.sp, fontWeight = FontWeight.Bold)
-//        Row (modifier = Modifier.padding(0.dp,10.dp)){
+                    Text(text = "Car name", fontFamily = poppinsFamily, fontSize = 25.sp, fontWeight = FontWeight.Bold)
 //
-////            Spacer(modifier = Modifier.padding(35.dp, 10.dp))
-////            Text(text = "Car rate", fontSize = 20.sp, color = Color.Magenta, modifier = Modifier.padding(28.dp,5.dp))
-//        }
-                    Text(text = "Car price", fontSize = 20.sp, fontFamily = poppinsFamily)
-                    Text(text = "Condition", fontSize = 20.sp, fontFamily = poppinsFamily)
+                    Text(text = "Car price", fontSize = 18.sp, fontFamily = poppinsFamily, modifier = Modifier.padding(0.dp),
+                        color = Color(168,175,185),fontWeight = FontWeight.Medium)
+                    Text(text = "Condition: ", fontSize = 18.sp, fontFamily = poppinsFamily,modifier = Modifier.padding(0.dp),
+                        color = Color(168,175,185),fontWeight = FontWeight.Medium
+                        )
                     Text(
                         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque ante sem, vel mattis erat ultrices vel. Suspendisse ligula enim, commodo quis nisi at, sodales varius sem.Aliquam sem nibh, porttitor ut imperdiet et, ultricies vitae lacus. Ut vestibulum non enim vitae sollicitudin.",
-                        fontSize = 20.sp, fontFamily = poppinsFamily
+                        fontSize = 15.sp, fontFamily = poppinsFamily,
+                        modifier = Modifier.fillMaxWidth(),
+                        fontWeight = FontWeight.Medium,
+                        color = Color(168,175,185)
                     )
                     Button(
                         modifier = Modifier
