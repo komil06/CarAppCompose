@@ -91,6 +91,7 @@ fun AddNewCarScreen(navController: NavController){
 
             var title by remember { mutableStateOf(TextFieldValue("")) }
             var brand by remember { mutableStateOf(TextFieldValue("")) }
+            var condition by remember { mutableStateOf(TextFieldValue(""))}
             var year by remember { mutableStateOf(TextFieldValue("")) }
     var description by remember { mutableStateOf(TextFieldValue("")) }
     var price by remember { mutableStateOf(TextFieldValue("")) }
@@ -342,7 +343,7 @@ fun AddNewCarScreen(navController: NavController){
                 Row( modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 10.dp), horizontalArrangement = Arrangement.SpaceAround){
                     OutlinedTextField(
                         modifier = Modifier.weight(0.5f),
-                        value = brand,
+                        value = condition,
                         leadingIcon = {
                             Image(
                                 painter = painterResource(id = R.drawable.baseline_vpn_key_24),
@@ -351,7 +352,7 @@ fun AddNewCarScreen(navController: NavController){
                             )
                                       },
 
-                        onValueChange = { brand = it },
+                        onValueChange = { condition = it },
                         label = { Text("Condition",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                         shape = RoundedCornerShape(12.dp),
