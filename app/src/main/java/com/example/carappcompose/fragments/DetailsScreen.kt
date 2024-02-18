@@ -60,7 +60,7 @@ import java.nio.file.WatchEvent
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
 @Composable
-fun DetailsScreen(name:String, navController: NavController) {
+fun DetailsScreen(name:String, price:String,navController: NavController) {
 
         Scaffold(
             topBar = {
@@ -151,9 +151,9 @@ fun DetailsScreen(name:String, navController: NavController) {
 //                        )
 //
 //                    }
-                    Text(text = name, fontFamily = poppinsFamily, fontSize = 25.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "Car name: " + name, fontFamily = poppinsFamily, fontSize = 22.sp, fontWeight = FontWeight.Bold)
 //
-                    Text(text = "Car price", fontSize = 18.sp, fontFamily = poppinsFamily, modifier = Modifier.padding(0.dp),
+                    Text(text = "Car price: " + price, fontSize = 18.sp, fontFamily = poppinsFamily, modifier = Modifier.padding(0.dp),
                         color = Color(168,175,185),fontWeight = FontWeight.Medium)
                     Text(text = "Condition: ", fontSize = 18.sp, fontFamily = poppinsFamily,modifier = Modifier.padding(0.dp),
                         color = Color(168,175,185),fontWeight = FontWeight.Medium

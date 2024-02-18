@@ -39,10 +39,22 @@ NavHost(navController = navController, startDestination = Screens.Splash.route){
     }
     composable(route = Screens.Details.route, arguments = listOf(navArgument(NAME_KEY) {
         type = NavType.StringType
-    })) { navBackStackEntry ->
+    },
+
+        navArgument(PRICE_KEY) {
+            type = NavType.StringType
+        },
+
+        ),
+
+
+
+    ) { navBackStackEntry ->
         val name = navBackStackEntry.arguments?.getString(NAME_KEY)
-        if (name != null) {
-            DetailsScreen(name = name, navController = navController)
+        val price = navBackStackEntry.arguments?.getString(PRICE_KEY)
+
+        if (name != null && price!= null) {
+            DetailsScreen(name = name,price= price,navController = navController)
         }
     }
 

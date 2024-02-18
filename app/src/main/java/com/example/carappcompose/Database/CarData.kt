@@ -23,6 +23,7 @@ class CarData {
            cars.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val cars = dataSnapshot.children.mapNotNull { it.key }
+
                     callback(cars)
                 }
 
@@ -31,5 +32,8 @@ class CarData {
                 }
             })
         }
+
+
+
     }
 }

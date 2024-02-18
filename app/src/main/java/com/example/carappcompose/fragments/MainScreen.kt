@@ -342,8 +342,8 @@ fun MainScreen(navController: NavController){
                 .padding(top = 150.dp)){
                 LazyRow(
                 ) {
-                    items(9) {
-                        Item(navController)
+                    items(cars) {item->
+                        Item(name = item, price = item, navController)
                     }
                 }
             }
@@ -360,12 +360,16 @@ fun MainScreen(navController: NavController){
 
                 }
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(2), modifier = Modifier
-                        .padding(bottom= 100.dp)
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier.padding(bottom = 100.dp)
                 ) {
                     items(cars) { item ->
-                        RecommendItem(name = item, year = item, navController)
-                    }
+//                        item.let{it1->
+//                            item.let{it2->
+                        RecommendItem(name = item, price = item, navController)
+//                            }
+//                            }
+                        }
                 }
             }
 

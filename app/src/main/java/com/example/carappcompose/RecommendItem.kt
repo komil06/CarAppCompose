@@ -43,7 +43,7 @@ import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 
 @Composable
-fun RecommendItem(name: String, year:String, navController: NavController){
+fun RecommendItem(name: String, price:String, navController: NavController){
 
 
     Card(modifier = Modifier
@@ -51,7 +51,7 @@ fun RecommendItem(name: String, year:String, navController: NavController){
         .width(175.dp)
         .height(320.dp)
         .clickable {
-            navController.navigate(route = Screens.Details.getFullRoute(name = name))
+            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price))
 
         },   colors = CardDefaults.cardColors(
         containerColor = Color.White,
@@ -90,13 +90,13 @@ Column(modifier = Modifier){
 
     )
 
-    Spacer(modifier = Modifier.height(10.dp))
+    Spacer(modifier = Modifier.height(5.dp))
 
 
-    Text(text = name,modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+    Text(text = "$name".uppercase(),modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
 
-    Spacer(modifier = Modifier.height(10.dp))
-    Text(text = year,modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium,textAlign = TextAlign.Center, color = Color(255,165,0))
+    Spacer(modifier = Modifier.height(5.dp))
+    Text(text = "$price".uppercase(),modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 12.sp, fontWeight = FontWeight.Medium,textAlign = TextAlign.Center, color = Color(255,165,0))
 
 
 }

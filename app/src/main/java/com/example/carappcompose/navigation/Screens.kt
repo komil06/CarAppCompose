@@ -2,6 +2,7 @@ package com.example.carappcompose.navigation
 
 
 const val NAME_KEY = "name_key"
+const val PRICE_KEY = "price_key"
 
 sealed class Screens(val route:String){
      object Splash:Screens("Splash")
@@ -14,9 +15,9 @@ sealed class Screens(val route:String){
 //     object Details:Screens("Details")
 
 
-     object Details : Screens("Details/{$NAME_KEY}") {
-          fun getFullRoute(name: String): String {
-               return "Details/$name"
+     object Details : Screens("Details/{$NAME_KEY}/{$PRICE_KEY}") {
+          fun getFullRoute(name: String, price:String): String {
+               return "Details/$name/$price"
           }
      }
 

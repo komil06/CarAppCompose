@@ -27,16 +27,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 
 @Composable
-fun MyCarItem(name:String, navController: NavController){
+fun MyCarItem(name:String,price:String, navController: NavController){
 
 
     Card(modifier = Modifier.padding(8.dp).fillMaxWidth().height(160.dp)
         .clickable {
-                    navController.navigate("Details")
+            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price))
 
         }        .border(
             BorderStroke(1.dp, primaryColor),

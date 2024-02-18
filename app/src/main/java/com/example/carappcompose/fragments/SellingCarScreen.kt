@@ -17,9 +17,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
@@ -303,13 +305,15 @@ fun SellingCarScreen(navController: NavController){
                 cars = list
             }
 
-            LazyColumn(modifier = Modifier.padding(top = 50.dp)){
+//           Column(modifier = Modifier.padding(top = 50.dp))){
+            LazyColumn(modifier = Modifier.padding(top = 50.dp))
+            {
 
                 items(cars) { items ->
-                    MyCarItem(name = items, navController)
+                    MyCarItem(name = items,price=items, navController)
                 }
-            }
 
+           }
             val ctx = LocalContext.current
            Column(modifier = Modifier.fillMaxSize().padding(bottom = 90.dp, end = 20.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Bottom,){
                FloatingActionButton(
