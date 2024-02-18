@@ -4,8 +4,10 @@ package com.example.carappcompose.navigation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.fragments.AddNewCarScreen
 import com.example.carappcompose.fragments.DetailsScreen
@@ -35,13 +37,15 @@ NavHost(navController = navController, startDestination = Screens.Splash.route){
     composable(route = Screens.Main.route){
         MainScreen(navController = navController)
     }
-    composable(route = Screens.Details.route) {
-
-        DetailsScreen(navController = navController)
+    composable(route = Screens.Details.route, arguments = listOf(navArgument(NAME_KEY) {
+        type = NavType.StringType
+    })) { navBackStackEntry ->
+        val name = navBackStackEntry.arguments?.getString(NAME_KEY)
+        if (name != null) {
+            DetailsScreen(name = name, navController = navController)
+        }
     }
-//    composable(route = Screens.RItem.route){
-//        RecommendItem(navController = navController)
-//    }
+
 
     composable(route = Screens.Wishlist.route) {
         WishlistScreen(navController = navController)

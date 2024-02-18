@@ -39,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 
 @Composable
@@ -49,7 +50,10 @@ fun RecommendItem(name: String, year:String, navController: NavController){
         .padding(5.dp)
         .width(175.dp)
         .height(320.dp)
-        .clickable { navController.navigate("Details") },   colors = CardDefaults.cardColors(
+        .clickable {
+            navController.navigate(route = Screens.Details.getFullRoute(name = name))
+
+        },   colors = CardDefaults.cardColors(
         containerColor = Color.White,
     ),){
         var isClicked by remember {
