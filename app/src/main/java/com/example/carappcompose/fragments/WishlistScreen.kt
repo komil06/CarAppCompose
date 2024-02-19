@@ -57,6 +57,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -68,6 +69,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.carappcompose.Database.CarData
+import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.Item
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
@@ -80,6 +82,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WishlistScreen(navController: NavController){
+    val context = LocalContext.current
 
     var cars by remember { mutableStateOf<List<String>>(emptyList()) }
     CarData.GetCars { list ->
@@ -125,6 +128,8 @@ fun WishlistScreen(navController: NavController){
                                 .height(100.dp),
                             )
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
+                        Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
+
                     }
                     Spacer(modifier = Modifier.height(50.dp))
                     items.forEachIndexed { index, item ->

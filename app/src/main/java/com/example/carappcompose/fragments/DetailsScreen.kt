@@ -151,9 +151,9 @@ fun DetailsScreen(name:String, price:String,navController: NavController) {
 //                        )
 //
 //                    }
-                    Text(text = "Car name: " + name, fontFamily = poppinsFamily, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "Car name: $name", fontFamily = poppinsFamily, fontSize = 22.sp, fontWeight = FontWeight.Bold)
 //
-                    Text(text = "Car price: " + price, fontSize = 18.sp, fontFamily = poppinsFamily, modifier = Modifier.padding(0.dp),
+                    Text(text = "Car price: $price", fontSize = 18.sp, fontFamily = poppinsFamily, modifier = Modifier.padding(0.dp),
                         color = Color(168,175,185),fontWeight = FontWeight.Medium)
                     Text(text = "Condition: ", fontSize = 18.sp, fontFamily = poppinsFamily,modifier = Modifier.padding(0.dp),
                         color = Color(168,175,185),fontWeight = FontWeight.Medium

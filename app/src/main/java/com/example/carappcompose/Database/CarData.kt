@@ -33,6 +33,10 @@ class CarData {
             })
         }
 
+        fun WishlistedCars(){
+
+        }
+
 
 
     }

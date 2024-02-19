@@ -70,8 +70,8 @@ fun MyCarItem(name:String,price:String, navController: NavController){
                 )
 
             Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceEvenly){
-            Text(textAlign = TextAlign.Center,text = name, fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
-                Text(textAlign = TextAlign.Center,text = name, fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
+            Text(textAlign = TextAlign.Center,text = name.uppercase(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
+                Text(textAlign = TextAlign.Center,text = name.uppercase(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
 
 //                Text(textAlign = TextAlign.Center,text = name, fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
 

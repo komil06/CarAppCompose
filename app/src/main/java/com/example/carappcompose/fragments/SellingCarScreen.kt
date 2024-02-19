@@ -98,6 +98,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun SellingCarScreen(navController: NavController){
 
+
+    val context = LocalContext.current
+
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -142,6 +145,8 @@ fun SellingCarScreen(navController: NavController){
                                 .height(100.dp),
                         )
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
+                        Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
+
                     }
                     Spacer(modifier = Modifier.height(50.dp))
                     items.forEachIndexed { index, item ->
@@ -306,7 +311,7 @@ fun SellingCarScreen(navController: NavController){
             }
 
 //           Column(modifier = Modifier.padding(top = 50.dp))){
-            LazyColumn(modifier = Modifier.padding(top = 50.dp))
+            LazyColumn(modifier = Modifier.padding(top = 65.dp, bottom = 80.dp))
             {
 
                 items(cars) { items ->
@@ -314,7 +319,6 @@ fun SellingCarScreen(navController: NavController){
                 }
 
            }
-            val ctx = LocalContext.current
            Column(modifier = Modifier.fillMaxSize().padding(bottom = 90.dp, end = 20.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Bottom,){
                FloatingActionButton(
                    onClick = { navController.navigate("NewCar") },

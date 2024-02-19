@@ -115,6 +115,8 @@ fun PersonalScreen(navController: NavController){
                                 .height(100.dp),
                         )
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
+                        Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
+
                     }
                     Spacer(modifier = Modifier.height(50.dp))
                     items.forEachIndexed { index, item ->
