@@ -390,6 +390,9 @@ fun AddNewCarScreen(navController: NavController){
             Toast.makeText(
                 context, "Mashinangiz ro'yxatga muvaqqiyatli qo'shildi", Toast.LENGTH_SHORT
             ).show()
+
+            navController.navigate("Main")
+
         },
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(Color(255,165,0))
