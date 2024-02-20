@@ -33,6 +33,8 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -123,7 +125,6 @@ fun MainScreen(navController: NavController){
             title = "Personal",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
-//            badgeCount = 45
         ),
     )
 
@@ -200,6 +201,35 @@ fun MainScreen(navController: NavController){
 
                         )
                     }
+
+//                    Button(modifier = Modifier.padding(top = 10.dp).fillMaxWidth(),
+//                        onClick = {
+//                            UserData.UserSave(context, "")
+//                            navController.navigate("SignIn")
+//                        }) {
+//                        Text(
+//                            modifier= Modifier.clickable {
+//                               },
+//                            text = "Log out",
+//                            fontFamily = poppinsFamily,
+//                            fontSize = 20.sp, fontWeight = FontWeight.SemiBold,
+//                            color = Color.Black
+//                            )
+//                    }
+
+
+                    Button(modifier = Modifier.padding(top = 5.dp).fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color.Transparent),
+                        onClick = {
+                            UserData.UserSave(context, "")
+                            navController.navigate("SignIn")
+                        }) {
+                        Text(text = "Log out", fontSize = 20.sp,
+                            fontFamily = poppinsFamily,
+                             fontWeight = FontWeight.SemiBold,
+                            color = Color.Black
+                        )
+                    }
                 }
             },
             drawerState = drawerState
@@ -259,7 +289,10 @@ fun MainScreen(navController: NavController){
 
                                 },
                                 label = {
-                                    Text(text = item.title)
+                                    Text(text = item.title,
+                                        fontFamily = poppinsFamily,
+                                        fontWeight = FontWeight.SemiBold,
+                                        )
                                 },
                                 alwaysShowLabel = false,
                                 icon = {
