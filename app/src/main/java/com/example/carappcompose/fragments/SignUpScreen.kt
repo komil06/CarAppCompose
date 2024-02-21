@@ -125,7 +125,7 @@ fun SignUpScreen(navController: NavController){
                     } else {
                         UserData.Usercheck(username.text) {
                             if (it) {
-                                UserData.UserCreate(UserClass(fullname.text, username.text, password.text))
+                                UserData.UserCreate(UserClass(fullname.text, username.text, password.text, emptyList()))
                                 UserData.UserSave(context, username.text)
                                 navController.navigate("Main")
                             } else {

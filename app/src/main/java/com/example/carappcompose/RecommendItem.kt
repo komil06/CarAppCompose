@@ -1,5 +1,6 @@
 package com.example.carappcompose
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -39,12 +41,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 
 @Composable
 fun RecommendItem(name: String, price:String, navController: NavController){
-
+    val context = LocalContext.current
 
     Card(modifier = Modifier
         .padding(5.dp)
@@ -55,23 +58,34 @@ fun RecommendItem(name: String, price:String, navController: NavController){
 
         },   colors = CardDefaults.cardColors(
         containerColor = Color.White,
-    ),){
+    )){
         var isClicked by remember {
             mutableStateOf(false)
         }
 
-        val painterResource: Painter = if (isClicked) {
-            painterResource(id = R.drawable.baseline_favorite_24)
-        } else {
-            painterResource(id = R.drawable.baseline_favorite_border_24)
+        UserData.isFavourite(UserData.getUserSaved(context), name) {
+            isClicked = it
+            Log.d("TAG", "$name $it")
+
         }
+
+
         IconButton(
-            onClick = { isClicked = !isClicked },
+            onClick = {
+                UserData.FavouritesCreate(UserData.getUserSaved(context), name)
+                isClicked = !isClicked
+        },
             Modifier.align(Alignment.End)
         ) {
 
             Image(
-                painter = painterResource,
+                painter = if (isClicked) {
+
+                    painterResource(id = R.drawable.baseline_favorite_24)
+
+                } else {
+                    painterResource(id = R.drawable.baseline_favorite_border_24)
+                },
                 contentDescription = null,
 
             )
