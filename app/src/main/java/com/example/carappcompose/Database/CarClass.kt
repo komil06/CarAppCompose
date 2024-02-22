@@ -6,6 +6,7 @@ data class CarClass(
     var year: String?,
     var brand: String?,
     val price:String?,
+//    val condition:Boolean?=false,
     val description:String?,
     ) {
     constructor() : this(null,null, null, null, null,null)

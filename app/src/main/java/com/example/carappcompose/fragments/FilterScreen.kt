@@ -29,6 +29,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -39,6 +40,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.carappcompose.Database.CarClass
+import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Item
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.primaryColor
@@ -47,6 +50,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun FilterScreen(navController: NavController) {
+//    val used = CarData.UsedCars()
+//    val new = CarData.NewCars()
     var sliderPosition by remember{ mutableFloatStateOf(0f)}
     Column(modifier = Modifier.padding(10.dp)) {
         val pagerState = rememberPagerState(
