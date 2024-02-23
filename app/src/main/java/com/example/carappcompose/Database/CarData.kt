@@ -6,11 +6,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class CarData {
+
+
     companion object {
 
         private val cars = FirebaseDatabase.getInstance().reference.child("cars")
         private val car = CarClass()
-        private val searchList:List<CarClass> = emptyList()
+        private val searchList:MutableList<CarClass> = mutableListOf()
 
 
         fun CreateCar(car: CarClass) {
@@ -58,8 +60,18 @@ class CarData {
             })
         }
 
-        fun WishlistedCars(){
+        fun searchCars(query:String):MutableList<CarClass>{
+            var carList = mutableListOf<CarClass>()
+            GetCars {
+                carList
+            }
 
+            for (car1 in carList) {
+                if (car1.title!!.contains(query)){
+                    searchList.add(car1)
+                }
+            }
+            return searchList
         }
 
 

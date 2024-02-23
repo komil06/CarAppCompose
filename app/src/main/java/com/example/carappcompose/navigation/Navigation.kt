@@ -8,6 +8,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.carappcompose.Database.CarClass
+import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.fragments.AddNewCarScreen
 import com.example.carappcompose.fragments.DetailsScreen
@@ -54,7 +56,7 @@ NavHost(navController = navController, startDestination = Screens.Splash.route){
         val price = navBackStackEntry.arguments?.getString(PRICE_KEY)
 
         if (name != null && price!= null) {
-            DetailsScreen(name = name,price= price,navController = navController)
+            DetailsScreen(name = name,price= price, navController = navController)
         }
     }
 

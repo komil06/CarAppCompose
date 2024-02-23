@@ -55,6 +55,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -76,6 +77,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserClass
 import com.example.carappcompose.Database.UserData
@@ -102,7 +104,17 @@ fun MainScreen(navController: NavController){
 
 
 
-    var cars by remember { mutableStateOf<List<String>>(emptyList()) }
+    var cars by remember {
+    mutableStateOf<List<String>>(emptyList())
+    }
+//    var cars by remember {
+//
+//        mutableStateOf<CarClass<List<String>>>(emptyList())
+//    }
+
+
+//    var carList = mutableListOf<CarClass>()
+
     CarData.GetCars { list ->
         cars = list
     }
@@ -218,7 +230,9 @@ fun MainScreen(navController: NavController){
 //                    }
 
 
-                    Button(modifier = Modifier.padding(top = 5.dp).fillMaxWidth(),
+                    Button(modifier = Modifier
+                        .padding(top = 5.dp)
+                        .fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color.Transparent),
                         onClick = {
                             UserData.UserSave(context, "")
@@ -347,18 +361,21 @@ fun MainScreen(navController: NavController){
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
 
-                OutlinedTextField(
-                    value = searchText,
-                    leadingIcon = {Icon(imageVector =Icons.Default.Search, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+//                OutlinedTextField(
+//                    value = searchText,
+//                    leadingIcon = {Icon(imageVector =Icons.Default.Search, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+//
+//                    onValueChange = {searchText},
+//                    label = { Text("Search",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+//                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+//                    shape = RoundedCornerShape(12.dp),
+//                    colors = TextFieldDefaults.outlinedTextFieldColors(
+//                        focusedBorderColor = primaryColor,
+//                    )
+//                )
 
-                    onValueChange = { searchText = it },
-                    label = { Text("Search",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = primaryColor,
-                    )
-                )
+
+//                SearchView(state = textState, placeHolder = "Search here...", modifier = modifier)
 
                 IconButton(  onClick = {navController.navigate("Filter")}, modifier = Modifier.padding(top = 10.dp)){
                     Icon(imageVector = Icons.Default.List, contentDescription = null, modifier = Modifier
@@ -397,11 +414,9 @@ fun MainScreen(navController: NavController){
                     modifier = Modifier.padding(bottom = 100.dp)
                 ) {
                     items(cars) { item ->
-//                        item.let{it1->
-//                            item.let{it2->
+//
                         RecommendItem(name = item, price = item, navController)
-//                            }
-//                            }
+//
                         }
                 }
             }
@@ -416,5 +431,9 @@ fun MainScreen(navController: NavController){
 
 
 
+
+
 }
+
+
 
