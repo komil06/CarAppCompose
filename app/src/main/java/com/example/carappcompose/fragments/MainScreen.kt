@@ -361,18 +361,18 @@ fun MainScreen(navController: NavController){
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
 
-//                OutlinedTextField(
-//                    value = searchText,
-//                    leadingIcon = {Icon(imageVector =Icons.Default.Search, contentDescription = null, modifier = Modifier.padding(8.dp)) },
-//
-//                    onValueChange = {searchText},
-//                    label = { Text("Search",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-//                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-//                    shape = RoundedCornerShape(12.dp),
-//                    colors = TextFieldDefaults.outlinedTextFieldColors(
-//                        focusedBorderColor = primaryColor,
-//                    )
-//                )
+                OutlinedTextField(
+                    value = searchText,
+                    leadingIcon = {Icon(imageVector =Icons.Default.Search, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+
+                    onValueChange = {searchText},
+                    label = { Text("Search",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = primaryColor,
+                    )
+                )
 
 
 //                SearchView(state = textState, placeHolder = "Search here...", modifier = modifier)

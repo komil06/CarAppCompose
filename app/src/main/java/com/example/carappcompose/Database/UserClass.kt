@@ -5,6 +5,7 @@ data class UserClass(
     var username: String?,
     var password: String?,
     var favourites: List<String>,
+    val imageUrl:String
 ) {
-    constructor() : this(null, null, null, emptyList())
+    constructor() : this(null, null, null, emptyList(), null.toString())
 }
