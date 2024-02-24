@@ -1,7 +1,6 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
-import androidx.appcompat.widget.SearchView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +32,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -40,6 +40,7 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationBar
@@ -53,8 +54,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -62,6 +63,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -73,9 +75,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
+import com.example.carappcompose.Database.UserClass
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.Item
 import com.example.carappcompose.NavigationItem
@@ -83,23 +87,21 @@ import com.example.carappcompose.R
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnrememberedMutableState")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavController){
 
-    val _searchQuery = mutableStateOf("")
+    var searchText by remember {
+        mutableStateOf(TextFieldValue("")) }
 
     val context = LocalContext.current
 
-    val text = ""
 
 
     var cars by remember {
@@ -359,19 +361,21 @@ fun MainScreen(navController: NavController){
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
 
-                OutlinedTextField(
-                    value = text,
-                    leadingIcon = {Icon(imageVector =Icons.Default.Search, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+//                OutlinedTextField(
+//                    value = searchText,
+//                    leadingIcon = {Icon(imageVector =Icons.Default.Search, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+//
+//                    onValueChange = {searchText},
+//                    label = { Text("Search",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+//                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+//                    shape = RoundedCornerShape(12.dp),
+//                    colors = TextFieldDefaults.outlinedTextFieldColors(
+//                        focusedBorderColor = primaryColor,
+//                    )
+//                )
 
-                    onValueChange = {text},
-                    label = { Text("Search",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = primaryColor,
-                    )
-                )
 
+//                SearchView(state = textState, placeHolder = "Search here...", modifier = modifier)
 
                 IconButton(  onClick = {navController.navigate("Filter")}, modifier = Modifier.padding(top = 10.dp)){
                     Icon(imageVector = Icons.Default.List, contentDescription = null, modifier = Modifier

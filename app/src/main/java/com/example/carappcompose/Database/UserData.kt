@@ -1,12 +1,17 @@
 package com.example.carappcompose.Database
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.core.app.ComponentActivity
+import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.storage
+import java.io.ByteArrayOutputStream
 
 class UserData {
     companion object {
@@ -136,6 +141,31 @@ class UserData {
                     // Handle onCancelled if needed
                 }
             })
+        }
+
+
+        fun uploadImageToFirebase(bitmap: Bitmap, context: ComponentActivity, callback :(Boolean, String) -> Unit){
+
+
+            val storageRef = Firebase.storage.reference
+            val imageRef = storageRef.child("images/${bitmap}")
+
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val imageData = baos.toByteArray()
+
+
+
+            imageRef.putBytes(imageData).addOnSuccessListener {
+                imageRef.downloadUrl.addOnSuccessListener { uri->
+                    val imageUrl = uri.toString()
+                    callback(true, imageUrl)
+                }.addOnFailureListener{
+                    callback(false, null.toString())
+                }
+            }.addOnFailureListener{
+                callback(false, null.toString())
+            }
         }
 
 
