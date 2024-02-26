@@ -8,13 +8,13 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.carappcompose.Database.CarClass
-import com.example.carappcompose.Database.CarData
-import com.example.carappcompose.RecommendItem
+import com.example.carappcompose.MainActivity
+
 import com.example.carappcompose.fragments.AddNewCarScreen
 import com.example.carappcompose.fragments.DetailsScreen
 import com.example.carappcompose.fragments.FilterScreen
 import com.example.carappcompose.fragments.MainScreen
+import com.example.carappcompose.fragments.OnboardingScreen
 import com.example.carappcompose.fragments.PersonalScreen
 import com.example.carappcompose.fragments.SellingCarScreen
 import com.example.carappcompose.fragments.SignInScreen

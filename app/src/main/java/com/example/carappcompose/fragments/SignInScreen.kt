@@ -152,7 +152,7 @@ fun SignInScreen(navController: NavController){
                     .height(50.dp)
                     .width(150.dp)
                 ,
-                onClick = { navController.navigate("SignUp")},
+                onClick = { navController.navigate("OnBoarding")},
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(Color(255,165,0))
             ){
