@@ -273,7 +273,7 @@ fun SignUpScreen(navController: NavController){
                                                 imageUrl.let{
                                                     imgUrl = it
                                                 }
-                                                UserData.UserCreate(UserClass(fullname.text, username.text, password, emptyList(), imgUrl))
+                                                        UserData.UserCreate(UserClass(fullname.text, username.text, password, emptyList(), imgUrl))
                                                 UserData.UserSave(context, username.text)
                                                 Toast.makeText(context, "User saved", Toast.LENGTH_SHORT).show()
 

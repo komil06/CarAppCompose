@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -87,6 +88,7 @@ import com.example.carappcompose.R
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
+import com.google.firebase.firestore.auth.User
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -151,21 +153,28 @@ fun MainScreen(navController: NavController){
         var selectedItemIndex by rememberSaveable {
             mutableStateOf(0)
         }
+
+//        var images = UserData.getSavedImage(context,)
         ModalNavigationDrawer(
 
             drawerContent = {
                 ModalDrawerSheet {
 
                 Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
-                    Image(
-                        painter = painterResource(id = R.drawable.baseline_account_circle_24),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .padding(top = 40.dp)
-                            .fillMaxWidth()
-                            .height(100.dp),
-
-                        )
+//                    if (UserData.imageUrlState != null) {
+//                        Image(
+//                            painter = rememberImagePainter(
+//                                data = UserData.imageUrlState,
+//                                builder = {
+//                                    // You can customize image loading options here if needed
+//                                }
+//                            ),
+//                            contentDescription = "User Image",
+//                            modifier = Modifier
+//                                .size(200.dp) // Adjust the size as needed
+//                                .clip(MaterialTheme.shapes.medium)
+//                        )
+//                    }
 
                     Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
                     Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)

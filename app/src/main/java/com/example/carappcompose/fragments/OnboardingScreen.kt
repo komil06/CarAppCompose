@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -38,6 +39,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.carappcompose.MainActivity
 import com.example.carappcompose.R
+import com.example.carappcompose.ui.theme.poppinsFamily
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -48,14 +50,14 @@ import kotlinx.coroutines.launch
 @Composable
 fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
     val animations = listOf(
-        R.raw.intro1,
-        R.raw.intro2,
-        R.raw.intro3
+        R.raw.mashina_yolda,
+        R.raw.merc,
+        R.raw.eski_mashina
     )
     val titles = listOf(
-        "Explore the Skies",
-        "Seaside Escapes",
-        "Garden Getaways"
+        "Minimizing the Costs",
+        "Detailed Screens",
+        "Variety Options"
     )
 
     val descriptions = listOf(
@@ -88,19 +90,21 @@ fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
                 LottieAnimation(
                     composition = composition,
                     iterations = LottieConstants.IterateForever,
-                    modifier = Modifier.size(400.dp)
+                    modifier = Modifier.size(350.dp)
                 )
                 Text(
                     text = titles[currentPage],
                     textAlign = TextAlign.Center,
-                    fontSize = 44.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = poppinsFamily
                 )
                 Text(
                     text = descriptions[currentPage],
                     Modifier.padding(top = 45.dp),
                     textAlign = TextAlign.Center,
-                    fontSize = 20.sp
+                    fontSize = 18.sp,
+                    fontFamily = poppinsFamily,
 
                 )
             }
@@ -141,9 +145,10 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
                             pagerState.scrollToPage(nextPage)
                         }
                     },
-                fontSize = 22.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = Color.Black,
+                fontFamily = poppinsFamily,
             )
             Text(text = "Back",
                 modifier = Modifier
@@ -156,9 +161,10 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
                             }
                         }
                     },
-                fontSize = 22.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = Color.Black,
+                fontFamily = poppinsFamily,
             )
         }else{
             OutlinedButton(onClick = {
@@ -169,16 +175,18 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
             },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                , colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0x25E92F1E)
-                )
+                    .align(Alignment.BottomCenter),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(Color(255,165,0)),
+
+
             ) {
                 Text(
                     text = "Get Started",
-                    fontSize = 22.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = Color.White,
+                    fontFamily = poppinsFamily,
                 )
             }
         }
