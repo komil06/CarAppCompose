@@ -1,5 +1,6 @@
 package com.example.carappcompose.fragments
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -18,11 +19,9 @@ import com.example.carappcompose.Database.UserData
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(navController: NavController,) {
     val context = LocalContext.current
-    val scale = remember {
-        androidx.compose.animation.core.Animatable(0f)
-    }
+
 
     LaunchedEffect(key1 = true) {
 //        scale.animateTo(

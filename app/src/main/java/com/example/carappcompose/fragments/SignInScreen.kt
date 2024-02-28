@@ -100,7 +100,9 @@ fun SignInScreen(navController: NavController){
                 autoCorrect = true,
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Next,
-                            ),
+
+            ),
+
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = primaryColor,
                 )
@@ -117,7 +119,7 @@ fun SignInScreen(navController: NavController){
                 onClick = {
                     UserData.UserGet(username, password) { result ->
                         if (result == "Successful Login") {
-                            Toast.makeText(context, "Welcome, ${username.text} ", Toast.LENGTH_SHORT)
+                            Toast.makeText(context,"Welcome, ${username.text} ", Toast.LENGTH_SHORT)
                                 .show()
                             UserData.UserSave(context, username.text)
                             navController.navigate("Main")
@@ -154,7 +156,7 @@ fun SignInScreen(navController: NavController){
                     .height(50.dp)
                     .width(150.dp)
                 ,
-                onClick = { navController.navigate("SignUp")},
+                onClick = { navController.navigate("OnBoarding")},
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(Color(255,165,0))
             ){

@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.navigation.compose.rememberNavController
-
 import com.example.carappcompose.navigation.Navigation
 import com.example.carappcompose.ui.theme.CarAppComposeTheme
 
@@ -18,8 +17,6 @@ class MainActivity : ComponentActivity() {
            CarAppComposeTheme {
                val navController = rememberNavController()
                Navigation(navController)
-
-
            }
         }
     }

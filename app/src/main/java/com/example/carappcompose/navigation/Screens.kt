@@ -14,7 +14,7 @@ sealed class Screens(val route:String){
      object Main:Screens("Main")
 //     object Details:Screens("Details")
 
-
+object OnBoarding:Screens("OnBoarding")
      object Details : Screens("Details/{$NAME_KEY}/{$PRICE_KEY}") {
           fun getFullRoute(name: String, price:String): String {
                return "Details/$name/$price"

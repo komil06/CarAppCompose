@@ -39,7 +39,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,7 +47,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -71,7 +72,6 @@ import com.example.carappcompose.Database.UserClass
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.R
 import com.example.carappcompose.ui.theme.poppinsFamily
-import com.example.carappcompose.ui.theme.primaryColor
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 
@@ -193,10 +193,13 @@ fun SignUpScreen(navController: NavController){
                 onValueChange = { fullname = it },
                 label = { Text("Full Name",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = primaryColor,
-                ),
-                shape = RoundedCornerShape(12.dp)
+
+                shape = RoundedCornerShape(12.dp),
+//                shadow = Shadow(
+//                    color = Color.Red,
+//                    offset = Offset(2.0f, 5.0f),
+//                    blurRadius = 2f
+//                )
             )
 
             Spacer(modifier = Modifier.height(15.dp))
@@ -208,9 +211,7 @@ fun SignUpScreen(navController: NavController){
                 onValueChange = { username = it },
                 label = { Text("Username",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = primaryColor,
-                ),
+
                 shape = RoundedCornerShape(12.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
@@ -225,9 +226,6 @@ fun SignUpScreen(navController: NavController){
                     autoCorrect = true,
                     keyboardType = KeyboardType.Password,
                     imeAction = ImeAction.Next
-                ),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = primaryColor,
                 ),
                 trailingIcon = {
                     if(password.isNotEmpty()){
@@ -282,7 +280,7 @@ fun SignUpScreen(navController: NavController){
                                                 imageUrl.let{
                                                     imgUrl = it
                                                 }
-                                                UserData.UserCreate(UserClass(fullname.text, username.text, password, emptyList(), imgUrl))
+                                                        UserData.UserCreate(UserClass(fullname.text, username.text, password, emptyList(), imgUrl))
                                                 UserData.UserSave(context, username.text)
                                                 Toast.makeText(context, "User saved", Toast.LENGTH_SHORT).show()
 

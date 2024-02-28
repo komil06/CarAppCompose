@@ -1,7 +1,9 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -49,6 +52,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -58,6 +62,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserClass
@@ -166,11 +171,12 @@ fun WishlistScreen(navController: NavController){
             drawerState = drawerState
         ) {
             Scaffold(
+
                 topBar = {
                     CenterAlignedTopAppBar(
                         title = {
                             Text(
-                                "Wishlist",
+                                "CarStore",
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                                 fontFamily = poppinsFamily,
@@ -206,7 +212,19 @@ fun WishlistScreen(navController: NavController){
                     )
                 },
                 bottomBar = {
-                    NavigationBar {
+
+                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
+                        start = 25.dp, end = 25.dp, top = 20.dp
+                    )
+                        .clip(RoundedCornerShape(25.dp))
+//                        .background(Color.White)
+                        .border(
+                            BorderStroke(1.dp, Color.LightGray),
+                            shape = RoundedCornerShape(25.dp),),
+
+
+
+                        ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
                                 selected = selectedItemIndex == index,
@@ -216,7 +234,11 @@ fun WishlistScreen(navController: NavController){
 
                                 },
                                 label = {
-                                    Text(text = item.title)
+                                    Text(text = item.title,
+                                        fontFamily = poppinsFamily,
+                                        fontWeight = FontWeight.SemiBold,
+                                        modifier = Modifier.padding(top = 20.dp)
+                                    )
                                 },
                                 alwaysShowLabel = false,
                                 icon = {
@@ -233,8 +255,9 @@ fun WishlistScreen(navController: NavController){
                                             imageVector = if (index == selectedItemIndex) {
                                                 item.selectedIcon
                                             } else item.unselectedIcon,
-                                            contentDescription = item.title
-                                        )
+                                            contentDescription = item.title,
+
+                                            )
                                     }
                                 }
                             )

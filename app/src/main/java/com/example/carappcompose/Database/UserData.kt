@@ -2,6 +2,11 @@ package com.example.carappcompose.Database
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.app.ComponentActivity
 import com.google.firebase.Firebase
@@ -9,13 +14,17 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
 import com.google.firebase.storage.storage
+//import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 
 class UserData {
     companion object {
         private val users = FirebaseDatabase.getInstance().reference.child("users")
+
+//        var imageUrlState by remember { mutableStateOf<String?>(null) }
+
+
 
 
         fun UserCreate(user: UserClass) {
@@ -32,12 +41,19 @@ class UserData {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             return preferences.getString("user", "") ?: ""
         }
+        fun getCarSaved(context: Context): String {
+            val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
+            return preferences.getString("car", "") ?: ""
+        }
 
         fun UserSave(context: Context, user: String) {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             preferences.edit().putString("user", user).apply()
         }
-
+        fun CarSave(context: Context, car: String) {
+            val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
+            preferences.edit().putString("car", car).apply()
+        }
         fun Usercheck(user: String, callback: (Boolean) -> Unit) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -61,6 +77,12 @@ class UserData {
                 }
             })
         }
+
+
+
+
+
+
         fun UserGet(user: TextFieldValue, password: TextFieldValue, callback: (String) -> Unit) {
             val userText = user.text
             val passwordText = password.text
@@ -99,6 +121,20 @@ class UserData {
             })
         }
 
+
+
+//        fun GetImage(user: String) {
+//            users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                    var value  = dataSnapshot.getValue(UserClass::class.java)
+////                    Picasso.get().load(value).into()
+//                }
+//
+//                override fun onCancelled(databaseError: DatabaseError) {
+////                    callback(false)
+//                }
+//            })
+//        }
         fun isFavourite(user: String, model:String, callback: (Boolean) -> Unit) {
 
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -109,6 +145,8 @@ class UserData {
                     if (dataSnapshot.exists()) {
                         for (item in favourites) {
                             if (item == model) {
+
+
 
                                 callback(true)
                             }
@@ -123,9 +161,6 @@ class UserData {
                 }
             })
         }
-
-
-
 
 
         fun ChangePassword(user: String, password: String) {
@@ -168,6 +203,11 @@ class UserData {
                 callback(false, null.toString())
             }
         }
+
+
+
+
+
 
 
 
