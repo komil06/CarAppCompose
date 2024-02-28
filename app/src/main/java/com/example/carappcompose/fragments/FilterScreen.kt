@@ -1,6 +1,7 @@
 package com.example.carappcompose.fragments
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,6 +28,7 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -50,8 +53,13 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun FilterScreen(navController: NavController) {
-//    val used = CarData.UsedCars()
-//    val new = CarData.NewCars()
+    var cars by remember {
+        mutableStateOf<List<String>>(emptyList())
+    }
+
+    CarData.GetCars { list ->
+        cars = list
+    }
     var sliderPosition by remember{ mutableFloatStateOf(0f)}
     Column(modifier = Modifier.padding(10.dp)) {
         val pagerState = rememberPagerState(
@@ -164,32 +172,49 @@ fun FilterScreen(navController: NavController) {
 
                 if (pagerState.currentPage == 1) {
                         Column(
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier.fillMaxSize().padding(0.dp,10.dp,0.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
+                            verticalArrangement = Arrangement.Top
                         ) {
+                            Text(
+                                text = "Here are new cars",
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(255, 87, 34, 255)
+                            )
                             LazyVerticalGrid(
                                 columns = GridCells.Fixed(2), modifier = Modifier
                                     .padding(bottom= 100.dp)
                             ) {
-                                items(5) {
-//                                    RecommendItem(navController)
+                                items(cars) { item ->
+//
+                                    RecommendItem(name = item, price = item, navController)
+//
                                 }
                             }
                         }
                     }
                     if (pagerState.currentPage == 2) {
                         Column(
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier.fillMaxSize().padding(0.dp,10.dp,0.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
+                            verticalArrangement = Arrangement.Top
                         ) {
+                            Text(
+                                text = "Find cheaper cars",
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(255, 87, 34, 255)
+                            )
                             LazyVerticalGrid(
                                 columns = GridCells.Fixed(2), modifier = Modifier
                                     .padding(bottom= 100.dp)
                             ) {
-                                items(5) {
-//                                    RecommendItem(navController)
+                                items(cars) { item ->
+//
+                                    RecommendItem(name = item, price = item, navController)
+//
+                                }
                                 }
                             }
                         }
@@ -197,7 +222,7 @@ fun FilterScreen(navController: NavController) {
 
             }
         }
-    }
+
 
 
   

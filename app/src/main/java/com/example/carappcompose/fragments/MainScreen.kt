@@ -2,6 +2,7 @@ package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -102,18 +103,10 @@ fun MainScreen(navController: NavController){
 
     val context = LocalContext.current
 
-
-
     var cars by remember {
     mutableStateOf<List<String>>(emptyList())
     }
-//    var cars by remember {
-//
-//        mutableStateOf<CarClass<List<String>>>(emptyList())
-//    }
 
-
-//    var carList = mutableListOf<CarClass>()
 
     CarData.GetCars { list ->
         cars = list
@@ -209,7 +202,6 @@ fun MainScreen(navController: NavController){
                                 .clickable {
                                 }
                             ,
-
 
                         )
                     }
@@ -361,21 +353,19 @@ fun MainScreen(navController: NavController){
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
 
-//                OutlinedTextField(
-//                    value = searchText,
-//                    leadingIcon = {Icon(imageVector =Icons.Default.Search, contentDescription = null, modifier = Modifier.padding(8.dp)) },
-//
-//                    onValueChange = {searchText},
-//                    label = { Text("Search",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-//                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-//                    shape = RoundedCornerShape(12.dp),
-//                    colors = TextFieldDefaults.outlinedTextFieldColors(
-//                        focusedBorderColor = primaryColor,
-//                    )
-//                )
+                OutlinedTextField(
+                    value = searchText,
+                    leadingIcon = {Icon(imageVector =Icons.Default.Search, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                    onValueChange = {searchText},
+                    label = { Text("Search",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = primaryColor,
+                    )
+                )
 
 
-//                SearchView(state = textState, placeHolder = "Search here...", modifier = modifier)
 
                 IconButton(  onClick = {navController.navigate("Filter")}, modifier = Modifier.padding(top = 10.dp)){
                     Icon(imageVector = Icons.Default.List, contentDescription = null, modifier = Modifier

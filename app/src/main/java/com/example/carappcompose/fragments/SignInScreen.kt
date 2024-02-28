@@ -100,8 +100,10 @@ fun SignInScreen(navController: NavController){
                 autoCorrect = true,
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Next,
-
-            ),
+                            ),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = primaryColor,
+                )
             )
 
 

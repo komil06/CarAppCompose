@@ -2,7 +2,6 @@ package com.example.carappcompose.Database
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.util.Log
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.app.ComponentActivity
 import com.google.firebase.Firebase
@@ -10,6 +9,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 
@@ -110,8 +110,6 @@ class UserData {
                         for (item in favourites) {
                             if (item == model) {
 
-
-
                                 callback(true)
                             }
                         }
@@ -125,6 +123,9 @@ class UserData {
                 }
             })
         }
+
+
+
 
 
         fun ChangePassword(user: String, password: String) {
