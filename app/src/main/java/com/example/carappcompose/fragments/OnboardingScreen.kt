@@ -2,7 +2,9 @@ package com.example.carappcompose.fragments
 
 import android.content.Context
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -175,9 +177,14 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
             },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.BottomCenter),
-                shape = RoundedCornerShape(12.dp),
+                    .align(Alignment.BottomCenter)
+//                    .border(
+//                        BorderStroke(1.dp, Color.Black),
+//                        shape = RoundedCornerShape(25.dp),)
+                ,
+                shape = RoundedCornerShape(20.dp),
                 colors = ButtonDefaults.buttonColors(Color(255,165,0)),
+
 
 
             ) {

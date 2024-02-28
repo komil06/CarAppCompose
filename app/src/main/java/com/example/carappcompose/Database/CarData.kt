@@ -1,5 +1,6 @@
 package com.example.carappcompose.Database
 
+import androidx.compose.ui.text.input.TextFieldValue
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -32,7 +33,7 @@ class CarData {
 
 
         fun GetCars(callback: (List<String>) -> Unit) {
-           cars.addValueEventListener(object : ValueEventListener {
+            cars.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val cars = dataSnapshot.children.mapNotNull { it.key }
 
@@ -60,19 +61,19 @@ class CarData {
             })
         }
 
-        fun searchCars(query:String):MutableList<CarClass>{
-            var carList = mutableListOf<CarClass>()
-            GetCars {
-                carList
-            }
-
-            for (car1 in carList) {
-                if (car1.title!!.contains(query)){
-                    searchList.add(car1)
-                }
-            }
-            return searchList
-        }
+//        fun searchCars(query:String):MutableList<CarClass>{
+//            var carList = mutableListOf<CarClass>()
+//            GetCars {
+//                carList
+//            }
+//
+//            for (car1 in carList) {
+//                if (car1.title!!.contains(query)){
+//                    searchList.add(car1)
+//                }
+//            }
+//            return searchList
+//        }
 
 
 //        val con = false

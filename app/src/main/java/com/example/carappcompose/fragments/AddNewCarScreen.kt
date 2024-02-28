@@ -385,7 +385,7 @@ fun AddNewCarScreen(navController: NavController){
 
 
             CarData.CreateCar(CarClass(UserData.getUserSaved(context),title.text, year.text, brand.text, price.text, description.text))
-//            UserData.UserSave(context, username.text)
+//            UserData.CarSave(context, title.text)
 
             Toast.makeText(
                 context, "Mashinangiz ro'yxatga muvaqqiyatli qo'shildi", Toast.LENGTH_SHORT

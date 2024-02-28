@@ -1,7 +1,10 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -161,6 +164,15 @@ fun MainScreen(navController: NavController){
                 ModalDrawerSheet {
 
                 Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
+
+                    Image(
+                        painter = painterResource(id = R.drawable.baseline_account_circle_24),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .padding(top = 40.dp)
+                            .fillMaxWidth()
+                            .height(100.dp),
+                    )
 //                    if (UserData.imageUrlState != null) {
 //                        Image(
 //                            painter = rememberImagePainter(
@@ -302,7 +314,18 @@ fun MainScreen(navController: NavController){
                 },
                 bottomBar = {
 
-                    NavigationBar(modifier = Modifier.zIndex(3f)) {
+                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
+                        start = 25.dp, end = 25.dp, top = 20.dp
+                        )
+                        .clip(RoundedCornerShape(25.dp))
+//                        .background(Color.White)
+                        .border(
+                            BorderStroke(1.dp, Color.LightGray),
+                            shape = RoundedCornerShape(25.dp),),
+
+
+
+                        ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
                                 selected = selectedItemIndex == index,
@@ -315,6 +338,7 @@ fun MainScreen(navController: NavController){
                                     Text(text = item.title,
                                         fontFamily = poppinsFamily,
                                         fontWeight = FontWeight.SemiBold,
+                                        modifier = Modifier.padding(top = 20.dp)
                                         )
                                 },
                                 alwaysShowLabel = false,
@@ -332,7 +356,8 @@ fun MainScreen(navController: NavController){
                                             imageVector = if (index == selectedItemIndex) {
                                                 item.selectedIcon
                                             } else item.unselectedIcon,
-                                            contentDescription = item.title
+                                            contentDescription = item.title,
+
                                         )
                                     }
                                 }
@@ -420,7 +445,7 @@ fun MainScreen(navController: NavController){
                 }
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
-                    modifier = Modifier.padding(bottom = 100.dp)
+                    modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
                 ) {
                     items(cars) { item ->
 //

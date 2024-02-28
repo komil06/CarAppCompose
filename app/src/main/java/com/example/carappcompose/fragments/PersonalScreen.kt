@@ -1,7 +1,9 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -156,6 +159,7 @@ fun PersonalScreen(navController: NavController){
             drawerState = drawerState
         ) {
             Scaffold(
+
                 topBar = {
                     CenterAlignedTopAppBar(
                         title = {
@@ -196,7 +200,19 @@ fun PersonalScreen(navController: NavController){
                     )
                 },
                 bottomBar = {
-                    NavigationBar {
+
+                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
+                        start = 25.dp, end = 25.dp, top = 20.dp
+                    )
+                        .clip(RoundedCornerShape(25.dp))
+//                        .background(Color.White)
+                        .border(
+                            BorderStroke(1.dp, Color.LightGray),
+                            shape = RoundedCornerShape(25.dp),),
+
+
+
+                        ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
                                 selected = selectedItemIndex == index,
@@ -206,7 +222,11 @@ fun PersonalScreen(navController: NavController){
 
                                 },
                                 label = {
-                                    Text(text = item.title)
+                                    Text(text = item.title,
+                                        fontFamily = poppinsFamily,
+                                        fontWeight = FontWeight.SemiBold,
+                                        modifier = Modifier.padding(top = 20.dp)
+                                    )
                                 },
                                 alwaysShowLabel = false,
                                 icon = {
@@ -223,8 +243,9 @@ fun PersonalScreen(navController: NavController){
                                             imageVector = if (index == selectedItemIndex) {
                                                 item.selectedIcon
                                             } else item.unselectedIcon,
-                                            contentDescription = item.title
-                                        )
+                                            contentDescription = item.title,
+
+                                            )
                                     }
                                 }
                             )

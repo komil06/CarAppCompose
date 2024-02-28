@@ -47,7 +47,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -192,7 +194,12 @@ fun SignUpScreen(navController: NavController){
                 label = { Text("Full Name",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
 
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
+//                shadow = Shadow(
+//                    color = Color.Red,
+//                    offset = Offset(2.0f, 5.0f),
+//                    blurRadius = 2f
+//                )
             )
 
             Spacer(modifier = Modifier.height(15.dp))

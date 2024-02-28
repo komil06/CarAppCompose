@@ -102,6 +102,10 @@ fun SignInScreen(navController: NavController){
                 imeAction = ImeAction.Next,
 
             ),
+
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = primaryColor,
+                )
             )
 
 
@@ -115,7 +119,7 @@ fun SignInScreen(navController: NavController){
                 onClick = {
                     UserData.UserGet(username, password) { result ->
                         if (result == "Successful Login") {
-                            Toast.makeText(context, "Welcome, ${username.text} ", Toast.LENGTH_SHORT)
+                            Toast.makeText(context,"Welcome, ${username.text} ", Toast.LENGTH_SHORT)
                                 .show()
                             UserData.UserSave(context, username.text)
                             navController.navigate("Main")

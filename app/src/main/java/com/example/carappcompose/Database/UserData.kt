@@ -41,13 +41,19 @@ class UserData {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             return preferences.getString("user", "") ?: ""
         }
-
+        fun getCarSaved(context: Context): String {
+            val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
+            return preferences.getString("car", "") ?: ""
+        }
 
         fun UserSave(context: Context, user: String) {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             preferences.edit().putString("user", user).apply()
         }
-
+        fun CarSave(context: Context, car: String) {
+            val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
+            preferences.edit().putString("car", car).apply()
+        }
         fun Usercheck(user: String, callback: (Boolean) -> Unit) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
