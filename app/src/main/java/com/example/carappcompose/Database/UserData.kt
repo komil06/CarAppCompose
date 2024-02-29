@@ -206,8 +206,15 @@ class UserData {
 
 
 
-
-
+        val searchList = emptyList<CarClass>()
+        fun searchCar(name:String): List<CarClass> {
+            users.child(name).get().addOnSuccessListener {
+                if (it.exists()){
+                    searchList.plus(it)
+                }
+            }
+            return searchList
+        }
 
 
 

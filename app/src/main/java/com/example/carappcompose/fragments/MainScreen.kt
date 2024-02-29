@@ -401,12 +401,15 @@ fun MainScreen(navController: NavController){
 
                     onValueChange = {searchText},
                     label = { Text("Search",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     shape = RoundedCornerShape(12.dp),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = primaryColor,
                     )
                 )
+                UserData.searchCar(searchText.toString())
+
+
 
 
 //                SearchView(state = textState, placeHolder = "Search here...", modifier = modifier)

@@ -40,11 +40,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
+import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.Item
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.primaryColor
@@ -114,6 +116,8 @@ fun FilterScreen(navController: NavController) {
             )
         }
         HorizontalPager(state = pagerState, userScrollEnabled = true) {
+            var name by remember { mutableStateOf(TextFieldValue("")) }
+            var brand by remember {mutableStateOf(TextFieldValue("")) }
             if (pagerState.currentPage == 0) {
                 Column(
                     modifier = Modifier
@@ -121,9 +125,9 @@ fun FilterScreen(navController: NavController) {
                         .padding(50.dp, 0.dp, 50.dp, 0.dp),
                     verticalArrangement = Arrangement.Center,
                 ) {
-                    TextField(value = "", onValueChange = {}, label = { Text("Enter model name") })
+                    TextField(value = name.text, onValueChange = {name.text}, label = { Text("Enter model name") })
                     Spacer(modifier = Modifier.height(20.dp))
-                    TextField(value = "", onValueChange = {}, label = { Text("Enter brand name") })
+                    TextField(value = brand.text, onValueChange = {brand.text}, label = { Text("Enter brand name") })
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(text = "Price Range", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
                     Slider(
@@ -145,14 +149,14 @@ fun FilterScreen(navController: NavController) {
                         columns = GridCells.Fixed(2), modifier = Modifier
                             .padding(bottom= 100.dp)
                     ) {
-                        items(5) {
-//                            RecommendItem(navController)
+                        items(UserData.searchList.size) {
+                             UserData.searchList
                         }
                     }
 
                     Spacer(modifier = Modifier.height(70.dp))
                     Button(
-                        onClick = {}, modifier = Modifier
+                        onClick = {UserData.searchCar(name.text)}, modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(20.dp)
                             .height(55.dp)
@@ -172,7 +176,9 @@ fun FilterScreen(navController: NavController) {
 
                 if (pagerState.currentPage == 1) {
                         Column(
-                            modifier = Modifier.fillMaxSize().padding(0.dp,10.dp,0.dp),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(0.dp, 10.dp, 0.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Top
                         ) {
@@ -196,7 +202,9 @@ fun FilterScreen(navController: NavController) {
                     }
                     if (pagerState.currentPage == 2) {
                         Column(
-                            modifier = Modifier.fillMaxSize().padding(0.dp,10.dp,0.dp),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(0.dp, 10.dp, 0.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Top
                         ) {
