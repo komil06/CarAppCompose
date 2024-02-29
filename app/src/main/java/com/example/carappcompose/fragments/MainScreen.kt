@@ -139,7 +139,7 @@ fun MainScreen(navController: NavController){
 
             ),
         NavigationItem(
-            title = "Personal",
+            title = "Profile",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
         ),

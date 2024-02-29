@@ -28,6 +28,8 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -103,7 +105,7 @@ fun WishlistScreen(navController: NavController){
 
             ),
         NavigationItem(
-            title = "Personal",
+            title = "Profile",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
         ),
@@ -166,6 +168,20 @@ fun WishlistScreen(navController: NavController){
                                 }
                             ,)
                     }
+                    Button(modifier = Modifier
+                        .padding(top = 5.dp)
+                        .fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color.Transparent),
+                        onClick = {
+                            UserData.UserSave(context, "")
+                            navController.navigate("SignIn")
+                        }) {
+                        Text(text = "Log out", fontSize = 20.sp,
+                            fontFamily = poppinsFamily,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color.Black
+                        )
+                    }
                 }
             },
             drawerState = drawerState
@@ -176,7 +192,7 @@ fun WishlistScreen(navController: NavController){
                     CenterAlignedTopAppBar(
                         title = {
                             Text(
-                                "CarStore",
+                                "Wishlist",
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                                 fontFamily = poppinsFamily,

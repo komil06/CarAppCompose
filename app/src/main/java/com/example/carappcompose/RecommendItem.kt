@@ -41,35 +41,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
-import com.example.carappcompose.ui.theme.primaryColor
 
 @Composable
 fun RecommendItem(name: String, price:String, navController: NavController){
     val context = LocalContext.current
-    var car_detail by remember {
-        mutableStateOf<List<String>>(emptyList())
-    }
+
     Card(modifier = Modifier
         .padding(5.dp)
         .width(175.dp)
-        .height(300.dp)
-//        .clip(RoundedCornerShape(20.dp))
-
+        .height(320.dp)
         .clickable {
-//            CarData.GetCar { list ->
-//                car_detail = list
-//            }
             navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price))
 
-        }
-//        .border(
-//            BorderStroke(1.dp, primaryColor),
-//            shape = RoundedCornerShape(20.dp),)
-        ,   colors = CardDefaults.cardColors(
+        },   colors = CardDefaults.cardColors(
         containerColor = Color.White,
     )){
         var isClicked by remember {
