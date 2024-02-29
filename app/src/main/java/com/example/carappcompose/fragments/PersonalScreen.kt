@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -28,6 +29,8 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -40,6 +43,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -74,7 +78,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PersonalScreen(navController: NavController){
+fun ProfileScreen(navController: NavController){
     val context = LocalContext.current
 
     val items = listOf(
@@ -90,7 +94,7 @@ fun PersonalScreen(navController: NavController){
 
             ),
         NavigationItem(
-            title = "Personal",
+            title = "Profile",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
 //            badgeCount = 45
@@ -154,6 +158,20 @@ fun PersonalScreen(navController: NavController){
                                 }
                             ,)
                     }
+                    Button(modifier = Modifier
+                        .padding(top = 5.dp)
+                        .fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color.Transparent),
+                        onClick = {
+                            UserData.UserSave(context, "")
+                            navController.navigate("SignIn")
+                        }) {
+                        Text(text = "Log out", fontSize = 20.sp,
+                            fontFamily = poppinsFamily,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color.Black
+                        )
+                    }
                 }
             },
             drawerState = drawerState
@@ -164,7 +182,7 @@ fun PersonalScreen(navController: NavController){
                     CenterAlignedTopAppBar(
                         title = {
                             Text(
-                                "CarStore",
+                                "Profile",
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                                 fontFamily = poppinsFamily,
@@ -294,93 +312,142 @@ fun PersonalScreen(navController: NavController){
                     )
 
 
+
                 Row(modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
-                    Text(
-                        text = "My Username: ",
-                        fontFamily = poppinsFamily,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color(168, 175, 185)
-                    )
+                    .padding(start = 10.dp, end = 10.dp, top =15.dp).clickable { }, horizontalArrangement = Arrangement.SpaceEvenly,
+
+                    ) {
 
 
-Row(modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVertically){
+                    OutlinedButton(
+                        onClick = {
+//                            navController.navigate("Selling")
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 20.dp)
+                            .clip(CircleShape)
+                            .border(0.5.dp, Color.Gray),
+
+
+
+
+
+
+                        ){
                         Text(
-                            text = UserData.getUserSaved(context),
+                            text = "My Username: ",
+
                             fontFamily = poppinsFamily,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = primaryColor,
+                            overflow = TextOverflow.Ellipsis
+                        )
 
-                            )
-                    Icon(
-                        imageVector = Icons.Filled.KeyboardArrowRight,
-                        contentDescription = "Localized description",
-                        modifier = Modifier
-                            .padding(start = 0.dp)
-                    )
+                        Text(
+                            modifier = Modifier.padding(start = 50.dp),
+                            text = UserData.getUserSaved(context),
 
-}
+
+                            fontFamily = poppinsFamily,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = primaryColor,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Icon(
+                            imageVector = Icons.Filled.KeyboardArrowRight,
+                            contentDescription = "Localized description",
+                            modifier = Modifier
+                                .padding(start = 0.dp, end = 10.dp)
+                        )
+                    }
+
+
+
 
                 }
 
                 Row(modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp).clickable { navController.navigate("Selling")}, horizontalArrangement = Arrangement.SpaceEvenly,
+                    .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { }, horizontalArrangement = Arrangement.SpaceEvenly,
 
                     ) {
-                    Text(
-                        text = "My cars",
-                        fontFamily = poppinsFamily,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color(168, 175, 185)
-                    )
 
 
-                        Icon(
-                            imageVector = Icons.Filled.KeyboardArrowRight,
-                            contentDescription = "Localized description",
-                            modifier = Modifier
-                                .padding(start = 0.dp)
-                        )
-
-                    }
+                    OutlinedButton(
+                        onClick = {
+                            navController.navigate("Selling")
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 20.dp)
+                            .clip(CircleShape)
+                            .border(0.5.dp, Color.Gray),
 
 
 
 
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
-                    Text(
-                        text = "My Password: ",
-                        fontFamily = poppinsFamily,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color(168, 175, 185)
-                    )
 
 
-                    Row(modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVertically){
+                    ){
                         Text(
-                            text = UserData.getUserSaved(context),
+                            text = "My cars",
                             fontFamily = poppinsFamily,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = primaryColor,
-
-                            )
+                            overflow = TextOverflow.Ellipsis
+                        )
                         Icon(
                             imageVector = Icons.Filled.KeyboardArrowRight,
                             contentDescription = "Localized description",
                             modifier = Modifier
-                                .padding(start = 0.dp)
+                                .padding(start = 100.dp, end = 10.dp)
                         )
+                    }
+
+
+
 
                     }
+
+
+
+
+//                Row(modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(start = 10.dp, end = 10.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+//
+//
+//                    Text(
+//                        text = "My Password: ",
+//                        fontFamily = poppinsFamily,
+//                        fontSize = 20.sp,
+//                        fontWeight = FontWeight.SemiBold,
+//                        color = Color(168, 175, 185)
+//                    )
+
+//
+//                    Row(modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVertically){
+//                        Text(
+//                            text = UserData.getUserSaved(context),
+//                            fontFamily = poppinsFamily,
+//                            fontSize = 20.sp,
+//                            fontWeight = FontWeight.SemiBold,
+//                            color = primaryColor,
+//
+//                            )
+//                        Icon(
+//                            imageVector = Icons.Filled.KeyboardArrowRight,
+//                            contentDescription = "Localized description",
+//                            modifier = Modifier
+//                                .padding(start = 0.dp)
+//                        )
+//
+//                    }
 
                 }
 
@@ -399,4 +466,4 @@ Row(modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVerti
 
 
 
-    }
+

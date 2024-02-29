@@ -3,6 +3,7 @@ package com.example.carappcompose.fragments
 import android.content.Context
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -17,8 +18,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -42,13 +48,9 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.carappcompose.MainActivity
 import com.example.carappcompose.R
 import com.example.carappcompose.ui.theme.poppinsFamily
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
     val animations = listOf(
@@ -68,12 +70,14 @@ fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
         "User wants to explore a new car by search options given( By location, price range, model, etc.)"
     )
     val pagerState = rememberPagerState(
-        pageCount = animations.size
+        pageCount = { animations.size }
     )
 
 
     Column(
-        Modifier.fillMaxSize(),
+        Modifier.fillMaxSize()
+            .verticalScroll(rememberScrollState())
+        ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -127,7 +131,7 @@ fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
 
 }
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ButtonsSection(pagerState: PagerState, navController: NavHostController, context: MainActivity) {
 
@@ -143,7 +147,7 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
                     .clickable {
 
                         scope.launch {
-                            val nextPage = pagerState.currentPage +1
+                            val nextPage = pagerState.currentPage + 1
                             pagerState.scrollToPage(nextPage)
                         }
                     },
@@ -157,8 +161,8 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
                     .align(Alignment.BottomStart)
                     .clickable {
                         scope.launch {
-                            val prevPage = pagerState.currentPage -1
-                            if (prevPage >= 0){
+                            val prevPage = pagerState.currentPage - 1
+                            if (prevPage >= 0) {
                                 pagerState.scrollToPage(prevPage)
                             }
                         }

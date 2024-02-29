@@ -2,7 +2,9 @@ package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -80,6 +82,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
@@ -115,7 +118,7 @@ fun SellingCarScreen(navController: NavController){
 
             ),
         NavigationItem(
-            title = "Personal",
+            title = "Profile",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
 //            badgeCount = 45
@@ -181,13 +184,29 @@ fun SellingCarScreen(navController: NavController){
                                 }
                             ,)
                     }
+                    Button(modifier = Modifier
+                        .padding(top = 5.dp)
+                        .fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color.Transparent),
+                        onClick = {
+                            UserData.UserSave(context, "")
+                            navController.navigate("SignIn")
+                        }) {
+                        Text(text = "Log out", fontSize = 20.sp,
+                            fontFamily = poppinsFamily,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color.Black
+                        )
+                    }
                 }
+
             },
             drawerState = drawerState
 
 
         ) {
             Scaffold(
+
                 topBar = {
                     CenterAlignedTopAppBar(
                         title = {
@@ -228,7 +247,19 @@ fun SellingCarScreen(navController: NavController){
                     )
                 },
                 bottomBar = {
-                    NavigationBar {
+
+                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
+                        start = 25.dp, end = 25.dp, top = 20.dp
+                    )
+                        .clip(RoundedCornerShape(25.dp))
+//                        .background(Color.White)
+                        .border(
+                            BorderStroke(1.dp, Color.LightGray),
+                            shape = RoundedCornerShape(25.dp),),
+
+
+
+                        ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
                                 selected = selectedItemIndex == index,
@@ -238,7 +269,11 @@ fun SellingCarScreen(navController: NavController){
 
                                 },
                                 label = {
-                                    Text(text = item.title)
+                                    Text(text = item.title,
+                                        fontFamily = poppinsFamily,
+                                        fontWeight = FontWeight.SemiBold,
+                                        modifier = Modifier.padding(top = 20.dp)
+                                    )
                                 },
                                 alwaysShowLabel = false,
                                 icon = {
@@ -255,8 +290,9 @@ fun SellingCarScreen(navController: NavController){
                                             imageVector = if (index == selectedItemIndex) {
                                                 item.selectedIcon
                                             } else item.unselectedIcon,
-                                            contentDescription = item.title
-                                        )
+                                            contentDescription = item.title,
+
+                                            )
                                     }
                                 }
                             )
@@ -311,7 +347,7 @@ fun SellingCarScreen(navController: NavController){
             }
 
 //           Column(modifier = Modifier.padding(top = 50.dp))){
-            LazyColumn(modifier = Modifier.padding(top = 65.dp, bottom = 80.dp))
+            LazyColumn(modifier = Modifier.padding(top = 65.dp, bottom = 100.dp))
             {
 
                 items(cars) { items ->
@@ -319,7 +355,7 @@ fun SellingCarScreen(navController: NavController){
                 }
 
            }
-           Column(modifier = Modifier.fillMaxSize().padding(bottom = 90.dp, end = 20.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Bottom,){
+           Column(modifier = Modifier.fillMaxSize().padding(bottom = 105.dp, end = 30.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Bottom,){
                FloatingActionButton(
                    onClick = { navController.navigate("NewCar") },
                ) {

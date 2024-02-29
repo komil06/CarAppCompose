@@ -23,7 +23,7 @@ object OnBoarding:Screens("OnBoarding")
 
      object Wishlist:Screens("Wishlist")
 
-     object Personal:Screens("Personal")
+     object Profile:Screens("Profile")
 
      object Selling:Screens("Selling")
 

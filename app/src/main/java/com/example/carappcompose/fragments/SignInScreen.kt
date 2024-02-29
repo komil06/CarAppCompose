@@ -11,13 +11,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -57,14 +60,30 @@ fun SignInScreen(navController: NavController){
     var username by remember { mutableStateOf(TextFieldValue("")) }
     var password by remember { mutableStateOf(TextFieldValue("")) }
     val context = LocalContext.current
+    val isUploading  = remember { mutableStateOf(false) }
+
     Surface(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp)
-        .background(primaryColor),
+        .background(primaryColor)
+        .verticalScroll(rememberScrollState())
+        ,
         ) {
-        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            val composition by rememberLottieComposition(spec = LottieCompositionSpec.Url("https://lottie.host/3ae5a037-9bbf-4c01-88f5-5b0800a40d67/h2uAKVCBce.lottie"))
-            LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever) }
+        Column(modifier = Modifier.fillMaxWidth().padding(top = 10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+
+//            val composition by rememberLottieComposition(spec = LottieCompositionSpec.Url("https://lottie.host/3ae5a037-9bbf-4c01-88f5-5b0800a40d67/h2uAKVCBce.lottie"))
+//            LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever)
+//
+            if(isUploading.value){
+                CircularProgressIndicator(
+                    modifier = Modifier.width(60.dp).height(60.dp),
+                    color = primaryColor
+                )
+            }
+        }
+
+
+
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(top = 90.dp),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
@@ -117,12 +136,19 @@ fun SignInScreen(navController: NavController){
                     .padding(20.dp)
                     .fillMaxWidth(),
                 onClick = {
+                    isUploading.value = true
                     UserData.UserGet(username, password) { result ->
                         if (result == "Successful Login") {
                             Toast.makeText(context,"Welcome, ${username.text} ", Toast.LENGTH_SHORT)
                                 .show()
                             UserData.UserSave(context, username.text)
                             navController.navigate("Main")
+                        }
+                        else{
+                            isUploading.value = false
+
+                            Toast.makeText(context, "Username or password is incorrect " , Toast.LENGTH_LONG)
+                                .show()
                         }
                     }
                           },
