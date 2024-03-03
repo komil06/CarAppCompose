@@ -7,8 +7,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/logo1"
+        android:label="CarSale"
+        android:roundIcon="@drawable/logo1"
         android:supportsRtl="true"
         android:theme="@style/Theme.CarAppCompose"
         tools:targetApi="31">
@@ -16,7 +17,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="CarSale"
             android:theme="@style/Theme.CarAppCompose">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
