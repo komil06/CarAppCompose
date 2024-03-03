@@ -17,12 +17,14 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -36,12 +38,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -50,6 +55,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.carappcompose.Database.UserData
+import com.example.carappcompose.R
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 
@@ -61,7 +67,12 @@ fun SignInScreen(navController: NavController){
     var password by remember { mutableStateOf(TextFieldValue("")) }
     val context = LocalContext.current
     val isUploading  = remember { mutableStateOf(false) }
+    var passwordVisibility by remember { mutableStateOf(false) }
 
+    val icon = if (passwordVisibility)
+        painterResource(id = R.drawable.baseline_visibility_24)
+    else
+        painterResource(id = R.drawable.baseline_visibility_off_24)
     Surface(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp)
@@ -114,7 +125,7 @@ fun SignInScreen(navController: NavController){
                 label = { Text("Password",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
                 shape = RoundedCornerShape(12.dp),
                         keyboardOptions = KeyboardOptions(
-                        capitalization = KeyboardCapitalization.None,
+
                 autoCorrect = true,
                 keyboardType = KeyboardType.Password,
                             imeAction = ImeAction.Done,
@@ -123,7 +134,20 @@ fun SignInScreen(navController: NavController){
 
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = primaryColor,
-                )
+                ),
+                visualTransformation = if (passwordVisibility) VisualTransformation.None
+                else PasswordVisualTransformation(),
+                trailingIcon = {
+                    IconButton(onClick = {
+                        passwordVisibility = !passwordVisibility
+                    }) {
+                        Icon(
+                            painter = icon,
+                            contentDescription = "Visibility Icon"
+                        )
+                    }
+                },
+
             )
 
 

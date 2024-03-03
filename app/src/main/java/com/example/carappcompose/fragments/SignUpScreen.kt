@@ -37,10 +37,12 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -61,7 +63,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ComponentActivity
@@ -74,6 +78,8 @@ import com.example.carappcompose.Database.UserClass
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.R
 import com.example.carappcompose.ui.theme.poppinsFamily
+import com.example.carappcompose.ui.theme.primaryColor
+import com.example.carappcompose.ui.theme.secondaryColor
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 
@@ -85,14 +91,18 @@ fun SignUpScreen(navController: NavController){
     var fullname by remember { mutableStateOf(TextFieldValue("")) }
 //    var password by remember { mutableStateOf(TextFieldValue("")) }
     val context = LocalContext.current
+    var passwordVisibility by remember { mutableStateOf(false) }
 
+    val icon = if (passwordVisibility)
+        painterResource(id = R.drawable.baseline_visibility_24)
+    else
+        painterResource(id = R.drawable.baseline_visibility_off_24)
     var imgUrl by remember {mutableStateOf("") }
     val database  = Firebase.database
     val isUploading  = remember { mutableStateOf(false) }
     val emty by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var passwordVisibility by remember { mutableStateOf(false) }
     var bitmap by remember { mutableStateOf<Bitmap?>(null)}
     var showDialog by remember { mutableStateOf(false)}
 
@@ -160,13 +170,9 @@ fun SignUpScreen(navController: NavController){
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .clip(CircleShape)
-                        .background(Color.LightGray)
-                        .size(100.dp)
-                        .border(
-                            width = 1.dp,
-                            color = Color.Green,
-                            shape = CircleShape
-                        )
+
+                        .size(130.dp)
+
 
                         .clickable { showDialog = true }
                 )
@@ -179,7 +185,8 @@ fun SignUpScreen(navController: NavController){
                     contentDescription = null,
                     modifier = Modifier
                         .clip(CircleShape)
-                        .background(Color.LightGray)
+                        .background(Color(255,165,0))
+
                         .size(130.dp)
 
 
@@ -196,9 +203,15 @@ fun SignUpScreen(navController: NavController){
                 leadingIcon = { Icon(imageVector = Icons.Default.Create, contentDescription = null, modifier = Modifier.padding(8.dp), ) },
                 onValueChange = { fullname = it },
                 label = { Text("Full Name",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next,
+
+                ),
 
                 shape = RoundedCornerShape(12.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = primaryColor,
+                ),
 //                shadow = Shadow(
 //                    color = Color.Red,
 //                    offset = Offset(2.0f, 5.0f),
@@ -214,51 +227,48 @@ fun SignUpScreen(navController: NavController){
                 leadingIcon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
                 onValueChange = { username = it },
                 label = { Text("Username",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next,
 
-                shape = RoundedCornerShape(12.dp)
+                    ),
+
+                shape = RoundedCornerShape(12.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = primaryColor,
+                ),
             )
             Spacer(modifier = Modifier.height(15.dp))
             OutlinedTextField(
                 value = password,
-                leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null, modifier = Modifier.padding(8.dp)) },
                 onValueChange = { password = it },
-                label = { Text("Password",  color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
+                label = { Text("Password",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
                 shape = RoundedCornerShape(12.dp),
                 keyboardOptions = KeyboardOptions(
-                    capitalization = KeyboardCapitalization.None,
+
                     autoCorrect = true,
                     keyboardType = KeyboardType.Password,
-                    imeAction = ImeAction.Next
+                    imeAction = ImeAction.Done,
+
+                    ),
+
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = primaryColor,
                 ),
+                visualTransformation = if (passwordVisibility) VisualTransformation.None
+                else PasswordVisualTransformation(),
                 trailingIcon = {
-                    if(password.isNotEmpty()){
-
-
-
-                        val visibilityIcon = if(passwordVisibility){
-                            painterResource(id = R.drawable.baseline_visibility_24)
-                        }
-
-                        else{
-                            painterResource(id = R.drawable.baseline_visibility_off_24)
-
-                        }
-
-
+                    IconButton(onClick = {
+                        passwordVisibility = !passwordVisibility
+                    }) {
                         Icon(
-                            painter = visibilityIcon,
-                            contentDescription = null,
-                            Modifier.clickable {
-                                passwordVisibility = !passwordVisibility
-                            }
+                            painter = icon,
+                            contentDescription = "Visibility Icon"
                         )
                     }
                 },
 
-
-
-            )
+                )
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 modifier = Modifier
@@ -379,10 +389,13 @@ fun SignUpScreen(navController: NavController){
                     verticalAlignment =Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .width(300.dp)
+                        .width(250.dp)
                         .height(100.dp)
                         .clip(RoundedCornerShape(30.dp))
-                        .background(Color.LightGray)
+                        .background(Color(255,165,0))
+
+
+
                 ){
 
                     Column (modifier = Modifier.padding(start = 10.dp)){
@@ -401,6 +414,8 @@ fun SignUpScreen(navController: NavController){
 
                         Text(
                             text = "Camera",
+
+                            fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
                             color = Color.White
                         )
 
@@ -429,12 +444,14 @@ fun SignUpScreen(navController: NavController){
 
                         Text(
                             text = "Gallery",
+                            fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
+
                             color = Color.White
                         )
                     }
 
                     Column(
-                        modifier = Modifier.padding(start = 20.dp,bottom = 60.dp, end = 0.dp)
+                        modifier = Modifier.padding(bottom = 60.dp)
                     ){
 
 
