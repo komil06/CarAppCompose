@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.carappcompose.fragments.AddNewCarScreen
+import com.example.carappcompose.fragments.ChangePassword
 import com.example.carappcompose.fragments.DetailsScreen
 import com.example.carappcompose.fragments.FilterScreen
 import com.example.carappcompose.fragments.MainScreen
@@ -89,7 +90,9 @@ class MainActivity : ComponentActivity() {
                    composable(route = Screens.Filter.route){
                        FilterScreen(navController = navController)
                    }
-
+                   composable(route = Screens.ChangePassword.route){
+                       ChangePassword(navController = navController)
+                   }
                    composable(route = Screens.NewCar.route){
                        AddNewCarScreen(navController = navController)
                    }

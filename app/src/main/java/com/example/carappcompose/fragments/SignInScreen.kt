@@ -101,7 +101,9 @@ fun SignInScreen(navController: NavController){
 
                 onValueChange = { username = it },
                 label = { Text("Username",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next,
+                    ),
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                       focusedBorderColor = primaryColor,
@@ -118,7 +120,7 @@ fun SignInScreen(navController: NavController){
                         capitalization = KeyboardCapitalization.None,
                 autoCorrect = true,
                 keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Next,
+                            imeAction = ImeAction.Done,
 
             ),
 

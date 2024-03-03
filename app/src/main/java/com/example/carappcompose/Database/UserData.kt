@@ -3,10 +3,13 @@ package com.example.carappcompose.Database
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
+import android.widget.Toast
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.app.ComponentActivity
 import com.google.firebase.Firebase
@@ -24,7 +27,9 @@ class UserData {
 
 //        var imageUrlState by remember { mutableStateOf<String?>(null) }
 
+//        val context = LocalContext.current
 
+//        val context = LocalContext.current
 
 
         fun UserCreate(user: UserClass) {
@@ -163,18 +168,26 @@ class UserData {
         }
 
 
-        fun ChangePassword(user: String, password: String) {
+        fun ChangePassword(user: String, password: String, oldPassword:String,callback: (String) -> Unit) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val changedUser = dataSnapshot.getValue(UserClass::class.java)
+                    if(oldPassword == changedUser!!.password){
                     changedUser?.let {
                         it.password = password
                         users.child(user).setValue(it)
+                        callback("Changed Successfully")
+                    }
+
+                    }
+                    else{
+                        callback("Not Changed")
                     }
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle onCancelled if needed
+                    callback("Not Changed Success")
+
                 }
             })
         }

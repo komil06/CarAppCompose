@@ -1,25 +1,25 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
@@ -28,29 +28,30 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -61,6 +62,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -70,7 +73,6 @@ import androidx.navigation.NavController
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
-import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
@@ -78,15 +80,23 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(navController: NavController){
+fun ChangePassword(navController: NavController){
+
+
     val context = LocalContext.current
 
-    val items = listOf(
+
+    val isUploading  = remember { mutableStateOf(false) }
+
+val items = listOf(
         NavigationItem(
             title = "Main",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
-        ),
+
+
+
+            ),
         NavigationItem(
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
@@ -97,22 +107,30 @@ fun ProfileScreen(navController: NavController){
             title = "Profile",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
-//            badgeCount = 45
         ),
+
     )
+
+
+
+
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
     ) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
         var selectedItemIndex by rememberSaveable {
             mutableStateOf(2)
         }
+
+//        var images = UserData.getSavedImage(context,)
         ModalNavigationDrawer(
+
             drawerContent = {
                 ModalDrawerSheet {
+
                     Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
+
                         Image(
                             painter = painterResource(id = R.drawable.baseline_account_circle_24),
                             contentDescription = null,
@@ -121,19 +139,35 @@ fun ProfileScreen(navController: NavController){
                                 .fillMaxWidth()
                                 .height(100.dp),
                         )
+//                    if (UserData.imageUrlState != null) {
+//                        Image(
+//                            painter = rememberImagePainter(
+//                                data = UserData.imageUrlState,
+//                                builder = {
+//                                    // You can customize image loading options here if needed
+//                                }
+//                            ),
+//                            contentDescription = "User Image",
+//                            modifier = Modifier
+//                                .size(200.dp) // Adjust the size as needed
+//                                .clip(MaterialTheme.shapes.medium)
+//                        )
+//                    }
+
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
 
                     }
                     Spacer(modifier = Modifier.height(50.dp))
+
+
                     items.forEachIndexed { index, item ->
                         NavigationDrawerItem(
                             label = {
                                 Text(text = item.title,
                                     fontFamily = poppinsFamily,
                                     fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-
-                                    )
+                                )
                             },
                             selected = index == selectedItemIndex,
                             onClick = {
@@ -152,12 +186,37 @@ fun ProfileScreen(navController: NavController){
                                     contentDescription = item.title
                                 )
                             },
+//                            badge = {
+//                                item.badgeCount?.let {
+//                                    Text(text = item.badgeCount.toString())
+//                                }
+//                            },
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
                                 .clickable {
                                 }
-                            ,)
+                            ,
+
+
+                            )
                     }
+
+//                    Button(modifier = Modifier.padding(top = 10.dp).fillMaxWidth(),
+//                        onClick = {
+//                            UserData.UserSave(context, "")
+//                            navController.navigate("SignIn")
+//                        }) {
+//                        Text(
+//                            modifier= Modifier.clickable {
+//                               },
+//                            text = "Log out",
+//                            fontFamily = poppinsFamily,
+//                            fontSize = 20.sp, fontWeight = FontWeight.SemiBold,
+//                            color = Color.Black
+//                            )
+//                    }
+
+
                     Button(modifier = Modifier
                         .padding(top = 5.dp)
                         .fillMaxWidth(),
@@ -176,13 +235,15 @@ fun ProfileScreen(navController: NavController){
             },
             drawerState = drawerState
         ) {
+
+
             Scaffold(
 
                 topBar = {
                     CenterAlignedTopAppBar(
                         title = {
                             Text(
-                                "Profile",
+                                "CarStore",
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                                 fontFamily = poppinsFamily,
@@ -192,9 +253,11 @@ fun ProfileScreen(navController: NavController){
                             )
                         },
                         navigationIcon = {
-                            IconButton(onClick = {   scope.launch {
-                                drawerState.open()
-                            } }) {
+                            IconButton(onClick = {
+                                scope.launch {
+                                    drawerState.open()
+                                }
+                            }) {
                                 Icon(
                                     imageVector = Icons.Default.Menu,
                                     contentDescription = "Menu",
@@ -219,15 +282,17 @@ fun ProfileScreen(navController: NavController){
                 },
                 bottomBar = {
 
-                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
-                        start = 25.dp, end = 25.dp, top = 20.dp
-                    )
-                        .clip(RoundedCornerShape(25.dp))
+                    NavigationBar(
+                        modifier = Modifier.zIndex(3f).padding(
+                            bottom = 20.dp,
+                            start = 25.dp, end = 25.dp, top = 20.dp
+                        )
+                            .clip(RoundedCornerShape(25.dp))
 //                        .background(Color.White)
-                        .border(
-                            BorderStroke(1.dp, Color.LightGray),
-                            shape = RoundedCornerShape(25.dp),),
-
+                            .border(
+                                BorderStroke(1.dp, Color.LightGray),
+                                shape = RoundedCornerShape(25.dp),
+                            ),
 
 
                         ) {
@@ -240,7 +305,8 @@ fun ProfileScreen(navController: NavController){
 
                                 },
                                 label = {
-                                    Text(text = item.title,
+                                    Text(
+                                        text = item.title,
                                         fontFamily = poppinsFamily,
                                         fontWeight = FontWeight.SemiBold,
                                         modifier = Modifier.padding(top = 20.dp)
@@ -250,7 +316,7 @@ fun ProfileScreen(navController: NavController){
                                 icon = {
                                     BadgedBox(
                                         badge = {
-                                            if(item.badgeCount != null) {
+                                            if (item.badgeCount != null) {
                                                 Badge {
                                                     Text(text = item.badgeCount.toString())
                                                 }
@@ -280,232 +346,91 @@ fun ProfileScreen(navController: NavController){
 
 
 
+            var password by remember { mutableStateOf(TextFieldValue("")) }
+            var old_password by remember { mutableStateOf(TextFieldValue("")) }
 
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 70.dp, start = 10.dp,end =10.dp)
+            ) {
+                Text(
+                    modifier = Modifier.padding(top = 10.dp).fillMaxWidth(),
+                    text = "Change Password",
 
+                    color = primaryColor,
+                    fontFamily = poppinsFamily,
+                    fontSize = 20.sp, fontWeight = FontWeight.SemiBold,
 
+                )
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp),
+                    value = old_password,
+//                    leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Shu yerga yoziladi
-
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 50.dp), verticalArrangement = Arrangement.Center) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_account_circle_24),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .padding(top = 40.dp)
-                        .fillMaxWidth()
-                        .height(100.dp),
-
+                    onValueChange = { old_password = it },
+                    label = { Text("Current Password",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = primaryColor,
                     )
+                )
+
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp),
+
+                    value = password,
+//                    leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+
+                    onValueChange = { password = it },
+                    label = { Text("New Password",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = primaryColor,
+                    )
+                )
+                Button(modifier = Modifier.padding(top = 10.dp, start = 115.dp), onClick = {
+
+                    isUploading.value = true
 
 
+                    UserData.ChangePassword(UserData.getUserSaved(context), password.text, old_password.text){result ->
 
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp, top =15.dp).clickable { }, horizontalArrangement = Arrangement.SpaceEvenly,
+                        if (result == "Changed Successfully") {
+                            isUploading.value = true
 
-                    ) {
+                            Toast.makeText(context,"Changed Successfully", Toast.LENGTH_SHORT)
+                                .show()
+                            navController.navigate("Profile")
+                        }
+                        else{
+                            isUploading.value = false
 
-
-                    OutlinedButton(
-                        onClick = {
-//                            navController.navigate("Selling")
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 20.dp, end = 20.dp)
-                            .clip(CircleShape)
-                            .border(0.5.dp, Color.Gray),
-
-
-
-
-
-
-                        ){
-                        Text(
-                            text = "My Username: ",
-
-                            fontFamily = poppinsFamily,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = primaryColor,
-                            overflow = TextOverflow.Ellipsis
-                        )
-
-                        Text(
-                            modifier = Modifier.padding(start = 10.dp),
-                            text = UserData.getUserSaved(context),
-
-
-                            fontFamily = poppinsFamily,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.Black,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        Icon(
-                            imageVector = Icons.Filled.KeyboardArrowRight,
-                            contentDescription = "Localized description",
-                            modifier = Modifier
-                                .padding(start = 0.dp, end = 10.dp)
-                        )
+                            Toast.makeText(context, "Changing Failed" , Toast.LENGTH_LONG)
+                                .show()
+                        }
                     }
 
 
-
+                }) {
+                    Text(text = "Change", fontSize = 20.sp)
 
                 }
 
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { }, horizontalArrangement = Arrangement.SpaceEvenly,
+                Column(modifier = Modifier.fillMaxWidth().padding(top = 10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
 
-                    ) {
-
-
-                    OutlinedButton(
-                        onClick = {
-                            navController.navigate("Selling")
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 20.dp, end = 20.dp)
-                            .clip(CircleShape)
-                            .border(0.5.dp, Color.Gray),
-
-
-
-
-
-
-                    ){
-                        Text(
-                            text = "My cars",
-                            fontFamily = poppinsFamily,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = primaryColor,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        Icon(
-                            imageVector = Icons.Filled.KeyboardArrowRight,
-                            contentDescription = "Localized description",
-                            modifier = Modifier
-                                .padding(start = 150.dp, end = 10.dp)
+                    if(isUploading.value){
+                        CircularProgressIndicator(
+                            modifier = Modifier.width(60.dp).height(60.dp),
+                            color = primaryColor
                         )
                     }
-
-
-
-
-                    }
-
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { }, horizontalArrangement = Arrangement.SpaceEvenly,
-
-                    ) {
-
-
-                    OutlinedButton(
-                        onClick = {
-                            navController.navigate("ChangePassword")
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 20.dp, end = 20.dp)
-                            .clip(CircleShape)
-                            .border(0.5.dp, Color.Gray),
-
-
-
-
-
-
-                        ){
-                        Text(
-                            text = "Change Password",
-                            fontFamily = poppinsFamily,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = primaryColor,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        Icon(
-                            imageVector = Icons.Filled.KeyboardArrowRight,
-                            contentDescription = "Localized description",
-                            modifier = Modifier
-                                .padding(start = 45.dp, end = 10.dp)
-                        )
-                    }
-
-
-
-
                 }
 
-
-//                Row(modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(start = 10.dp, end = 10.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
-//
-//
-//                    Text(
-//                        text = "My Password: ",
-//                        fontFamily = poppinsFamily,
-//                        fontSize = 20.sp,
-//                        fontWeight = FontWeight.SemiBold,
-//                        color = Color(168, 175, 185)
-//                    )
-
-//
-//                    Row(modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVertically){
-//                        Text(
-//                            text = UserData.getUserSaved(context),
-//                            fontFamily = poppinsFamily,
-//                            fontSize = 20.sp,
-//                            fontWeight = FontWeight.SemiBold,
-//                            color = primaryColor,
-//
-//                            )
-//                        Icon(
-//                            imageVector = Icons.Filled.KeyboardArrowRight,
-//                            contentDescription = "Localized description",
-//                            modifier = Modifier
-//                                .padding(start = 0.dp)
-//                        )
-//
-//                    }
-
-                }
-
-                }
 
             }
 
 
-
-
-
-
-
-
-        }
-
-
-
-
+        }}}

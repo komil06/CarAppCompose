@@ -29,4 +29,6 @@ object OnBoarding:Screens("OnBoarding")
 
      object NewCar:Screens("NewCar")
 
+     object ChangePassword:Screens("ChangePassword")
+
 }
