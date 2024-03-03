@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -71,6 +72,7 @@ import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
 import com.example.carappcompose.RecommendItem
+import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
@@ -113,14 +115,13 @@ fun ProfileScreen(navController: NavController){
             drawerContent = {
                 ModalDrawerSheet {
                     Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_account_circle_24),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .padding(top = 40.dp)
-                                .fillMaxWidth()
-                                .height(100.dp),
-                        )
+                        Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,
+
+                            ) {
+
+                            firebaseUI(LocalContext.current)
+
+                        }
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
 
@@ -301,15 +302,15 @@ fun ProfileScreen(navController: NavController){
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 50.dp), verticalArrangement = Arrangement.Center) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_account_circle_24),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .padding(top = 40.dp)
-                        .fillMaxWidth()
-                        .height(100.dp),
 
-                    )
+                Column(modifier = Modifier.fillMaxWidth().padding(top = 20.dp), horizontalAlignment = Alignment.CenterHorizontally,
+
+                    ) {
+
+                    firebaseUI(LocalContext.current)
+
+                }
+
 
 
 

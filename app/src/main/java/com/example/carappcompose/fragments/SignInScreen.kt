@@ -71,9 +71,6 @@ fun SignInScreen(navController: NavController){
         ) {
         Column(modifier = Modifier.fillMaxWidth().padding(top = 10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
 
-//            val composition by rememberLottieComposition(spec = LottieCompositionSpec.Url("https://lottie.host/3ae5a037-9bbf-4c01-88f5-5b0800a40d67/h2uAKVCBce.lottie"))
-//            LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever)
-//
             if(isUploading.value){
                 CircularProgressIndicator(
                     modifier = Modifier.width(60.dp).height(60.dp),

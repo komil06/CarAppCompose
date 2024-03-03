@@ -73,6 +73,7 @@ import androidx.navigation.NavController
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
+import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
@@ -131,14 +132,13 @@ val items = listOf(
 
                     Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
 
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_account_circle_24),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .padding(top = 40.dp)
-                                .fillMaxWidth()
-                                .height(100.dp),
-                        )
+                        Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,
+
+                            ) {
+
+                            firebaseUI(LocalContext.current)
+
+                        }
 //                    if (UserData.imageUrlState != null) {
 //                        Image(
 //                            painter = rememberImagePainter(
@@ -222,7 +222,7 @@ val items = listOf(
                         .fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color.Transparent),
                         onClick = {
-                            UserData.UserSave(context, "")
+                            UserData.UserSave(context, "",)
                             navController.navigate("SignIn")
                         }) {
                         Text(text = "Log out", fontSize = 20.sp,
