@@ -275,15 +275,17 @@ fun SignUpScreen(navController: NavController){
                     .padding(20.dp)
                     .fillMaxWidth(),
                 onClick = {
-                    isUploading.value = true
 
-                    if (" " in username.text) {
-                        Toast.makeText(context, "There is not any spaces left ", Toast.LENGTH_SHORT)
+                    if (username.text == "" || fullname.text =="" || password == "" || bitmap ==null) {
+                        isUploading.value = false
+
+                        Toast.makeText(context, "Fill all", Toast.LENGTH_SHORT)
                             .show()
                     } else {
                         UserData.Usercheck(username.text) {
                             if (it) {
 
+                                isUploading.value = true
 
                                 bitmap.let{bitmap ->
                                     if(bitmap != null){
@@ -296,7 +298,9 @@ fun SignUpScreen(navController: NavController){
                                                 }
                                                         UserData.UserCreate(UserClass(fullname.text, username.text, password, emptyList(), imgUrl))
                                                 UserData.UserSave(context, username.text)
-                                                Toast.makeText(context, "User saved", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(context, "User Saved Succesfully", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(context,"Welcome, ${username.text} ", Toast.LENGTH_LONG)
+                                                    .show()
 
                                                 navController.navigate("Main")
                                             }

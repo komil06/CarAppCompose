@@ -17,7 +17,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -39,10 +38,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -50,10 +47,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.R
 import com.example.carappcompose.ui.theme.poppinsFamily
@@ -107,7 +100,9 @@ fun SignInScreen(navController: NavController){
                 value = username,
                 leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
 
-                onValueChange = { username = it },
+                onValueChange = { username = it
+
+                                },
                 label = { Text("Username",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next,
@@ -117,6 +112,9 @@ fun SignInScreen(navController: NavController){
                       focusedBorderColor = primaryColor,
                 )
                 )
+
+
+
             Spacer(modifier = Modifier.height(10.dp))
             OutlinedTextField(
                 value = password,
@@ -159,7 +157,17 @@ fun SignInScreen(navController: NavController){
                     .padding(20.dp)
                     .fillMaxWidth(),
                 onClick = {
-                    isUploading.value = true
+
+
+                    if (username.text =="" || password.text =="" ) {
+                        isUploading.value = false
+
+                        Toast.makeText(context,"Username or password empty" , Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    else{
+                        isUploading.value = true
+
                     UserData.UserGet(username, password) { result ->
                         if (result == "Successful Login") {
                             Toast.makeText(context,"Welcome, ${username.text} ", Toast.LENGTH_SHORT)
@@ -173,6 +181,7 @@ fun SignInScreen(navController: NavController){
                             Toast.makeText(context, "Username or password is incorrect " , Toast.LENGTH_LONG)
                                 .show()
                         }
+                    }
                     }
                           },
                 shape = RoundedCornerShape(12.dp),
