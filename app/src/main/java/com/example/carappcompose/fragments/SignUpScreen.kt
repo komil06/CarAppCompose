@@ -457,20 +457,6 @@ fun SignUpScreen(navController: NavController){
     }
 
 
-//    Column(
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Bottom,
-//        modifier = Modifier
-//            .fillMaxSize()
-//    ){
-//
-//        if(isUploading.value){
-//            CircularProgressIndicator(
-//                modifier = Modifier.padding(bottom = 50.dp),
-//                color = Color.Black
-//            )
-//        }
-//
-//    }
+
 }
 

@@ -229,7 +229,20 @@ class UserData {
             return searchList
         }
 
+        fun changeImage(user: String, imgUrl: String) {
+            users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val changedImage = dataSnapshot.getValue(UserClass::class.java)
+                    changedImage?.let {
+                        it.imageUrl = imgUrl
+                    }
+                }
 
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle onCancelled if needed
+                }
+            })
+        }
 
 
     }

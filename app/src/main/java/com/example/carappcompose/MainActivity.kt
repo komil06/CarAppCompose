@@ -96,6 +96,9 @@ class MainActivity : ComponentActivity() {
                    composable(route = Screens.NewCar.route){
                        AddNewCarScreen(navController = navController)
                    }
+//                   composable(route = Screens.ChangeImage.route){
+//                       ChangeImage(navController = navController)
+//                   }
                }
            }
         }

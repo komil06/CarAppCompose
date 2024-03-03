@@ -52,6 +52,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -82,6 +83,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun ProfileScreen(navController: NavController){
     val context = LocalContext.current
+    var showDialog by remember { mutableStateOf(false)}
 
     val items = listOf(
         NavigationItem(
@@ -303,7 +305,7 @@ fun ProfileScreen(navController: NavController){
                 .fillMaxWidth()
                 .padding(top = 50.dp), verticalArrangement = Arrangement.Center) {
 
-                Column(modifier = Modifier.fillMaxWidth().padding(top = 20.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                Column(modifier = Modifier.fillMaxWidth().padding(top = 20.dp).clickable { showDialog = true }, horizontalAlignment = Alignment.CenterHorizontally,
 
                     ) {
 
@@ -358,12 +360,7 @@ fun ProfileScreen(navController: NavController){
                             color = Color.Black,
                             overflow = TextOverflow.Ellipsis
                         )
-                        Icon(
-                            imageVector = Icons.Filled.KeyboardArrowRight,
-                            contentDescription = "Localized description",
-                            modifier = Modifier
-                                .padding(start = 0.dp, end = 10.dp)
-                        )
+                      
                     }
 
 
@@ -460,37 +457,54 @@ fun ProfileScreen(navController: NavController){
                 }
 
 
+
+
 //                Row(modifier = Modifier
 //                    .fillMaxWidth()
-//                    .padding(start = 10.dp, end = 10.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+//                    .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { }, horizontalArrangement = Arrangement.SpaceEvenly,
+//
+//                    ) {
 //
 //
-//                    Text(
-//                        text = "My Password: ",
-//                        fontFamily = poppinsFamily,
-//                        fontSize = 20.sp,
-//                        fontWeight = FontWeight.SemiBold,
-//                        color = Color(168, 175, 185)
-//                    )
-
+//                    OutlinedButton(
+//                        onClick = {
+//                            navController.navigate("ChangeImage")
+//                        },
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(start = 20.dp, end = 20.dp)
+//                            .clip(CircleShape)
+//                            .border(0.5.dp, Color.Gray),
 //
-//                    Row(modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVertically){
+//
+//
+//
+//
+//
+//                        ){
 //                        Text(
-//                            text = UserData.getUserSaved(context),
+//                            text = "Change Image",
 //                            fontFamily = poppinsFamily,
 //                            fontSize = 20.sp,
 //                            fontWeight = FontWeight.SemiBold,
 //                            color = primaryColor,
-//
-//                            )
+//                            overflow = TextOverflow.Ellipsis
+//                        )
 //                        Icon(
 //                            imageVector = Icons.Filled.KeyboardArrowRight,
 //                            contentDescription = "Localized description",
 //                            modifier = Modifier
-//                                .padding(start = 0.dp)
+//                                .padding(start = 45.dp, end = 10.dp)
 //                        )
-//
 //                    }
+//
+//
+//
+//
+//                }
+
+
+
 
                 }
 

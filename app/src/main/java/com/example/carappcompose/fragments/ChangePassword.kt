@@ -139,20 +139,7 @@ val items = listOf(
                             firebaseUI(LocalContext.current)
 
                         }
-//                    if (UserData.imageUrlState != null) {
-//                        Image(
-//                            painter = rememberImagePainter(
-//                                data = UserData.imageUrlState,
-//                                builder = {
-//                                    // You can customize image loading options here if needed
-//                                }
-//                            ),
-//                            contentDescription = "User Image",
-//                            modifier = Modifier
-//                                .size(200.dp) // Adjust the size as needed
-//                                .clip(MaterialTheme.shapes.medium)
-//                        )
-//                    }
+
 
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
@@ -201,20 +188,7 @@ val items = listOf(
                             )
                     }
 
-//                    Button(modifier = Modifier.padding(top = 10.dp).fillMaxWidth(),
-//                        onClick = {
-//                            UserData.UserSave(context, "")
-//                            navController.navigate("SignIn")
-//                        }) {
-//                        Text(
-//                            modifier= Modifier.clickable {
-//                               },
-//                            text = "Log out",
-//                            fontFamily = poppinsFamily,
-//                            fontSize = 20.sp, fontWeight = FontWeight.SemiBold,
-//                            color = Color.Black
-//                            )
-//                    }
+
 
 
                     Button(modifier = Modifier
