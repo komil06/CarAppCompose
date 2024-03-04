@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -329,8 +330,9 @@ val items = listOf(
                     .padding(top = 70.dp, start = 10.dp,end =10.dp)
             ) {
                 Text(
-                    modifier = Modifier.padding(top = 10.dp).fillMaxWidth(),
+                    modifier = Modifier.padding(top = 10.dp).align(Alignment.CenterHorizontally),
                     text = "Change Password",
+
 
                     color = primaryColor,
                     fontFamily = poppinsFamily,
@@ -365,7 +367,13 @@ val items = listOf(
                         focusedBorderColor = primaryColor,
                     )
                 )
-                Button(modifier = Modifier.padding(top = 10.dp, start = 115.dp), onClick = {
+                Button(modifier = Modifier.padding(top = 11.9999.dp)
+                    .align(Alignment.CenterHorizontally)
+                    ,
+
+                    colors = ButtonDefaults.buttonColors(Color(255,165,0)),
+
+                    onClick = {
 
                     isUploading.value = true
 
