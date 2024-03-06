@@ -89,7 +89,6 @@ fun SignUpScreen(navController: NavController){
 
     var username by remember { mutableStateOf(TextFieldValue("")) }
     var fullname by remember { mutableStateOf(TextFieldValue("")) }
-//    var password by remember { mutableStateOf(TextFieldValue("")) }
     val context = LocalContext.current
     var passwordVisibility by remember { mutableStateOf(false) }
 
@@ -98,10 +97,7 @@ fun SignUpScreen(navController: NavController){
     else
         painterResource(id = R.drawable.baseline_visibility_off_24)
     var imgUrl by remember {mutableStateOf("") }
-    val database  = Firebase.database
     val isUploading  = remember { mutableStateOf(false) }
-    val emty by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var bitmap by remember { mutableStateOf<Bitmap?>(null)}
     var showDialog by remember { mutableStateOf(false)}

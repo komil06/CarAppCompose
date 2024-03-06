@@ -1,9 +1,18 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,8 +23,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -42,6 +53,7 @@ import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -70,6 +82,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -80,9 +94,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.core.app.ComponentActivity
 import androidx.navigation.NavController
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
+import com.example.carappcompose.Database.UserClass
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
@@ -106,7 +122,35 @@ fun AddNewCarScreen(navController: NavController){
     var price by remember { mutableStateOf(TextFieldValue("")) }
 
 
+    var imgUrl by remember {mutableStateOf("") }
+    val isUploading  = remember { mutableStateOf(false) }
+    var password by remember { mutableStateOf("") }
+    var bitmap by remember { mutableStateOf<Bitmap?>(null)}
+    var showDialog by remember { mutableStateOf(false)}
 
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ){uri: Uri? ->
+        uri?.let{
+            bitmap = if(Build.VERSION.SDK_INT <28){
+                MediaStore.Images.Media.getBitmap(context.contentResolver, it)
+            }
+            else{
+                var source = ImageDecoder.createSource(context.contentResolver,it)
+                ImageDecoder.decodeBitmap(source)
+            }
+        }
+    }
+
+
+    val cLauncher = rememberLauncherForActivityResult (
+        contract = ActivityResultContracts.TakePicturePreview()
+
+    ){
+
+        bitmap = it
+    }
 
 
 
@@ -161,11 +205,51 @@ fun AddNewCarScreen(navController: NavController){
             }
 
 
+
+        Column(modifier = Modifier.fillMaxWidth().padding(top = 10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+
+            if(isUploading.value){
+                CircularProgressIndicator(
+                    modifier = Modifier.width(60.dp).height(60.dp),
+                    color = primaryColor
+                )
+            }
+        }
             Column(modifier = Modifier.fillMaxSize().padding(top =60.dp)
                 .verticalScroll(rememberScrollState())
 
                 , horizontalAlignment = Alignment.CenterHorizontally){
 
+                if(bitmap !=null){
+                    Image(
+                        bitmap = bitmap?.asImageBitmap()!!,
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .clip(CircleShape)
+
+                            .size(130.dp)
+
+
+                            .clickable { showDialog = true }
+                    )
+                }
+
+                else{
+
+                    Image(
+                        painter = painterResource(id = R.drawable.plus),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .clip(CircleShape)
+
+                            .size(130.dp)
+
+
+
+                            .clickable { showDialog = true }
+                    )
+                }
 
             OutlinedTextField(
 
@@ -258,7 +342,7 @@ fun AddNewCarScreen(navController: NavController){
 
 
                 OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp).height(160.dp),
+                    modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp).height(100.dp),
                     value = description,
 //                    leadingIcon =
 //                    {Icon(imageVector =Icons.Default.Info, contentDescription = null, modifier = Modifier.padding(8.dp)) },
@@ -277,15 +361,38 @@ fun AddNewCarScreen(navController: NavController){
             .fillMaxWidth(),
         onClick = {
 
+            isUploading.value = true
 
-            CarData.CreateCar(CarClass(UserData.getUserSaved(context),title.text, year.text, brand.text, price.text, description.text))
-//            UserData.CarSave(context, title.text)
+            bitmap.let{bitmap ->
+                if(bitmap != null){
+                    CarData.uploadImageToFirebase(bitmap, context as ComponentActivity) { success, imageUrl ->
+                        isUploading.value = false
 
-            Toast.makeText(
-                context, "Mashinangiz ro'yxatga muvaqqiyatli qo'shildi", Toast.LENGTH_SHORT
-            ).show()
+                        if(success){
+                            imageUrl.let{
+                                imgUrl = it
+                            }
+                            CarData.CreateCar(CarClass(UserData.getUserSaved(context),title.text, year.text, brand.text, price.text, description.text, imgUrl))
 
-            navController.navigate("Main")
+                            Toast.makeText(
+                                context, "Mashinangiz ro'yxatga muvaqqiyatli qo'shildi", Toast.LENGTH_SHORT
+                            ).show()
+
+                            navController.navigate("Profile")
+                        }
+                        else{
+                            Toast.makeText(context, "Not Save", Toast.LENGTH_SHORT).show()
+
+                        }
+
+                    }
+                }
+            }
+
+
+
+
+
 
         },
         shape = RoundedCornerShape(12.dp),
@@ -299,5 +406,106 @@ fun AddNewCarScreen(navController: NavController){
     }
 
     }
+
+
+
+        Column(
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize(
+
+                )
+                .padding(bottom = 10.dp)
+
+        ) {
+
+
+            if(showDialog){
+                Row(
+                    verticalAlignment =Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .width(250.dp)
+                        .height(100.dp)
+                        .clip(RoundedCornerShape(30.dp))
+                        .background(Color(255,165,0))
+
+
+
+                ){
+
+                    Column (modifier = Modifier.padding(start = 10.dp)){
+
+
+                        Image(
+                            painter = painterResource(id = R.drawable.baseline_photo_camera_24),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clickable {
+                                    cLauncher.launch()
+                                    showDialog = false
+                                }
+                        )
+
+                        Text(
+                            text = "Camera",
+
+                            fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
+                            color = Color.White
+                        )
+
+
+                    }
+
+
+
+                    Spacer(modifier = Modifier.padding(30.dp))
+
+
+
+                    Column(){
+
+
+                        Image(
+                            painter = painterResource(id = R.drawable.baseline_image_24),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clickable {
+                                    launcher.launch("image/*")
+                                    showDialog = false
+                                }
+                        )
+
+                        Text(
+                            text = "Gallery",
+                            fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
+
+                            color = Color.White
+                        )
+                    }
+
+                    Column(
+                        modifier = Modifier.padding(bottom = 60.dp)
+                    ){
+
+
+
+
+                        Text(
+
+                            text = "X",
+                            fontFamily = poppinsFamily, fontWeight = FontWeight.Normal,
+                            color = Color.White,
+                            modifier = Modifier
+                                .clickable { showDialog = false }
+                        )
+                    }
+
+                }
+            }
+        }
 
 }}

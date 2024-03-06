@@ -37,7 +37,7 @@ fun MyCarItem(name: String, price:String, condition: String,description: String,
 
     Card(modifier = Modifier.padding(8.dp).fillMaxWidth().height(160.dp)
         .clickable {
-            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description))
+//            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description))
 
 
         }        .border(

@@ -8,6 +8,8 @@ data class CarClass(
     val price:String?,
 //    val condition:Boolean?=false,
     val description:String?,
+    var imageUrl:String
+
     ) {
-    constructor() : this(null,null, null, null, null,null)
+    constructor() : this(null,null, null, null, null,null, null.toString())
 }

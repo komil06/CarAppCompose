@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -23,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,12 +33,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 
 @Composable
-fun RecommendItem(name: String, price:String, condition: String,description: String, navController: NavController){
+fun RecommendItem(name: String, price:String, condition: String,description: String,imgUrl:String, navController: NavController){
     val context = LocalContext.current
 
     Card(modifier = Modifier
@@ -81,18 +85,23 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
 
         }
 Column(modifier = Modifier){
+
+
+
+
     Image(
-        painter = painterResource(id = R.drawable.hyundai),
-        contentDescription = null,
+        painter = rememberAsyncImagePainter(imgUrl),
+
+
+        contentDescription = "gfg image",
+
         modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
-            .height(180.dp)
+            .size(150.dp)
         ,
-        
 
-    )
+        contentScale = ContentScale.Crop,
 
+        )
     Spacer(modifier = Modifier.height(5.dp))
 
 

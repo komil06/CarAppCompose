@@ -35,7 +35,7 @@ fun Item(name: String, price:String, condition: String,description: String, navC
     Card(modifier = Modifier.padding(5.dp).width(175.dp).height(150.dp)
         .clickable {
 
-            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description))
+//            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description, imgUrl = imgUrl))
 
         }
         .border(

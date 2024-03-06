@@ -189,7 +189,7 @@ fun FilterScreen(navController: NavController) {
                             ) {
                                 items(cars) { item ->
 //
-                                    item.title?.let { item.price?.let { it1 -> item.brand?.let { it2 -> item.description?.let { it3 ->RecommendItem(name = it, price = it1,condition = it2, description = it3, navController) } } }
+//                                    item.title?.let { item.price?.let { it1 -> item.brand?.let { it2 -> item.description?.let { it3 ->RecommendItem(name = it, price = it1,condition = it2, description = it3, navController) } } }
 
 //
                                 }
@@ -215,8 +215,8 @@ fun FilterScreen(navController: NavController) {
                                     .padding(bottom= 100.dp)
                             ) {
                                 items(cars) { item ->
-//
-                                    item.title?.let { item.price?.let { it1 -> item.brand?.let { it2 -> item.description?.let { it3 ->RecommendItem(name = it, price = it1,condition = it2, description = it3, navController) } } }
+
+//                                    item.title?.let { item.price?.let { it1 -> item.brand?.let { it2 -> item.description?.let { it3 ->RecommendItem(name = it, price = it1,condition = it2, description = it3, navController) } } }
 
                                     }
                                 }
@@ -225,7 +225,7 @@ fun FilterScreen(navController: NavController) {
                     }
 
             }
-        }}}
+        }
 
 
 

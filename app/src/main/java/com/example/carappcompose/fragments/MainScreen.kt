@@ -276,9 +276,11 @@ fun MainScreen(navController: NavController){
                             )
                         },
                         navigationIcon = {
-                            IconButton(onClick = {   scope.launch {
-                                drawerState.open()
-                            } }) {
+                            IconButton(onClick = {
+                                scope.launch {
+                                    drawerState.open()
+                                }
+                            }) {
                                 Icon(
                                     imageVector = Icons.Default.Menu,
                                     contentDescription = "Menu",
@@ -303,15 +305,17 @@ fun MainScreen(navController: NavController){
                 },
                 bottomBar = {
 
-                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
-                        start = 25.dp, end = 25.dp, top = 20.dp
+                    NavigationBar(
+                        modifier = Modifier.zIndex(3f).padding(
+                            bottom = 20.dp,
+                            start = 25.dp, end = 25.dp, top = 20.dp
                         )
-                        .clip(RoundedCornerShape(25.dp))
+                            .clip(RoundedCornerShape(25.dp))
 //                        .background(Color.White)
-                        .border(
-                            BorderStroke(1.dp, Color.LightGray),
-                            shape = RoundedCornerShape(25.dp),),
-
+                            .border(
+                                BorderStroke(1.dp, Color.LightGray),
+                                shape = RoundedCornerShape(25.dp),
+                            ),
 
 
                         ) {
@@ -324,17 +328,18 @@ fun MainScreen(navController: NavController){
 
                                 },
                                 label = {
-                                    Text(text = item.title,
+                                    Text(
+                                        text = item.title,
                                         fontFamily = poppinsFamily,
                                         fontWeight = FontWeight.SemiBold,
                                         modifier = Modifier.padding(top = 20.dp)
-                                        )
+                                    )
                                 },
                                 alwaysShowLabel = false,
                                 icon = {
                                     BadgedBox(
                                         badge = {
-                                            if(item.badgeCount != null) {
+                                            if (item.badgeCount != null) {
                                                 Badge {
                                                     Text(text = item.badgeCount.toString())
                                                 }
@@ -347,7 +352,7 @@ fun MainScreen(navController: NavController){
                                             } else item.unselectedIcon,
                                             contentDescription = item.title,
 
-                                        )
+                                            )
                                     }
                                 }
                             )
@@ -355,7 +360,7 @@ fun MainScreen(navController: NavController){
                     }
                 },
 
-            )
+                )
             {
 
             }
@@ -378,18 +383,33 @@ fun MainScreen(navController: NavController){
 
 
 
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 70.dp),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 70.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
-            ){
+            ) {
 
                 OutlinedTextField(
                     value = searchText,
-                    leadingIcon = {Icon(imageVector =Icons.Default.Search, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = null,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    },
 
-                    onValueChange = {searchText},
-                    label = { Text("Search",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    onValueChange = { searchText },
+                    label = {
+                        Text(
+                            "Search",
+                            color = Color(168, 175, 185),
+                            fontFamily = poppinsFamily,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     shape = RoundedCornerShape(12.dp),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -399,28 +419,46 @@ fun MainScreen(navController: NavController){
                 UserData.searchCar(searchText.toString())
 
 
-
-
 //                SearchView(state = textState, placeHolder = "Search here...", modifier = modifier)
 
-                IconButton(  onClick = {navController.navigate("Filter")}, modifier = Modifier.padding(top = 10.dp)){
-                    Icon(imageVector = Icons.Default.List, contentDescription = null, modifier = Modifier
-                        .width(50.dp)
-                        .height(75.dp),
+                IconButton(
+                    onClick = { navController.navigate("Filter") },
+                    modifier = Modifier.padding(top = 10.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.List, contentDescription = null,
+                        modifier = Modifier
+                            .width(50.dp)
+                            .height(75.dp),
                     )
                 }
 
 
             }
 
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 150.dp)){
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 150.dp)
+            ) {
                 LazyRow(
                 ) {
                     items(cars) { item ->
 //
-                        item.title?.let { item.price?.let { it1 -> item.brand?.let { it2 -> item.description?.let { it3 ->Item(name = it, price = it1,condition = it2, description = it3, navController) } } }
+                        item.title?.let {
+                            item.price?.let { it1 ->
+                                item.brand?.let { it2 ->
+                                    item.description?.let { it3 ->
+                                        Item(
+                                            name = it,
+                                            price = it1,
+                                            condition = it2,
+                                            description = it3,
+                                            navController
+                                        )
+                                    }
+                                }
+                            }
 //
                         }
                     }
@@ -431,11 +469,25 @@ fun MainScreen(navController: NavController){
 
 
             Column(modifier = Modifier) {
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 320.dp, start = 15.dp, end = 15.dp), horizontalArrangement = Arrangement.SpaceBetween,){
-                    Text(text = "Recommended", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
-                    Text(text = "See all", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold, color = Color(168,175,185))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 320.dp, start = 15.dp, end = 15.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        text = "Recommended",
+                        fontFamily = poppinsFamily,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Text(
+                        text = "See all",
+                        fontFamily = poppinsFamily,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color(168, 175, 185)
+                    )
 
                 }
                 LazyVerticalGrid(
@@ -444,24 +496,33 @@ fun MainScreen(navController: NavController){
                 ) {
                     items(cars) { item ->
 //
-                        item.title?.let { item.price?.let { it1 -> item.brand?.let { it2 -> item.description?.let { it3 ->RecommendItem(name = it, price = it1,condition = it2, description = it3, navController) } } }
+                        item.title?.let {
+                            item.price?.let { it1 ->
+                                item.brand?.let { it2 ->
+                                    item.description?.let { it3 ->
+                                        item.imageUrl?.let { it4 ->
+                                            RecommendItem(
+                                                name = it,
+                                                price = it1,
+                                                condition = it2,
+                                                description = it3,
+                                                imgUrl = it4,
+                                                navController
+                                            )
+                                        }
+                                    }
+                                }
 //
+                            }
                         }
+                    }
+
+
                 }
             }
 
 
         }
-    }
-
-
-
-
-
-
-
-
-
 }}
 
 
