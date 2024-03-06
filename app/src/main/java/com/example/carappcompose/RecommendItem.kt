@@ -1,10 +1,13 @@
 package com.example.carappcompose
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -37,6 +40,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
+import com.example.carappcompose.ui.theme.primaryColor
 
 @Composable
 fun RecommendItem(name: String, price:String, condition: String,description: String,imgUrl:String, navController: NavController){
@@ -45,7 +49,11 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
     Card(modifier = Modifier
         .padding(5.dp)
         .width(175.dp)
-        .height(320.dp)
+        .fillMaxHeight()
+
+        .border(
+            BorderStroke(1.dp, Color.White),
+            shape = RoundedCornerShape(12.dp),)
         .clickable {
             navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description))
 
@@ -96,7 +104,8 @@ Column(modifier = Modifier){
         contentDescription = "gfg image",
 
         modifier = Modifier
-            .size(150.dp)
+            .fillMaxWidth()
+            .height(200.dp)
         ,
 
         contentScale = ContentScale.Crop,
@@ -105,11 +114,11 @@ Column(modifier = Modifier){
     Spacer(modifier = Modifier.height(5.dp))
 
 
-    Text(text = "$name".uppercase(),modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+    Text(text = "$name".uppercase(),modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 18.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
 
     Spacer(modifier = Modifier.height(5.dp))
-    Text(text = "$price".uppercase(),modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 12.sp, fontWeight = FontWeight.Medium,textAlign = TextAlign.Center, color = Color(255,165,0))
-    Spacer(modifier = Modifier.height(5.dp))
+    Text(text = "$price".uppercase() + " $",modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium,textAlign = TextAlign.Center, color = Color(255,165,0))
+    Spacer(modifier = Modifier.height(3.dp))
 
 
 }

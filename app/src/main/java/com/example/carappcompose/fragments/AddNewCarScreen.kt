@@ -87,6 +87,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -259,7 +260,10 @@ fun AddNewCarScreen(navController: NavController){
 
                 onValueChange = { title = it },
                 label = { Text("Car Name",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next,
+
+                    ),
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = primaryColor,
@@ -274,7 +278,10 @@ fun AddNewCarScreen(navController: NavController){
 
                 onValueChange = { year = it },
                 label = { Text("Manufactured year",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next,
+
+                    ),
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = primaryColor,
@@ -289,7 +296,10 @@ fun AddNewCarScreen(navController: NavController){
 
                         onValueChange = { brand = it },
                         label = { Text("Brand",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                            imeAction = ImeAction.Next,
+
+                            ),
                         shape = RoundedCornerShape(12.dp),
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             focusedBorderColor = primaryColor,
@@ -312,7 +322,10 @@ fun AddNewCarScreen(navController: NavController){
 
                         onValueChange = { condition = it },
                         label = { Text("Condition",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                            imeAction = ImeAction.Next,
+
+                            ),
                         shape = RoundedCornerShape(12.dp),
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             focusedBorderColor = primaryColor,
@@ -331,7 +344,10 @@ fun AddNewCarScreen(navController: NavController){
                     )},
                         onValueChange = { price = it },
                         label = { Text("Price",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                            imeAction = ImeAction.Next,
+
+                            ),
                         shape = RoundedCornerShape(12.dp),
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             focusedBorderColor = primaryColor,
@@ -348,7 +364,10 @@ fun AddNewCarScreen(navController: NavController){
 //                    {Icon(imageVector =Icons.Default.Info, contentDescription = null, modifier = Modifier.padding(8.dp)) },
                     onValueChange = { description = it },
                     label = { Text("Additional description",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Done,
+
+                        ),
                     shape = RoundedCornerShape(12.dp),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = primaryColor,
@@ -361,6 +380,16 @@ fun AddNewCarScreen(navController: NavController){
             .fillMaxWidth(),
         onClick = {
 
+
+            if (title.text == "" || brand.text =="" || condition.text == ""|| year.text == ""
+                || year.text == "" || description.text == "" || price.text == ""
+                || bitmap ==null) {
+                isUploading.value = false
+
+                Toast.makeText(context, "Fill all", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            else{
             isUploading.value = true
 
             bitmap.let{bitmap ->
@@ -389,7 +418,7 @@ fun AddNewCarScreen(navController: NavController){
                 }
             }
 
-
+            }
 
 
 

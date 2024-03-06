@@ -449,17 +449,20 @@ fun MainScreen(navController: NavController){
                             item.price?.let { it1 ->
                                 item.brand?.let { it2 ->
                                     item.description?.let { it3 ->
-                                        Item(
-                                            name = it,
-                                            price = it1,
-                                            condition = it2,
-                                            description = it3,
-                                            navController
-                                        )
+                                        item.imageUrl?.let { it4 ->
+                                            Item(
+                                                name = it,
+                                                price = it1,
+                                                condition = it2,
+                                                description = it3,
+                                                imgUrl = it4,
+                                                navController
+                                            )
+                                        }
                                     }
                                 }
-                            }
 //
+                            }
                         }
                     }
                 }

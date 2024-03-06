@@ -349,13 +349,28 @@ fun SellingCarScreen(navController: NavController){
             }
 
 //           Column(modifier = Modifier.padding(top = 50.dp))){
-            LazyColumn(modifier = Modifier.padding(top = 65.dp, bottom = 100.dp))
+            LazyColumn(modifier = Modifier.padding(top = 65.dp, bottom = 130.dp))
             {
 
                 items(cars) { item ->
+                    item.title?.let {
+                        item.price?.let { it1 ->
+                            item.brand?.let { it2 ->
+                                item.description?.let { it3 ->
+                                    item.imageUrl?.let { it4 ->
+                                        MyCarItem(
+                                            name = it,
+                                            price = it1,
+                                            condition = it2,
+                                            description = it3,
+                                            imgUrl = it4,
+                                            navController
+                                        )
+                                    }
+                                }
+                            }
 //
-                    item.title?.let { item.price?.let { it1 -> item.brand?.let { it2 -> item.description?.let { it3 -> MyCarItem(name = it, price = it1,condition = it2, description = it3, navController) } } }
-//
+                        }
                     }
                 }
 
