@@ -1,7 +1,6 @@
 package com.example.carappcompose.fragments
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -28,7 +25,6 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -47,7 +43,6 @@ import androidx.navigation.NavController
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserData
-import com.example.carappcompose.Item
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
@@ -56,7 +51,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun FilterScreen(navController: NavController) {
     var cars by remember {
-        mutableStateOf<List<String>>(emptyList())
+        mutableStateOf<List<CarClass>>(emptyList())
     }
 
     CarData.GetCars { list ->
@@ -194,7 +189,8 @@ fun FilterScreen(navController: NavController) {
                             ) {
                                 items(cars) { item ->
 //
-                                    RecommendItem(name = item, price = item, navController)
+                                    item.title?.let { item.price?.let { it1 -> item.brand?.let { it2 -> item.description?.let { it3 ->RecommendItem(name = it, price = it1,condition = it2, description = it3, navController) } } }
+
 //
                                 }
                             }
@@ -220,16 +216,16 @@ fun FilterScreen(navController: NavController) {
                             ) {
                                 items(cars) { item ->
 //
-                                    RecommendItem(name = item, price = item, navController)
-//
-                                }
+                                    item.title?.let { item.price?.let { it1 -> item.brand?.let { it2 -> item.description?.let { it3 ->RecommendItem(name = it, price = it1,condition = it2, description = it3, navController) } } }
+
+                                    }
                                 }
                             }
                         }
                     }
 
             }
-        }
+        }}}
 
 
 

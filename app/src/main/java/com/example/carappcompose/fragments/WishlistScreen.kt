@@ -67,6 +67,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserClass
 import com.example.carappcompose.Database.UserData
@@ -89,7 +90,7 @@ fun WishlistScreen(navController: NavController){
 //    UserData.FavouritesGet{
 //
 //    }
-    var cars by remember { mutableStateOf<List<String>>(emptyList()) }
+    var cars by remember { mutableStateOf<List<CarClass>>(emptyList()) }
     CarData.GetCars { list ->
         cars = list
     }

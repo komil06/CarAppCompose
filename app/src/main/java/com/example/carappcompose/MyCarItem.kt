@@ -32,12 +32,13 @@ import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 
 @Composable
-fun MyCarItem(name:String,price:String, navController: NavController){
+fun MyCarItem(name: String, price:String, condition: String,description: String, navController: NavController){
 
 
     Card(modifier = Modifier.padding(8.dp).fillMaxWidth().height(160.dp)
         .clickable {
-            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price))
+            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description))
+
 
         }        .border(
             BorderStroke(1.dp, primaryColor),
@@ -71,7 +72,7 @@ fun MyCarItem(name:String,price:String, navController: NavController){
 
             Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceEvenly){
             Text(textAlign = TextAlign.Center,text = name.uppercase(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
-                Text(textAlign = TextAlign.Center,text = name.uppercase(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
+                Text(textAlign = TextAlign.Center,text = price.uppercase(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
 
 //                Text(textAlign = TextAlign.Center,text = name, fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
 

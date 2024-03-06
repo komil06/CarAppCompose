@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -92,6 +93,7 @@ import com.example.carappcompose.Item
 import com.example.carappcompose.MyCarItem
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
+import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
@@ -341,7 +343,7 @@ fun SellingCarScreen(navController: NavController){
 
 
 
-            var cars by remember { mutableStateOf<List<String>>(emptyList()) }
+            var cars by remember { mutableStateOf<List<CarClass>>(emptyList()) }
             CarData.GetCars { list ->
                 cars = list
             }
@@ -350,8 +352,11 @@ fun SellingCarScreen(navController: NavController){
             LazyColumn(modifier = Modifier.padding(top = 65.dp, bottom = 100.dp))
             {
 
-                items(cars) { items ->
-                    MyCarItem(name = items,price=items, navController)
+                items(cars) { item ->
+//
+                    item.title?.let { item.price?.let { it1 -> item.brand?.let { it2 -> item.description?.let { it3 -> MyCarItem(name = it, price = it1,condition = it2, description = it3, navController) } } }
+//
+                    }
                 }
 
            }

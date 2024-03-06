@@ -1,5 +1,6 @@
 package com.example.carappcompose.Database
 
+import android.util.Log
 import androidx.compose.ui.text.input.TextFieldValue
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -32,11 +33,17 @@ class CarData {
 //        }
 
 
-        fun GetCars(callback: (List<String>) -> Unit) {
+        fun GetCars(callback: (List<CarClass>) -> Unit) {
             cars.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val cars = dataSnapshot.children.mapNotNull { it.key }
-
+                    val cars = mutableListOf<CarClass>()
+                    dataSnapshot.children.forEach {
+                        val car = it.getValue(CarClass::class.java)
+                        Log.d("TAG", car.toString())
+                        if (car != null) {
+                            cars.add(car)
+                        }
+                    }
                     callback(cars)
                 }
 

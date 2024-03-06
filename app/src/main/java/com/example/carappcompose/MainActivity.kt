@@ -23,6 +23,8 @@ import com.example.carappcompose.fragments.SignInScreen
 import com.example.carappcompose.fragments.SignUpScreen
 import com.example.carappcompose.fragments.SplashScreen
 import com.example.carappcompose.fragments.WishlistScreen
+import com.example.carappcompose.navigation.CONDITION_KEY
+import com.example.carappcompose.navigation.DESCRIPTION_KEY
 import com.example.carappcompose.navigation.NAME_KEY
 import com.example.carappcompose.navigation.Navigation
 import com.example.carappcompose.navigation.PRICE_KEY
@@ -63,7 +65,12 @@ class MainActivity : ComponentActivity() {
                        navArgument(PRICE_KEY) {
                            type = NavType.StringType
                        },
-
+                       navArgument(CONDITION_KEY) {
+                           type = NavType.StringType
+                       },
+                       navArgument(DESCRIPTION_KEY) {
+                           type = NavType.StringType
+                       },
                        ),
 
 
@@ -71,9 +78,11 @@ class MainActivity : ComponentActivity() {
                        ) { navBackStackEntry ->
                        val name = navBackStackEntry.arguments?.getString(NAME_KEY)
                        val price = navBackStackEntry.arguments?.getString(PRICE_KEY)
+                       val condition = navBackStackEntry.arguments?.getString(CONDITION_KEY)
+                       val description = navBackStackEntry.arguments?.getString(DESCRIPTION_KEY)
 
-                       if (name != null && price!= null) {
-                           DetailsScreen(name = name,price= price, navController = navController)
+                       if (name != null && price!= null && condition!= null && description!= null ) {
+                           DetailsScreen(name = name,price= price, condition = condition,description = description,navController)
                        }
                    }
 
