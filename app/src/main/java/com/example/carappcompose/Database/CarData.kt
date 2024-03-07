@@ -2,6 +2,7 @@ package com.example.carappcompose.Database
 
 import android.graphics.Bitmap
 import android.util.Log
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.app.ComponentActivity
 import com.google.firebase.Firebase
@@ -18,25 +19,15 @@ class CarData {
 
     companion object {
 
-        private val cars = FirebaseDatabase.getInstance().reference.child("cars")
-        private val car = CarClass()
-        private val searchList:MutableList<CarClass> = mutableListOf()
+        val cars = FirebaseDatabase.getInstance().reference.child("cars")
 
+//        val context = LocalContext.current
 
         fun CreateCar(car: CarClass) {
             car.title?.let { title ->
               cars.child(title).setValue(car)
             }
         }
-//        fun SearchCar(name: String): CarClass {
-//            for (i in cars){
-//                if (name == car.title){
-//                    searchList.plus(car)
-//                }
-//            }
-//
-//            return car
-//        }
 
 
         fun GetCars(callback: (List<CarClass>) -> Unit) {
@@ -59,6 +50,16 @@ class CarData {
             })
         }
 
+
+
+
+
+
+
+
+
+
+
         fun GetCarImage(name: String, callback: (String) -> Unit) {
             cars.child(name).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -70,6 +71,8 @@ class CarData {
                 }
             })
         }
+
+
 
         fun GetCar(name: String, callback: (CarClass) -> Unit) {
             cars.child(name).addValueEventListener(object : ValueEventListener {

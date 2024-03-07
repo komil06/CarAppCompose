@@ -1,6 +1,7 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -97,6 +98,9 @@ import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -327,32 +331,44 @@ fun SellingCarScreen(navController: NavController){
 
 
 
-// Shu yerga yoziladi
-//
-//            LazyColumn(modifier = Modifier.fillMaxWidth().padding(top = 50.dp, bottom = 120.dp)            ) {
-//                items(9) {
-//                    MyCarItem(navController)
-//                }
-//            }
-//
-//            FloatingActionButton(
-//                onClick = { },
-//            ) {
-//                Icon(Icons.Filled.Add, "Floating action button.")
-//            }
 
 
+            fun GetMyCars(callback: (List<CarClass>) -> Unit) {
+                CarData.cars.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val cars = mutableListOf<CarClass>()
+                        dataSnapshot.children.forEach {
+                            val car = it.getValue(CarClass::class.java)
+                            Log.d("TAG", car.toString())
+                            if (car!!.user ==  UserData.getUserSaved(context)) {
+                                cars.add(car)
+                            }
+                        }
+                        callback(cars)
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        callback(emptyList())
+                    }
+                })
+            }
 
             var cars by remember { mutableStateOf<List<CarClass>>(emptyList()) }
             CarData.GetCars { list ->
                 cars = list
             }
+            var mycars by remember { mutableStateOf<List<CarClass>>(emptyList()) }
+            GetMyCars { list ->
+                mycars = list
+            }
 
-//           Column(modifier = Modifier.padding(top = 50.dp))){
+
+
+
             LazyColumn(modifier = Modifier.padding(top = 65.dp, bottom = 130.dp))
             {
 
-                items(cars) { item ->
+                items(mycars) { item ->
                     item.title?.let {
                         item.price?.let { it1 ->
                             item.condition?.let { it2 ->

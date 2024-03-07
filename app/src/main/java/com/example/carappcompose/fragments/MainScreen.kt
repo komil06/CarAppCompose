@@ -100,13 +100,6 @@ fun MainScreen(navController: NavController){
     var cars by remember {
     mutableStateOf<List<CarClass>>(emptyList())
     }
-//    var cars by remember {
-//
-//        mutableStateOf<CarClass<List<String>>>(emptyList())
-//    }
-
-
-//    var carList = mutableListOf<CarClass>()
 
     CarData.GetCars { list ->
         cars = list
