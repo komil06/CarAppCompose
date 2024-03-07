@@ -428,7 +428,7 @@ fun AddNewCarScreen(navController: NavController){
                             imageUrl.let{
                                 imgUrl = it
                             }
-                            CarData.CreateCar(CarClass(UserData.getUserSaved(context),title.text, year.text, price.text,mileage.text,condition.text, description.text, imgUrl))
+                            CarData.CreateCar(CarClass(UserData.getUserSaved(context),title.text, year.text, price.text,mileage.text,condition.text,color.text, description.text, imgUrl))
 
                             Toast.makeText(
                                 context, "Mashinangiz ro'yxatga muvaqqiyatli qo'shildi", Toast.LENGTH_SHORT

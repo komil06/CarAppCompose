@@ -29,6 +29,7 @@ import com.example.carappcompose.navigation.NAME_KEY
 import com.example.carappcompose.navigation.Navigation
 import com.example.carappcompose.navigation.PRICE_KEY
 import com.example.carappcompose.navigation.Screens
+import com.example.carappcompose.navigation.YEAR_KEY
 import com.example.carappcompose.ui.theme.CarAppComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -71,6 +72,10 @@ class MainActivity : ComponentActivity() {
                        navArgument(DESCRIPTION_KEY) {
                            type = NavType.StringType
                        },
+
+                       navArgument(YEAR_KEY) {
+                           type = NavType.StringType
+                       },
                        ),
 
 
@@ -80,9 +85,11 @@ class MainActivity : ComponentActivity() {
                        val price = navBackStackEntry.arguments?.getString(PRICE_KEY)
                        val condition = navBackStackEntry.arguments?.getString(CONDITION_KEY)
                        val description = navBackStackEntry.arguments?.getString(DESCRIPTION_KEY)
+                       val year = navBackStackEntry.arguments?.getString(YEAR_KEY)
 
-                       if (name != null && price!= null && condition!= null && description!= null ) {
-                           DetailsScreen(name = name,price= price, condition = condition,description = description,navController)
+
+                       if (name != null && price!= null && condition!= null && description!= null && year!= null ) {
+                           DetailsScreen(name = name,price= price, condition = condition,description = description,year = year,navController)
                        }
                    }
 

@@ -71,7 +71,7 @@ import java.nio.file.WatchEvent
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
 @Composable
-fun DetailsScreen(name:String, price:String,condition:String, description:String, navController: NavController) {
+fun DetailsScreen(name:String, price:String,condition:String, description:String,year:String, navController: NavController) {
     var img by remember { mutableStateOf("") }
     CarData.GetCarImage(name) {
         img = it
@@ -140,7 +140,7 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                 ) {
 
 
-                    Text(text = "Nomi: $name",
+                    Text(text = "$year $name",
                         modifier = Modifier.border(
                             BorderStroke(1.dp, primaryColor),
                             shape = RoundedCornerShape(12.dp),
@@ -149,6 +149,8 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
 
                         fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
                     )
+
+
                     Text(text = "Narxi: $price $",
                         modifier = Modifier.border(
                             BorderStroke(1.dp, primaryColor),

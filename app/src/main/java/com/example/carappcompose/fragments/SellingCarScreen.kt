@@ -358,14 +358,19 @@ fun SellingCarScreen(navController: NavController){
                             item.condition?.let { it2 ->
                                 item.description?.let { it3 ->
                                     item.imageUrl?.let { it4 ->
-                                        MyCarItem(
-                                            name = it,
-                                            price = it1,
-                                            condition = it2,
-                                            description = it3,
-                                            imgUrl = it4,
-                                            navController
-                                        )
+                                        item.year?.let { it5 ->
+
+                                            MyCarItem(
+                                                name = it,
+                                                price = it1,
+                                                condition = it2,
+                                                description = it3,
+                                                imgUrl = it4,
+                                                year=it5,
+                                                navController
+                                            )
+                                        }
+
                                     }
                                 }
                             }

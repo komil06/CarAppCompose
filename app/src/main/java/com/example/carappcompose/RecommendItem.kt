@@ -43,7 +43,7 @@ import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 
 @Composable
-fun RecommendItem(name: String, price:String, condition: String,description: String,imgUrl:String, navController: NavController){
+fun RecommendItem(name: String, price:String, condition: String,description: String,imgUrl:String,year:String, navController: NavController){
     val context = LocalContext.current
 
     Card(modifier = Modifier
@@ -57,7 +57,7 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
         .clickable {
 
 
-            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description))
+            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description, year = year))
 
         },   colors = CardDefaults.cardColors(
         containerColor = Color.White,
