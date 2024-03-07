@@ -1,6 +1,7 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -41,10 +42,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -52,6 +58,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
+import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.R
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
@@ -61,7 +69,11 @@ import java.nio.file.WatchEvent
 @ExperimentalMaterial3Api
 @Composable
 fun DetailsScreen(name:String, price:String,condition:String, description:String, navController: NavController) {
-
+    var img by remember { mutableStateOf("") }
+    CarData.GetCarImage(name) {
+        img = it
+        Log.d("tag", img)
+    }
         Scaffold(
             topBar = {
                 CenterAlignedTopAppBar(
@@ -110,11 +122,26 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                             .fillMaxWidth()
                             .height(200.dp), contentAlignment = Alignment.Center
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.hyundai),
-                            contentDescription = "Car name"
-                        )
+//                        Image(
+//                            painter = painterResource(id = R.drawable.hyundai),
+//                            contentDescription = "Car name"
+//                        )
 
+
+                        Image(
+                            painter = rememberAsyncImagePainter(img),
+
+
+                            contentDescription = "gfg image",
+
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp)
+                            ,
+
+                            contentScale = ContentScale.Crop,
+
+                            )
 
 
                     }

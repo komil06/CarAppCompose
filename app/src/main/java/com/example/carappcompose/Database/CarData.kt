@@ -9,6 +9,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
 import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 
@@ -54,6 +55,18 @@ class CarData {
 
                 override fun onCancelled(databaseError: DatabaseError) {
                     callback(emptyList())
+                }
+            })
+        }
+
+        fun GetCarImage(name: String, callback: (String) -> Unit) {
+            cars.child(name).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    callback(dataSnapshot.getValue(CarClass::class.java)!!.imageUrl)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    callback("")
                 }
             })
         }

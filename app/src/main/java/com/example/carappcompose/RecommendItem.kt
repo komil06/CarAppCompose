@@ -55,6 +55,8 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
             BorderStroke(1.dp, Color.White),
             shape = RoundedCornerShape(12.dp),)
         .clickable {
+
+
             navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description))
 
         },   colors = CardDefaults.cardColors(
