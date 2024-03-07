@@ -444,16 +444,20 @@ fun MainScreen(navController: NavController){
                                     item.description?.let { it3 ->
                                         item.imageUrl?.let { it4 ->
                                             item.year?.let { it5 ->
+                                                item.mileage?.let { it6 ->
+                                                    Item(
+                                                        name = it,
+                                                        price = it1,
+                                                        condition = it2,
+                                                        description = it3,
+                                                        imgUrl = it4,
+                                                        year = it5,
+                                                        mile = it6,
+                                                        navController
+                                                    )
 
-                                            Item(
-                                                name = it,
-                                                price = it1,
-                                                condition = it2,
-                                                description = it3,
-                                                imgUrl = it4,
-                                                year = it5,
-                                                navController
-                                            )
+                                                }
+
                                             }
                                         }
                                     }
@@ -502,16 +506,20 @@ fun MainScreen(navController: NavController){
                                     item.description?.let { it3 ->
                                         item.imageUrl?.let { it4 ->
                                             item.year?.let { it5 ->
+                                                item.mileage?.let { it6 ->
+                                                    RecommendItem(
+                                                        name = it,
+                                                        price = it1,
+                                                        condition = it2,
+                                                        description = it3,
+                                                        imgUrl = it4,
+                                                        year = it5,
+                                                        mile = it6,
+                                                        navController
+                                                    )
 
-                                                RecommendItem(
-                                                    name = it,
-                                                    price = it1,
-                                                    condition = it2,
-                                                    description = it3,
-                                                    imgUrl = it4,
-                                                    year = it5,
-                                                    navController
-                                                )
+                                                }
+
                                             }
 
                                         }

@@ -25,6 +25,7 @@ import com.example.carappcompose.fragments.SplashScreen
 import com.example.carappcompose.fragments.WishlistScreen
 import com.example.carappcompose.navigation.CONDITION_KEY
 import com.example.carappcompose.navigation.DESCRIPTION_KEY
+import com.example.carappcompose.navigation.MILE_KEY
 import com.example.carappcompose.navigation.NAME_KEY
 import com.example.carappcompose.navigation.Navigation
 import com.example.carappcompose.navigation.PRICE_KEY
@@ -76,6 +77,9 @@ class MainActivity : ComponentActivity() {
                        navArgument(YEAR_KEY) {
                            type = NavType.StringType
                        },
+                       navArgument(MILE_KEY) {
+                           type = NavType.StringType
+                       },
                        ),
 
 
@@ -86,10 +90,11 @@ class MainActivity : ComponentActivity() {
                        val condition = navBackStackEntry.arguments?.getString(CONDITION_KEY)
                        val description = navBackStackEntry.arguments?.getString(DESCRIPTION_KEY)
                        val year = navBackStackEntry.arguments?.getString(YEAR_KEY)
+                       val mile = navBackStackEntry.arguments?.getString(MILE_KEY)
 
 
-                       if (name != null && price!= null && condition!= null && description!= null && year!= null ) {
-                           DetailsScreen(name = name,price= price, condition = condition,description = description,year = year,navController)
+                       if (name != null && price!= null && condition!= null && description!= null && year!= null&& mile!= null ) {
+                           DetailsScreen(name = name,price= price, condition = condition,description = description,year = year, mile = mile, navController)
                        }
                    }
 

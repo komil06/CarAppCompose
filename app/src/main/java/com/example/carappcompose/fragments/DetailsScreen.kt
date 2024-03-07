@@ -71,7 +71,7 @@ import java.nio.file.WatchEvent
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
 @Composable
-fun DetailsScreen(name:String, price:String,condition:String, description:String,year:String, navController: NavController) {
+fun DetailsScreen(name:String, price:String,condition:String, description:String,year:String,mile:String, navController: NavController) {
     var img by remember { mutableStateOf("") }
     CarData.GetCarImage(name) {
         img = it
@@ -108,7 +108,7 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                     )
             }
         ) {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState()).padding(start = 20.dp, end = 20.dp)) {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState()).padding(start = 15.dp, end = 15.dp)) {
 
                 Spacer(modifier = Modifier.height(30.dp))
 
@@ -123,8 +123,9 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
 
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(300.dp),
+                            .height(300.dp)
 
+                          ,
 
                         contentScale = ContentScale.Crop,
 
@@ -163,7 +164,7 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
 
                         Spacer(modifier = Modifier.width(10.dp))
 
-                        Text(text = "Masofa: $price $",
+                        Text(text = "Holati: $condition ",
                             modifier = Modifier.border(
                                 BorderStroke(1.dp, primaryColor),
                                 shape = RoundedCornerShape(12.dp),
@@ -175,7 +176,7 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
 
                     }
 
-                    Text(text = "Holati: $condition",
+                    Text(text = "Yurgan: $mile km",
                         modifier = Modifier.border(
                             BorderStroke(1.dp, primaryColor),
                             shape = RoundedCornerShape(12.dp),
@@ -189,7 +190,7 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                             BorderStroke(1.dp, primaryColor),
                             shape = RoundedCornerShape(12.dp),
                         )
-                            .padding(10.dp),
+                            .padding(10.dp).fillMaxWidth(),
                         fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold
 
                     )

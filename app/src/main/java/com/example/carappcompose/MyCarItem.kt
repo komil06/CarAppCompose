@@ -36,12 +36,12 @@ import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 
 @Composable
-fun MyCarItem(name: String, price:String, condition: String,description: String,imgUrl:String,year:String,navController: NavController){
+fun MyCarItem(name: String, price:String, condition: String,description: String,imgUrl:String,year:String,mile:String,navController: NavController){
 
 
     Card(modifier = Modifier.padding(8.dp).fillMaxWidth().height(200.dp)
         .clickable {
-            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,year = year,description = description))
+            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,year = year,description = description, mile = mile))
 
 
         }        .border(

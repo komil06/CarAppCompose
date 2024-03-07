@@ -25,12 +25,6 @@ class UserData {
     companion object {
         private val users = FirebaseDatabase.getInstance().reference.child("users")
 
-//        var imageUrlState by remember { mutableStateOf<String?>(null) }
-
-//        val context = LocalContext.current
-
-//        val context = LocalContext.current
-
 
         fun UserCreate(user: UserClass) {
             user.username?.let { username ->
@@ -46,19 +40,12 @@ class UserData {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             return preferences.getString("user", "") ?: ""
         }
-        fun getCarSaved(context: Context): String {
-            val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
-            return preferences.getString("car", "") ?: ""
-        }
 
         fun UserSave(context: Context, user: String) {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             preferences.edit().putString("user", user).apply()
         }
-//        fun CarSave(context: Context, car: String) {
-//            val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
-//            preferences.edit().putString("car", car).apply()
-//        }
+
         fun Usercheck(user: String, callback: (Boolean) -> Unit) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -128,18 +115,6 @@ class UserData {
 
 
 
-//        fun GetImage(user: String) {
-//            users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                    var value  = dataSnapshot.getValue(UserClass::class.java)
-////                    Picasso.get().load(value).into()
-//                }
-//
-//                override fun onCancelled(databaseError: DatabaseError) {
-////                    callback(false)
-//                }
-//            })
-//        }
         fun isFavourite(user: String, model:String, callback: (Boolean) -> Unit) {
 
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
