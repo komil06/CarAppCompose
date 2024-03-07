@@ -7,7 +7,7 @@ const val NAME_KEY = "name_key"
 const val PRICE_KEY = "price_key"
 const val CONDITION_KEY = "condition_key"
 const val DESCRIPTION_KEY = "description_key"
-const val YEAR_KEY = "description_key"
+const val YEAR_KEY = "year_key"
 
 sealed class Screens(val route:String){
      object Splash:Screens("Splash")
