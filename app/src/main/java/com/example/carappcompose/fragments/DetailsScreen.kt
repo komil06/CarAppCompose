@@ -1,9 +1,12 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +32,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
@@ -53,6 +57,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -197,24 +202,8 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
 
 
 
+                    TelegramIntegrationScreen()
 
-
-                    Button(
-                        modifier = Modifier
-                            .padding(20.dp)
-                            .height(55.dp)
-                            .width(400.dp),
-                        onClick = {},
-                        shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(Color(255, 87, 34, 255))
-                    ) {
-                        Text(
-                            modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
-                            text = "Buy Now",
-                            fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
-                        )
-
-                    }
 
                 }
         }
@@ -222,5 +211,56 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
 
     }
 
+}
+
+
+
+@Composable
+fun TelegramIntegrationScreen() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        // Replace "username" with the actual username or user ID you want to open
+        TelegramButton(username = "ssardorbekk")
+    }
+}
+
+@Composable
+fun TelegramButton(username: String) {
+    val context = LocalContext.current
+
+    Button(
+        modifier = Modifier
+            .padding(20.dp)
+            .height(55.dp)
+            .width(400.dp),
+        onClick = {
+            openTelegramProfile(context, username)
+
+        },
+        shape = RoundedCornerShape(12.dp),
+        colors = ButtonDefaults.buttonColors(Color(255, 87, 34, 255))
+    ) {
+        Text(
+            modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
+            text = "Contact Now",
+            fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
+        )
+
+    }
+}
+
+private fun openTelegramProfile(context: android.content.Context, username: String) {
+    try {
+        val uri = Uri.parse("https://t.me/$username")
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        context.startActivity(intent)
+    } catch (e: Exception) {
+        // Handle exceptions, e.g., if Telegram app is not installed
+    }
 }
 
