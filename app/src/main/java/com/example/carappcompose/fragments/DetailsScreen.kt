@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
@@ -54,6 +55,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -110,87 +112,101 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                 Spacer(modifier = Modifier.height(30.dp))
 
 
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp), contentAlignment = Alignment.Center
+                ) {
 
+
+
+                    Image(
+                        painter = rememberAsyncImagePainter(img),
+
+
+                        contentDescription = null,
+
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.dp),
+
+
+                        contentScale = ContentScale.Crop,
+
+                        )
+
+
+                }
 
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(25.dp), verticalArrangement = Arrangement.spacedBy(20.dp)
+                        .padding(25.dp)
+                        , verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp), contentAlignment = Alignment.Center
-                    ) {
-//                        Image(
-//                            painter = painterResource(id = R.drawable.hyundai),
-//                            contentDescription = "Car name"
-//                        )
 
 
-                        Image(
-                            painter = rememberAsyncImagePainter(img),
+                    Row(modifier = Modifier.fillMaxWidth().height(30.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically){
 
-
-                            contentDescription = "gfg image",
-
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(200.dp)
-                            ,
-
-                            contentScale = ContentScale.Crop,
-
-                            )
-
+                        Text(text = name, fontFamily = poppinsFamily, fontSize = 22.sp, fontWeight = FontWeight.Bold,  color = primaryColor)
 
                     }
 
-//
-//                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween){
-//                        Image(
-//                            painter = painterResource(id = R.drawable.hyundai),
-//                            contentDescription = "Car name",
-//                            modifier = Modifier.width(110.dp) .border(
-//                                BorderStroke(1.dp, primaryColor),
-//                                shape = RoundedCornerShape(20.dp),
-//
-//                                )
-//
-//                        )
-//                        Image(
-//                            painter = painterResource(id = R.drawable.hyundai),
-//                            contentDescription = "Car name",
-//                            modifier = Modifier.width(110.dp).border(
-//                                BorderStroke(1.dp, primaryColor),
-//                                shape = RoundedCornerShape(20.dp),
-//
-//                                )
-//                        )
-//                        Image(
-//                            painter = painterResource(id = R.drawable.hyundai),
-//                            contentDescription = "Car name",
-//                            modifier = Modifier.width(110.dp).border(
-//                                BorderStroke(1.dp, primaryColor),
-//                                shape = RoundedCornerShape(20.dp),
-//
-//                                )
-//                        )
-//
-//                    }
-                    Text(text = "Car name: $name", fontFamily = poppinsFamily, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-//
-                    Text(text = "Car price: $price", fontSize = 18.sp, fontFamily = poppinsFamily, modifier = Modifier.padding(0.dp),
-                        color = Color(168,175,185),fontWeight = FontWeight.Medium)
-                    Text(text = "Brand: $condition", fontSize = 18.sp, fontFamily = poppinsFamily,modifier = Modifier.padding(0.dp),
-                        color = Color(168,175,185),fontWeight = FontWeight.Medium
-                        )
+
+Row(modifier = Modifier.fillMaxWidth().padding(0.dp), horizontalArrangement = Arrangement.SpaceEvenly){
+    Button(
+        modifier = Modifier
+            .padding(10.dp)
+            .height(55.dp)
+            .border(
+                BorderStroke(1.dp, primaryColor),
+                shape = RoundedCornerShape(12.dp),)
+            .width(150.dp),
+        onClick = {},
+        shape = RoundedCornerShape(12.dp),
+        colors = ButtonDefaults.buttonColors(Color.Transparent)
+    ) {
+        Text(
+            modifier = Modifier,
+            text = "$condition",
+            fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
+
+            color = primaryColor
+        )
+
+    }
+
+    Button(
+        modifier = Modifier
+            .padding(10.dp)
+            .height(55.dp)
+            .border(
+                BorderStroke(1.dp, primaryColor),
+                shape = RoundedCornerShape(12.dp),)
+            .width(150.dp),
+        onClick = {},
+        shape = RoundedCornerShape(12.dp),
+        colors = ButtonDefaults.buttonColors(Color.Transparent)
+    ) {
+        Text(
+            modifier = Modifier,
+            text = "$price $",
+            fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
+
+            color = primaryColor
+        )
+
+    }
+
+}
                     Text(
-            text = "Description: $description",fontSize = 18.sp, fontFamily = poppinsFamily,
+                        text = "Holati: $description",fontSize = 18.sp, fontFamily = poppinsFamily,
                         modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Medium,
-                        color = Color(168,175,185)
+                        color = primaryColor
                     )
+
                     Button(
                         modifier = Modifier
                             .padding(20.dp)
