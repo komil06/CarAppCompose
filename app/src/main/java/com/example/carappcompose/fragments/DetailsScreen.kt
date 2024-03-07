@@ -135,7 +135,7 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(10.dp)
+                        .padding(10.dp, top = 20.dp)
                         , verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
 
@@ -150,16 +150,31 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                         fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
                     )
 
+                    Row( modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+                        Text(text = "Narxi: $price $",
+                            modifier = Modifier.border(
+                                BorderStroke(1.dp, primaryColor),
+                                shape = RoundedCornerShape(12.dp),
+                            )
+                                .padding(10.dp).weight(0.5f),
+                            fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold
 
-                    Text(text = "Narxi: $price $",
-                        modifier = Modifier.border(
-                            BorderStroke(1.dp, primaryColor),
-                            shape = RoundedCornerShape(12.dp),
                         )
-                            .padding(10.dp).fillMaxWidth(),
-                        fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold
+
+                        Spacer(modifier = Modifier.width(10.dp))
+
+                        Text(text = "Masofa: $price $",
+                            modifier = Modifier.border(
+                                BorderStroke(1.dp, primaryColor),
+                                shape = RoundedCornerShape(12.dp),
+                            )
+                                .padding(10.dp).weight(0.5f),
+                            fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold
 
                         )
+
+                    }
+
                     Text(text = "Holati: $condition",
                         modifier = Modifier.border(
                             BorderStroke(1.dp, primaryColor),
