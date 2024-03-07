@@ -116,11 +116,14 @@ fun AddNewCarScreen(navController: NavController){
     val context = LocalContext.current
 
             var title by remember { mutableStateOf(TextFieldValue("")) }
-            var brand by remember { mutableStateOf(TextFieldValue("")) }
-            var condition by remember { mutableStateOf(TextFieldValue(""))}
-            var year by remember { mutableStateOf(TextFieldValue("")) }
-    var description by remember { mutableStateOf(TextFieldValue("")) }
+    var year by remember { mutableStateOf(TextFieldValue("")) }
+
+    var mileage by remember { mutableStateOf(TextFieldValue("")) }
+    var condition by remember { mutableStateOf(TextFieldValue(""))}
+    var color by remember { mutableStateOf(TextFieldValue(""))}
     var price by remember { mutableStateOf(TextFieldValue("")) }
+
+    var description by remember { mutableStateOf(TextFieldValue("")) }
 
 
     var imgUrl by remember {mutableStateOf("") }
@@ -269,33 +272,38 @@ fun AddNewCarScreen(navController: NavController){
                     focusedBorderColor = primaryColor,
                 )
             )
+                Row( modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 10.dp), horizontalArrangement = Arrangement.SpaceAround) {
 
+                    OutlinedTextField(
+                        modifier = Modifier.weight(0.5f),
 
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
-                value = year,
-                leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+//                        modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
+                        value = year,
+                        leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp)) },
 
-                onValueChange = { year = it },
-                label = { Text("Manufactured year",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next,
+                        onValueChange = { year = it },
+                        label = { Text("Year",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                            imeAction = ImeAction.Next,
 
-                    ),
-                shape = RoundedCornerShape(12.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = primaryColor,
-                )
-            )
+                            ),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = primaryColor,
+                        )
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
 
 
                     OutlinedTextField(
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 10.dp).fillMaxWidth(),
-                        value = brand,
+                        modifier = Modifier.weight(0.5f),
+
+//                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 10.dp).fillMaxWidth(),
+                        value = mileage,
                         leadingIcon = {Icon(imageVector =Icons.Default.Star, contentDescription = null, modifier = Modifier.padding(8.dp)) },
 
-                        onValueChange = { brand = it },
-                        label = { Text("Brand",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                        onValueChange = { mileage = it },
+                        label = { Text("Mileage",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Next,
 
@@ -306,7 +314,26 @@ fun AddNewCarScreen(navController: NavController){
                         )
                     )
 
+                }
 
+
+
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
+                    value = color,
+                    leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+
+                    onValueChange = { color = it },
+                    label = { Text("Color",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Next,
+
+                        ),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = primaryColor,
+                    )
+                )
 
                 Row( modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 10.dp), horizontalArrangement = Arrangement.SpaceAround){
                     OutlinedTextField(
@@ -381,7 +408,7 @@ fun AddNewCarScreen(navController: NavController){
         onClick = {
 
 
-            if (title.text == "" || brand.text =="" || condition.text == ""|| year.text == ""
+            if (title.text == "" || mileage.text =="" || condition.text == ""|| year.text == ""
                 || year.text == "" || description.text == "" || price.text == ""
                 || bitmap ==null) {
                 isUploading.value = false
@@ -401,13 +428,13 @@ fun AddNewCarScreen(navController: NavController){
                             imageUrl.let{
                                 imgUrl = it
                             }
-                            CarData.CreateCar(CarClass(UserData.getUserSaved(context),title.text, year.text, brand.text, price.text, description.text, imgUrl))
+                            CarData.CreateCar(CarClass(UserData.getUserSaved(context),title.text, year.text, price.text,mileage.text,condition.text, description.text, imgUrl))
 
                             Toast.makeText(
                                 context, "Mashinangiz ro'yxatga muvaqqiyatli qo'shildi", Toast.LENGTH_SHORT
                             ).show()
 
-                            navController.navigate("Profile")
+                            navController.navigate("Main")
                         }
                         else{
                             Toast.makeText(context, "Not Save", Toast.LENGTH_SHORT).show()

@@ -38,6 +38,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -107,16 +108,10 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                     )
             }
         ) {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState()).padding(start = 20.dp, end = 20.dp)) {
 
                 Spacer(modifier = Modifier.height(30.dp))
 
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(300.dp), contentAlignment = Alignment.Center
-                ) {
 
 
 
@@ -136,76 +131,55 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                         )
 
 
-                }
 
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(25.dp)
-                        , verticalArrangement = Arrangement.spacedBy(20.dp)
+                        .padding(10.dp)
+                        , verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
 
 
-                    Row(modifier = Modifier.fillMaxWidth().height(30.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically){
+                    Text(text = "Nomi: $name",
+                        modifier = Modifier.border(
+                            BorderStroke(1.dp, primaryColor),
+                            shape = RoundedCornerShape(12.dp),
+                        )
+                            .padding(10.dp).fillMaxWidth(),
 
-                        Text(text = name, fontFamily = poppinsFamily, fontSize = 22.sp, fontWeight = FontWeight.Bold,  color = primaryColor)
-
-                    }
-
-
-Row(modifier = Modifier.fillMaxWidth().padding(0.dp), horizontalArrangement = Arrangement.SpaceEvenly){
-    Button(
-        modifier = Modifier
-            .padding(10.dp)
-            .height(55.dp)
-            .border(
-                BorderStroke(1.dp, primaryColor),
-                shape = RoundedCornerShape(12.dp),)
-            .width(150.dp),
-        onClick = {},
-        shape = RoundedCornerShape(12.dp),
-        colors = ButtonDefaults.buttonColors(Color.Transparent)
-    ) {
-        Text(
-            modifier = Modifier,
-            text = "$condition",
-            fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-
-            color = primaryColor
-        )
-
-    }
-
-    Button(
-        modifier = Modifier
-            .padding(10.dp)
-            .height(55.dp)
-            .border(
-                BorderStroke(1.dp, primaryColor),
-                shape = RoundedCornerShape(12.dp),)
-            .width(150.dp),
-        onClick = {},
-        shape = RoundedCornerShape(12.dp),
-        colors = ButtonDefaults.buttonColors(Color.Transparent)
-    ) {
-        Text(
-            modifier = Modifier,
-            text = "$price $",
-            fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-
-            color = primaryColor
-        )
-
-    }
-
-}
-                    Text(
-                        text = "Holati: $description",fontSize = 18.sp, fontFamily = poppinsFamily,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Medium,
-                        color = primaryColor
+                        fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
                     )
+                    Text(text = "Narxi: $price $",
+                        modifier = Modifier.border(
+                            BorderStroke(1.dp, primaryColor),
+                            shape = RoundedCornerShape(12.dp),
+                        )
+                            .padding(10.dp).fillMaxWidth(),
+                        fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold
+
+                        )
+                    Text(text = "Holati: $condition",
+                        modifier = Modifier.border(
+                            BorderStroke(1.dp, primaryColor),
+                            shape = RoundedCornerShape(12.dp),
+                        )
+                            .padding(10.dp).fillMaxWidth(),
+                        fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold
+
+                    )
+                    Text(text = "Qo'shimcha: $description",
+                        modifier = Modifier.border(
+                            BorderStroke(1.dp, primaryColor),
+                            shape = RoundedCornerShape(12.dp),
+                        )
+                            .padding(10.dp),
+                        fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold
+
+                    )
+
+
+
+
 
                     Button(
                         modifier = Modifier

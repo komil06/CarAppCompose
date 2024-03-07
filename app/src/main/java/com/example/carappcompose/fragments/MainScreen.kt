@@ -447,7 +447,7 @@ fun MainScreen(navController: NavController){
 //
                         item.title?.let {
                             item.price?.let { it1 ->
-                                item.brand?.let { it2 ->
+                                item.condition?.let { it2 ->
                                     item.description?.let { it3 ->
                                         item.imageUrl?.let { it4 ->
                                             Item(
@@ -501,7 +501,7 @@ fun MainScreen(navController: NavController){
 //
                         item.title?.let {
                             item.price?.let { it1 ->
-                                item.brand?.let { it2 ->
+                                item.condition?.let { it2 ->
                                     item.description?.let { it3 ->
                                         item.imageUrl?.let { it4 ->
                                             RecommendItem(
