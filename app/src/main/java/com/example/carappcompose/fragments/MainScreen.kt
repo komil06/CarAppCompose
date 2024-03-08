@@ -90,8 +90,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(navController: NavController){
 
-    var searchText by remember {
-        mutableStateOf(TextFieldValue("")) }
+    var searchText by remember{ mutableStateOf(TextFieldValue(""))}
 
     val context = LocalContext.current
 
@@ -393,7 +392,7 @@ fun MainScreen(navController: NavController){
                         )
                     },
 
-                    onValueChange = { searchText },
+                    onValueChange = { searchText = it},
                     label = {
                         Text(
                             "Search",
@@ -409,10 +408,8 @@ fun MainScreen(navController: NavController){
                         focusedBorderColor = primaryColor,
                     )
                 )
-                UserData.searchCar(searchText.toString())
 
 
-//                SearchView(state = textState, placeHolder = "Search here...", modifier = modifier)
 
                 IconButton(
                     onClick = { navController.navigate("Filter") },
