@@ -21,8 +21,6 @@ class CarData {
 
         val cars = FirebaseDatabase.getInstance().reference.child("cars")
 
-//        val context = LocalContext.current
-
         fun CreateCar(car: CarClass) {
             car.title?.let { title ->
               cars.child(title).setValue(car)
@@ -114,19 +112,6 @@ class CarData {
             }
         }
 
-//        fun searchCars(query:String):MutableList<CarClass>{
-//            var carList = mutableListOf<CarClass>()
-//            GetCars {
-//                carList
-//            }
-//
-//            for (car1 in carList) {
-//                if (car1.title!!.contains(query)){
-//                    searchList.add(car1)
-//                }
-//            }
-//            return searchList
-//        }
 
 
 //        val con = false

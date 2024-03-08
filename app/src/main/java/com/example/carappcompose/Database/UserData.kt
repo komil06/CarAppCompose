@@ -97,6 +97,7 @@ class UserData {
         }
 
 
+
         fun FavouritesCreate(user: String, name:String) {
 
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -194,15 +195,7 @@ class UserData {
 
 
 
-        val searchList = emptyList<CarClass>()
-        fun searchCar(name:String): List<CarClass> {
-            users.child(name).get().addOnSuccessListener {
-                if (it.exists()){
-                    searchList.plus(it)
-                }
-            }
-            return searchList
-        }
+
 
         fun changeImage(user: String, imgUrl: String) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
