@@ -144,14 +144,16 @@ fun FilterScreen(navController: NavController) {
                         columns = GridCells.Fixed(2), modifier = Modifier
                             .padding(bottom= 100.dp)
                     ) {
-                        items(UserData.searchList.size) {
-                             UserData.searchList
-                        }
+//                        items(UserData.searchList.size) {
+//                             UserData.searchList
+//                        }
                     }
 
                     Spacer(modifier = Modifier.height(70.dp))
                     Button(
-                        onClick = {UserData.searchCar(name.text)}, modifier = Modifier
+                        onClick = {
+//                            UserData.searchCar(name.text)
+                                  }, modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(20.dp)
                             .height(55.dp)

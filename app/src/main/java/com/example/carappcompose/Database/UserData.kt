@@ -24,19 +24,28 @@ import java.io.ByteArrayOutputStream
 class UserData {
     companion object {
         private val users = FirebaseDatabase.getInstance().reference.child("users")
+
+
         fun UserCreate(user: UserClass) {
             user.username?.let { username ->
                 users.child(username).setValue(user)
             }
         }
+
+
+
+
+
         fun getUserSaved(context: Context): String {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             return preferences.getString("user", "") ?: ""
         }
+
         fun UserSave(context: Context, user: String) {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             preferences.edit().putString("user", user).apply()
         }
+
         fun Usercheck(user: String, callback: (Boolean) -> Unit) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -60,6 +69,12 @@ class UserData {
                 }
             })
         }
+
+
+
+
+
+
         fun UserGet(user: TextFieldValue, password: TextFieldValue, callback: (String) -> Unit) {
             val userText = user.text
             val passwordText = password.text
@@ -80,6 +95,9 @@ class UserData {
                 }
             })
         }
+
+
+
         fun FavouritesCreate(user: String, name:String) {
 
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -95,6 +113,9 @@ class UserData {
                 }
             })
         }
+
+
+
         fun isFavourite(user: String, model:String, callback: (Boolean) -> Unit) {
 
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -121,6 +142,8 @@ class UserData {
                 }
             })
         }
+
+
         fun ChangePassword(user: String, password: String, oldPassword:String,callback: (String) -> Unit) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -144,6 +167,8 @@ class UserData {
                 }
             })
         }
+
+
         fun uploadImageToFirebase(bitmap: Bitmap, context: ComponentActivity, callback :(Boolean, String) -> Unit){
 
 
@@ -167,20 +192,25 @@ class UserData {
                 callback(false, null.toString())
             }
         }
-//        fun changeImage(user: String, imgUrl: String) {
-//            users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                    val changedImage = dataSnapshot.getValue(UserClass::class.java)
-//                    changedImage?.let {
-//                        it.imageUrl = imgUrl
-//                    }
-//                }
-//
-//                override fun onCancelled(databaseError: DatabaseError) {
-//                    // Handle onCancelled if needed
-//                }
-//            })
-//        }
+
+
+
+
+
+        fun changeImage(user: String, imgUrl: String) {
+            users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val changedImage = dataSnapshot.getValue(UserClass::class.java)
+                    changedImage?.let {
+                        it.imageUrl = imgUrl
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle onCancelled if needed
+                }
+            })
+        }
 
 
     }

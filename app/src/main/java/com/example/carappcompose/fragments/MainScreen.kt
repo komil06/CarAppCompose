@@ -19,7 +19,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -27,7 +26,6 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
@@ -46,11 +44,9 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -65,7 +61,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -80,6 +75,7 @@ import com.example.carappcompose.Item
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.firebaseUI
+import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
@@ -90,7 +86,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(navController: NavController){
 
-    var searchText by remember{ mutableStateOf(TextFieldValue(""))}
+    var searchText = remember{
+        mutableStateOf(TextFieldValue(""))
+    }
 
     val context = LocalContext.current
 
@@ -116,6 +114,7 @@ fun MainScreen(navController: NavController){
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
+//            badgeCount = 5
 
             ),
         NavigationItem(
@@ -137,7 +136,6 @@ fun MainScreen(navController: NavController){
             mutableStateOf(0)
         }
 
-//        var images = UserData.getSavedImage(context,)
         ModalNavigationDrawer(
 
             drawerContent = {
@@ -153,21 +151,6 @@ fun MainScreen(navController: NavController){
                         firebaseUI(LocalContext.current)
 
                     }
-
-//                    if (UserData.imageUrlState != null) {
-//                        Image(
-//                            painter = rememberImagePainter(
-//                                data = UserData.imageUrlState,
-//                                builder = {
-//                                    // You can customize image loading options here if needed
-//                                }
-//                            ),
-//                            contentDescription = "User Image",
-//                            modifier = Modifier
-//                                .size(200.dp) // Adjust the size as needed
-//                                .clip(MaterialTheme.shapes.medium)
-//                        )
-//                    }
 
                     Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
                     Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
@@ -201,11 +184,11 @@ fun MainScreen(navController: NavController){
                                     contentDescription = item.title
                                 )
                             },
-//                            badge = {
-//                                item.badgeCount?.let {
-//                                    Text(text = item.badgeCount.toString())
-//                                }
-//                            },
+                            badge = {
+                                item.badgeCount?.let {
+                                    Text(text = item.badgeCount.toString())
+                                }
+                            },
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
                                 .clickable {
@@ -216,20 +199,7 @@ fun MainScreen(navController: NavController){
                         )
                     }
 
-//                    Button(modifier = Modifier.padding(top = 10.dp).fillMaxWidth(),
-//                        onClick = {
-//                            UserData.UserSave(context, "")
-//                            navController.navigate("SignIn")
-//                        }) {
-//                        Text(
-//                            modifier= Modifier.clickable {
-//                               },
-//                            text = "Log out",
-//                            fontFamily = poppinsFamily,
-//                            fontSize = 20.sp, fontWeight = FontWeight.SemiBold,
-//                            color = Color.Black
-//                            )
-//                    }
+
 
 
                     Button(modifier = Modifier
@@ -378,36 +348,20 @@ fun MainScreen(navController: NavController){
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 70.dp),
+                    .padding(top = 70.dp)
+                    .clickable {
+                        navController.navigate(Screens.SeeAllScreen.route)
+                    }
+                ,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
 
-                OutlinedTextField(
-                    value = searchText,
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = null,
-                            modifier = Modifier.padding(8.dp)
-                        )
-                    },
-
-                    onValueChange = { searchText = it},
-                    label = {
-                        Text(
-                            "Search",
-                            color = Color(168, 175, 185),
-                            fontFamily = poppinsFamily,
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                    },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = primaryColor,
-                    )
+                SearchView(
+                    state = searchText, placeHolder = "Search Here... ", modifier = Modifier.clickable {
+                        navController.navigate(Screens.SeeAllScreen.route)
+                    }
                 )
+
 
 
 
@@ -470,6 +424,13 @@ fun MainScreen(navController: NavController){
 
 
             Column(modifier = Modifier) {
+
+                val filteredCars = cars.filter {
+                    it.title?.contains(searchText.value.text, ignoreCase = true) == true
+//                    ||
+//                      it.description?.contains(searchText.value.text, ignoreCase = true) == true
+//            // You can add more fields to search if needed
+                }
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -487,7 +448,10 @@ fun MainScreen(navController: NavController){
                         fontFamily = poppinsFamily,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = Color(168, 175, 185)
+                        color = Color(168, 175, 185),
+                        modifier = Modifier.clickable {
+                            navController.navigate(Screens.SeeAllScreen.route)
+                        }
                     )
 
                 }
@@ -495,8 +459,7 @@ fun MainScreen(navController: NavController){
                     columns = GridCells.Fixed(2),
                     modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
                 ) {
-                    items(cars) { item ->
-//
+                    items(items = filteredCars) { item ->
                         item.title?.let {
                             item.price?.let { it1 ->
                                 item.condition?.let { it2 ->
@@ -533,7 +496,8 @@ fun MainScreen(navController: NavController){
 
 
         }
-}}
+}
+}
 
 
 

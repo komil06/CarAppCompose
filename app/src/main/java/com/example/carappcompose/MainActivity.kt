@@ -18,6 +18,7 @@ import com.example.carappcompose.fragments.FilterScreen
 import com.example.carappcompose.fragments.MainScreen
 import com.example.carappcompose.fragments.OnboardingScreen
 import com.example.carappcompose.fragments.ProfileScreen
+import com.example.carappcompose.fragments.SeeAllScreen
 import com.example.carappcompose.fragments.SellingCarScreen
 import com.example.carappcompose.fragments.SignInScreen
 import com.example.carappcompose.fragments.SignUpScreen
@@ -117,9 +118,10 @@ class MainActivity : ComponentActivity() {
                    composable(route = Screens.NewCar.route){
                        AddNewCarScreen(navController = navController)
                    }
-//                   composable(route = Screens.ChangeImage.route){
-//                       ChangeImage(navController = navController)
-//                   }
+
+                   composable(route = Screens.SeeAllScreen.route){
+                       SeeAllScreen(navController = navController)
+                   }
                }
            }
         }
