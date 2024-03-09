@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.carappcompose.Database.CarClass
+import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
@@ -47,7 +49,13 @@ import com.example.carappcompose.ui.theme.primaryColor
 @Composable
 fun RecommendItem(name: String, price:String, condition: String,description: String,imgUrl:String,year:String, mile:String,navController: NavController){
     val context = LocalContext.current
+    var cars by remember {
+        mutableStateOf<List<CarClass>>(emptyList())
+    }
 
+    CarData.GetCars { list ->
+        cars = list
+    }
     Card(modifier = Modifier
         .fillMaxSize()
         .padding(5.dp)
@@ -100,6 +108,8 @@ Column(modifier = Modifier){
         IconButton(
             onClick = {
                 UserData.FavouritesCreate(UserData.getUserSaved(context), name)
+
+
                 isClicked = !isClicked
             },
         ) {
