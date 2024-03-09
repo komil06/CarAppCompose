@@ -6,8 +6,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -47,9 +49,8 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
     val context = LocalContext.current
 
     Card(modifier = Modifier
+        .fillMaxSize()
         .padding(5.dp)
-        .width(175.dp)
-        .fillMaxHeight()
 
         .border(
             BorderStroke(1.dp, Color.White),
@@ -73,27 +74,7 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
         }
 
 
-        IconButton(
-            onClick = {
-                UserData.FavouritesCreate(UserData.getUserSaved(context), name)
-                isClicked = !isClicked
-        },
-            Modifier.align(Alignment.End)
-        ) {
 
-            Image(
-                painter = if (isClicked) {
-
-                    painterResource(id = R.drawable.baseline_favorite_24)
-
-                } else {
-                    painterResource(id = R.drawable.baseline_favorite_border_24)
-                },
-                contentDescription = null,
-
-            )
-
-        }
 Column(modifier = Modifier){
 
 
@@ -113,6 +94,31 @@ Column(modifier = Modifier){
         contentScale = ContentScale.Crop,
 
         )
+
+
+    Row(modifier = Modifier.align(Alignment.End)){
+        IconButton(
+            onClick = {
+                UserData.FavouritesCreate(UserData.getUserSaved(context), name)
+                isClicked = !isClicked
+            },
+        ) {
+
+            Image(
+                painter = if (isClicked) {
+
+                    painterResource(id = R.drawable.baseline_favorite_24)
+
+                } else {
+                    painterResource(id = R.drawable.baseline_favorite_border_24)
+                },
+                contentDescription = null,
+
+                )
+
+        }
+    }
+
     Spacer(modifier = Modifier.height(5.dp))
 
 

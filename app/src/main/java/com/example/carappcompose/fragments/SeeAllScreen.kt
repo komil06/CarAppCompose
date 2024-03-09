@@ -260,7 +260,9 @@ fun SearchView(state: MutableState<TextFieldValue>, placeHolder: String, modifie
             ,
 
     placeholder = {
-        Text(text  = placeHolder)
+        Text(text  = placeHolder,
+            fontFamily = poppinsFamily, fontWeight = FontWeight.SemiBold
+        )
     },
 
     maxLines =1,

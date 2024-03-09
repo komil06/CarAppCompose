@@ -232,8 +232,3 @@ fun SignInScreen(navController: NavController){
 
     }
 }
-//@Preview
-//@Composable
-//fun SingInPreview(){
-//    SignInScreen()
-//}

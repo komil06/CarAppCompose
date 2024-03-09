@@ -36,7 +36,7 @@ fun SplashScreen(navController: NavController,) {
 
         delay(1500)
         if (UserData.getUserSaved(context) == "") navController.navigate("SignIn")
-        else navController.navigate("Main")
+//        else navController.navigate("Main")
         navController.navigate("SignIn")
     }
 

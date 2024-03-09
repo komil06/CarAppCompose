@@ -67,6 +67,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.core.app.ActivityCompat.finishAffinity
+import androidx.core.app.ComponentActivity
 import androidx.navigation.NavController
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
@@ -498,6 +500,8 @@ fun MainScreen(navController: NavController){
         }
 }
 }
+
+
 
 
 

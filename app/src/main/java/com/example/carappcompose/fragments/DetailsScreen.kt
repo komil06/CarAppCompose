@@ -113,7 +113,7 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                     )
             }
         ) {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState()).padding(start = 15.dp, end = 15.dp)) {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
 
                 Spacer(modifier = Modifier.height(30.dp))
 
@@ -129,6 +129,7 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(300.dp)
+                            .padding(0.dp)
 
                           ,
 
@@ -141,7 +142,7 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(10.dp, top = 20.dp)
+                        .padding(start = 10.dp, top = 20.dp, end = 10.dp)
                         , verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
 
