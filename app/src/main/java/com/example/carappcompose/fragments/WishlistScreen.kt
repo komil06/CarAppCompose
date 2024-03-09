@@ -13,13 +13,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
@@ -67,6 +70,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserClass
@@ -310,24 +317,20 @@ fun WishlistScreen(navController: NavController){
 
 
 
-
-
-
-
-//            Row(modifier = Modifier.fillMaxWidth().padding(top = 50.dp)){
+//            LazyVerticalGrid(
+//                columns = GridCells.Fixed(2), modifier = Modifier
+//                    .padding(top = 50.dp, bottom = 100.dp)
 //
-//                Text("salom", fontSize = 50.sp)
-//            }
+//            ) {
+//                items(cars) { item ->
+//
+//                }}
 
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2), modifier = Modifier
-                    .padding(top = 50.dp, bottom = 100.dp)
 
-            ) {
-                items(cars) { item ->
 
-//                    RecommendItem(name = item, price=item,navController)
-                }}
+            MyLazyColumn()
+
+
 
 
         }
@@ -337,4 +340,31 @@ fun WishlistScreen(navController: NavController){
     }
 
 
+}
+
+
+@Composable
+fun MyLazyColumn() {
+
+    var cars by remember { mutableStateOf<List<CarClass>>(emptyList()) }
+    CarData.GetCars { list ->
+        cars = list
+    }
+    if (cars.isEmpty()) {
+        LazyColumn {
+            items(cars) { item ->
+                // Your item UI here
+            }
+        }
+    } else {
+     EmptyIcon()
+    }
+}
+
+@Composable
+fun EmptyIcon() {
+            Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+            val composition by rememberLottieComposition(spec = LottieCompositionSpec.Url("https://lottie.host/cb9658f7-56e1-418c-b9f9-c94d3af5d5b0/CXDVREveWd.lottie"))
+            LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever, modifier = Modifier.width(200.dp).height(200.dp))
+        }
 }

@@ -93,7 +93,7 @@ fun SeeAllScreen(navController: NavController){
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
-            badgeCount = 5
+//            badgeCount = 5
 
         ),
         NavigationItem(
