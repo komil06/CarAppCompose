@@ -5,7 +5,7 @@ data class CarClass(
     val title: String?, //+
     var year: String?, //+
     val price:String?, //+
-    val mileage:String?, //-
+    val mileage:String?, //+
     val condition:String?, //+
     val color:String?, //-
     val description:String?, //+

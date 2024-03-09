@@ -26,8 +26,6 @@ class CarData {
               cars.child(title).setValue(car)
             }
         }
-
-
         fun GetCars(callback: (List<CarClass>) -> Unit) {
             cars.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -47,17 +45,6 @@ class CarData {
                 }
             })
         }
-
-
-
-
-
-
-
-
-
-
-
         fun GetCarImage(name: String, callback: (String) -> Unit) {
             cars.child(name).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -69,9 +56,6 @@ class CarData {
                 }
             })
         }
-
-
-
         fun GetCar(name: String, callback: (CarClass) -> Unit) {
             cars.child(name).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -86,8 +70,6 @@ class CarData {
                 }
             })
         }
-
-
         fun uploadImageToFirebase(bitmap: Bitmap, context: ComponentActivity, callback :(Boolean, String) -> Unit){
 
 
@@ -111,27 +93,5 @@ class CarData {
                 callback(false, null.toString())
             }
         }
-
-
-
-//        val con = false
-//        val UsedCars = mutableListOf<CarClass>()
-//        val NewCars = mutableListOf<CarClass>()
-//        fun UsedCars():List<CarClass>{
-//            if (car.condition != con){
-//                UsedCars.add(car)
-//            }
-//            return UsedCars
-//        }
-//
-//        fun NewCars():List<CarClass>{
-//            if (car.condition == con){
-//                NewCars.add(car)
-//            }
-//            return NewCars
-//        }
-
-
-
     }
 }
