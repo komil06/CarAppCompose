@@ -77,8 +77,6 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
 
         UserData.isFavourite(UserData.getUserSaved(context), name) {
             isClicked = it
-            Log.d("TAG", "$name $it")
-
         }
 
 
@@ -107,24 +105,24 @@ Column(modifier = Modifier){
     Row(modifier = Modifier.align(Alignment.End)){
         IconButton(
             onClick = {
-                UserData.FavouritesCreate(UserData.getUserSaved(context), name)
-
-
+                if (!isClicked) UserData.FavouritesCreate(UserData.getUserSaved(context), name)
+                else UserData.FavouritesDelete(UserData.getUserSaved(context), name)
                 isClicked = !isClicked
             },
         ) {
-
-            Image(
-                painter = if (isClicked) {
-
-                    painterResource(id = R.drawable.baseline_favorite_24)
-
-                } else {
-                    painterResource(id = R.drawable.baseline_favorite_border_24)
-                },
-                contentDescription = null,
-
-                )
+            if (isClicked) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_favorite_24),
+                    contentDescription = null,
+                    )
+            }
+            else {
+                Image(
+                    painter =
+                        painterResource(id = R.drawable.baseline_favorite_border_24),
+                    contentDescription = null,
+                    )
+            }
 
         }
     }

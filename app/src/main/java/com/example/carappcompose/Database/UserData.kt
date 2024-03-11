@@ -115,6 +115,23 @@ class UserData {
         }
 
 
+        fun FavouritesDelete(user: String, name:String) {
+
+            users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val retrievedUser = dataSnapshot.getValue(UserClass::class.java)
+
+                    if (retrievedUser != null) {
+                        retrievedUser.favourites = retrievedUser.favourites.minus(name)
+                    }
+                    users.child(user).setValue(retrievedUser)
+                }
+                override fun onCancelled(databaseError: DatabaseError) {
+                }
+            })
+        }
+
+
 
         fun isFavourite(user: String, model:String, callback: (Boolean) -> Unit) {
 
@@ -122,17 +139,16 @@ class UserData {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val retrievedUser = dataSnapshot.getValue(UserClass::class.java)
                     val favourites = retrievedUser!!.favourites
+                    var flag = false
 
                     if (dataSnapshot.exists()) {
                         for (item in favourites) {
                             if (item == model) {
-
-
-
+                                flag = true
                                 callback(true)
                             }
                         }
-                        callback(false)
+                        if (!flag) callback(false)
                     } else {
                         callback(false)
                     }
@@ -140,8 +156,14 @@ class UserData {
                 override fun onCancelled(databaseError: DatabaseError) {
                     callback(false)
                 }
-            })
+            }
+
+            )
+
+
         }
+
+
 
 
         fun ChangePassword(user: String, password: String, oldPassword:String,callback: (String) -> Unit) {

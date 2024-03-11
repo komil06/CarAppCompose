@@ -2,6 +2,7 @@ package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -59,6 +61,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -70,11 +73,17 @@ import androidx.compose.ui.zIndex
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.app.ComponentActivity
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.Item
 import com.example.carappcompose.NavigationItem
+import com.example.carappcompose.R
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.navigation.Screens
@@ -93,6 +102,8 @@ fun MainScreen(navController: NavController){
     }
 
     val context = LocalContext.current
+    val animations =
+        R.raw.hello
 
 
 
@@ -349,7 +360,8 @@ fun MainScreen(navController: NavController){
 
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .width(300.dp)
+                    .height(150.dp)
                     .padding(top = 70.dp)
                     .clickable {
                         navController.navigate(Screens.SeeAllScreen.route)
@@ -358,11 +370,33 @@ fun MainScreen(navController: NavController){
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
 
-                SearchView(
-                    state = searchText, placeHolder = "Search Here... ", modifier = Modifier.clickable {
-                        navController.navigate(Screens.SeeAllScreen.route)
-                    }
-                )
+
+                Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Start){
+//                    Text("Hello, ", fontFamily = poppinsFamily, color = Color.Black, fontSize = 20.sp, fontWeight = FontWeight.SemiBold )
+                    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(animations))
+
+                    LottieAnimation(
+                        composition = composition,
+                        iterations = LottieConstants.IterateForever,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Text( UserData.getUserSaved(context), fontFamily = poppinsFamily, color = primaryColor, fontSize = 18.sp)
+
+
+                }
+
+
+
+
+
+
+
+//                SearchView(
+//                    state = searchText, placeHolder = "Search Here... ", modifier = Modifier.clickable {
+//                        navController.navigate(Screens.SeeAllScreen.route)
+//                    }
+//
+//                )
 
 
 

@@ -56,6 +56,27 @@ class CarData {
                 }
             })
         }
+
+        fun FavouritesFilter(user: String, lst: List<String>, callback: (List<CarClass>) -> Unit) {
+
+            cars.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val cars = dataSnapshot.children
+                    var fltr = emptyList<CarClass>()
+                    dataSnapshot.children.forEach {
+                        val car = it.getValue(CarClass::class.java)
+                        if (car != null && car.title in lst) {
+                            fltr.plus(car)
+                        }
+                    }
+                    callback(fltr)
+                }
+                override fun onCancelled(databaseError: DatabaseError) {
+                    callback(emptyList())
+                }
+            })
+        }
+
         fun GetCar(name: String, callback: (CarClass) -> Unit) {
             cars.child(name).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {

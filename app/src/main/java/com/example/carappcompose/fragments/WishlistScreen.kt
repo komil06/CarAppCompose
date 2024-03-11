@@ -347,9 +347,10 @@ fun WishlistScreen(navController: NavController){
 fun MyLazyColumn() {
 
     var cars by remember { mutableStateOf<List<CarClass>>(emptyList()) }
-    CarData.GetCars { list ->
-        cars = list
-    }
+    val context = LocalContext.current
+//    CarData.FavouritesFilter(UserData.getUserSaved(context), ) { list ->
+//        cars = list
+//    }
     if (cars.isEmpty()) {
         LazyColumn {
             items(cars) { item ->
