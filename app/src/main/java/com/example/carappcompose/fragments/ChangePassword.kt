@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
@@ -75,6 +77,7 @@ import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
 import com.example.carappcompose.firebaseUI
+import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
@@ -216,26 +219,25 @@ val items = listOf(
 
                 topBar = {
                     CenterAlignedTopAppBar(
+
+                        modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
                         title = {
-                            Text(
-                                "CarStore",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                fontFamily = poppinsFamily,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 24.sp,
-                                color = primaryColor
-                            )
+
                         },
                         navigationIcon = {
-                            IconButton(onClick = {
-                                scope.launch {
-                                    drawerState.open()
-                                }
-                            }) {
+                            IconButton(modifier = Modifier
+                                .clip(shape = RoundedCornerShape(25))
+                                .background(Color.Black)
+                                ,
+                                onClick = {
+                                    scope.launch {
+                                        drawerState.open()
+                                    }
+                                }) {
                                 Icon(
                                     imageVector = Icons.Default.Menu,
                                     contentDescription = "Menu",
+                                    tint = Color.White,
                                     modifier = Modifier
                                         .height(35.dp)
                                         .width(40.dp)
@@ -243,17 +245,20 @@ val items = listOf(
                             }
                         },
                         actions = {
-                            IconButton(onClick = { /* do something */ }) {
+                            IconButton(onClick = {
+
+                                navController.navigate(Screens.SeeAllScreen.route)
+                            }) {
                                 Icon(
-                                    imageVector = Icons.Filled.Notifications,
-                                    contentDescription = "Localized description",
-                                    modifier = Modifier
-                                        .height(35.dp)
-                                        .width(40.dp)
+                                    imageVector = Icons.Filled.Search,
+                                    contentDescription = "Search Icon",
+                                    tint = Color.Black,
+                                    modifier = Modifier.size(32.dp)
                                 )
                             }
                         },
                     )
+
                 },
                 bottomBar = {
 

@@ -1,14 +1,17 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,11 +31,13 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -63,6 +68,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -114,6 +120,19 @@ fun MainScreen(navController: NavController){
     CarData.GetCars { list ->
         cars = list
     }
+
+    var cars2 by remember {
+        mutableStateOf<List<CarClass>>(emptyList())
+    }
+    UserData.FavouriteGet(UserData.getUserSaved(context)) { lst ->
+        CarData.FavouritesFilter(lst) {
+            cars2 = it
+            Log.d("TAGi", cars.toString())
+        }
+    }
+
+    val carsLength: Int = cars2.size
+
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -127,7 +146,7 @@ fun MainScreen(navController: NavController){
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
-//            badgeCount = 5
+            badgeCount = carsLength
 
             ),
         NavigationItem(
@@ -239,19 +258,37 @@ fun MainScreen(navController: NavController){
 
                 topBar = {
                     CenterAlignedTopAppBar(
+
+                        modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
                         title = {
-                            Text(
-                                "CarStore",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                fontFamily = poppinsFamily,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 24.sp,
-                                color = primaryColor
-                            )
+//                            Text(
+//                                "CarStore",
+//                                maxLines = 1,
+//                                overflow = TextOverflow.Ellipsis,
+//                                fontFamily = poppinsFamily,
+//                                fontWeight = FontWeight.Bold,
+//                                fontSize = 24.sp,
+//                                color = primaryColor
+//                            )
+
+
+                            Row(modifier = Modifier.width(150.dp), horizontalArrangement = Arrangement.SpaceEvenly){
+//
+
+
+
+                                Text( "Hello ", fontFamily = poppinsFamily, color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+
+                                Text( UserData.getUserSaved(context), fontFamily = poppinsFamily, color = primaryColor, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+
+                            }
                         },
                         navigationIcon = {
-                            IconButton(onClick = {
+                            IconButton(modifier = Modifier
+                                .clip(shape = RoundedCornerShape(25))
+                                .background(Color.Black)
+                                ,
+                                onClick = {
                                 scope.launch {
                                     drawerState.open()
                                 }
@@ -259,6 +296,7 @@ fun MainScreen(navController: NavController){
                                 Icon(
                                     imageVector = Icons.Default.Menu,
                                     contentDescription = "Menu",
+                                    tint = Color.White,
                                     modifier = Modifier
                                         .height(35.dp)
                                         .width(40.dp)
@@ -266,40 +304,47 @@ fun MainScreen(navController: NavController){
                             }
                         },
                         actions = {
-                            IconButton(onClick = { /* do something */ }) {
+                            IconButton(onClick = {
+
+                                navController.navigate(Screens.SeeAllScreen.route)
+                            }) {
                                 Icon(
-                                    imageVector = Icons.Filled.Notifications,
-                                    contentDescription = "Localized description",
-                                    modifier = Modifier
-                                        .height(35.dp)
-                                        .width(40.dp)
+                                    imageVector = Icons.Filled.Search,
+                                    contentDescription = "Search Icon",
+                                    tint = Color.Black,
+                                    modifier = Modifier.size(32.dp)
                                 )
                             }
                         },
                     )
+
                 },
                 bottomBar = {
 
-                    NavigationBar(
+                    BottomAppBar(
                         modifier = Modifier.zIndex(3f).padding(
                             bottom = 20.dp,
                             start = 25.dp, end = 25.dp, top = 20.dp
                         )
-                            .clip(RoundedCornerShape(25.dp))
-//                        .background(Color.White)
-                            .border(
-                                BorderStroke(1.dp, Color.LightGray),
-                                shape = RoundedCornerShape(25.dp),
-                            ),
+                            .clip(RoundedCornerShape(25.dp)),
+                        containerColor = primaryColor
+
+
+
+
 
 
                         ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
+
                                 selected = selectedItemIndex == index,
+
                                 onClick = {
                                     selectedItemIndex = index
                                     navController.navigate("${item.title}")
+
+
 
                                 },
                                 label = {
@@ -307,7 +352,7 @@ fun MainScreen(navController: NavController){
                                         text = item.title,
                                         fontFamily = poppinsFamily,
                                         fontWeight = FontWeight.SemiBold,
-                                        modifier = Modifier.padding(top = 20.dp)
+                                        modifier = Modifier.padding(top = 25.dp)
                                     )
                                 },
                                 alwaysShowLabel = false,
@@ -374,15 +419,20 @@ fun MainScreen(navController: NavController){
 
 
 //                    Text("Hello, ", fontFamily = poppinsFamily, color = Color.Black, fontSize = 20.sp, fontWeight = FontWeight.SemiBold )
-                val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(animations))
-
-                LottieAnimation(
-                    composition = composition,
-                    modifier = Modifier.width(200.dp).height(150.dp)
-                )
 
 
-            Text( UserData.getUserSaved(context), fontFamily = poppinsFamily, color = primaryColor, fontSize = 18.sp)
+//Row(modifier = Modifier.fillMaxWidth().height(150.dp), verticalAlignment = Alignment.CenterVertically){
+//    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(animations))
+//
+//    LottieAnimation(
+//        composition = composition,
+//        modifier = Modifier.width(180.dp).fillMaxHeight()
+//    )
+//
+//
+//    Text( UserData.getUserSaved(context), fontFamily = poppinsFamily, color = primaryColor, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+//
+//}
 
 
 
@@ -417,7 +467,7 @@ fun MainScreen(navController: NavController){
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 150.dp)
+                    .padding(top = 100.dp)
             ) {
                 LazyRow(
                 ) {
@@ -468,7 +518,7 @@ fun MainScreen(navController: NavController){
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 320.dp, start = 15.dp, end = 15.dp),
+                        .padding(top = 280.dp, start = 15.dp, end = 15.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(

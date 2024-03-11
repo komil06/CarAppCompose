@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,6 +36,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
@@ -96,6 +98,7 @@ import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
 import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.firebaseUI
+import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import com.google.firebase.database.DataSnapshot
@@ -110,7 +113,16 @@ fun SellingCarScreen(navController: NavController){
 
 
     val context = LocalContext.current
+    var cars2 by remember {
+        mutableStateOf<List<CarClass>>(emptyList())
+    }
+    UserData.FavouriteGet(UserData.getUserSaved(context)) { lst ->
+        CarData.FavouritesFilter(lst) {
+            cars2 = it
+        }
+    }
 
+    val carsLength: Int = cars2.size
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -122,6 +134,7 @@ fun SellingCarScreen(navController: NavController){
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
+            badgeCount = carsLength
 
             ),
         NavigationItem(
@@ -215,9 +228,11 @@ fun SellingCarScreen(navController: NavController){
 
                 topBar = {
                     CenterAlignedTopAppBar(
+
+                        modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
                         title = {
                             Text(
-                                "CarStore",
+                                "Sell Car",
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                                 fontFamily = poppinsFamily,
@@ -227,12 +242,19 @@ fun SellingCarScreen(navController: NavController){
                             )
                         },
                         navigationIcon = {
-                            IconButton(onClick = {   scope.launch {
-                                drawerState.open()
-                            } }) {
+                            IconButton(modifier = Modifier
+                                .clip(shape = RoundedCornerShape(25))
+                                .background(Color.Black)
+                                ,
+                                onClick = {
+                                    scope.launch {
+                                        drawerState.open()
+                                    }
+                                }) {
                                 Icon(
                                     imageVector = Icons.Default.Menu,
                                     contentDescription = "Menu",
+                                    tint = Color.White,
                                     modifier = Modifier
                                         .height(35.dp)
                                         .width(40.dp)
@@ -240,29 +262,32 @@ fun SellingCarScreen(navController: NavController){
                             }
                         },
                         actions = {
-                            IconButton(onClick = { /* do something */ }) {
+                            IconButton(onClick = {
+
+                                navController.navigate(Screens.SeeAllScreen.route)
+                            }) {
                                 Icon(
-                                    imageVector = Icons.Filled.Notifications,
-                                    contentDescription = "Localized description",
-                                    modifier = Modifier
-                                        .height(35.dp)
-                                        .width(40.dp)
+                                    imageVector = Icons.Filled.Search,
+                                    contentDescription = "Search Icon",
+                                    tint = Color.Black,
+                                    modifier = Modifier.size(32.dp)
                                 )
                             }
                         },
                     )
+
                 },
                 bottomBar = {
 
                     NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
                         start = 25.dp, end = 25.dp, top = 20.dp
                     )
-                        .clip(RoundedCornerShape(25.dp))
-//                        .background(Color.White)
-                        .border(
-                            BorderStroke(1.dp, Color.LightGray),
-                            shape = RoundedCornerShape(25.dp),),
+                        .clip(RoundedCornerShape(25.dp)),
+//                        .border(
+//                            BorderStroke(2.dp, primaryColor),
+//                            shape = RoundedCornerShape(25.dp),),
 
+                        containerColor = primaryColor
 
 
                         ) {
@@ -278,7 +303,7 @@ fun SellingCarScreen(navController: NavController){
                                     Text(text = item.title,
                                         fontFamily = poppinsFamily,
                                         fontWeight = FontWeight.SemiBold,
-                                        modifier = Modifier.padding(top = 20.dp)
+                                        modifier = Modifier.padding(top = 25.dp)
                                     )
                                 },
                                 alwaysShowLabel = false,
