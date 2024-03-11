@@ -97,6 +97,20 @@ class UserData {
         }
 
 
+        fun FavouriteGet(user: String, callback: (List<String>) -> Unit) {
+
+            users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val retrievedUser = dataSnapshot.getValue(UserClass::class.java)
+
+                    if (retrievedUser != null) {
+                        callback(retrievedUser.favourites)
+                    }
+                }
+                override fun onCancelled(databaseError: DatabaseError) {
+                }
+            })
+        }
 
         fun FavouritesCreate(user: String, name:String) {
 

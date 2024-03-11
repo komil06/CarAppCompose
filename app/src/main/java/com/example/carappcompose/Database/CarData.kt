@@ -32,7 +32,6 @@ class CarData {
                     val cars = mutableListOf<CarClass>()
                     dataSnapshot.children.forEach {
                         val car = it.getValue(CarClass::class.java)
-                        Log.d("TAG", car.toString())
                         if (car != null) {
                             cars.add(car)
                         }
@@ -57,16 +56,15 @@ class CarData {
             })
         }
 
-        fun FavouritesFilter(user: String, lst: List<String>, callback: (List<CarClass>) -> Unit) {
+        fun FavouritesFilter(lst: List<String>, callback: (List<CarClass>) -> Unit) {
 
             cars.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val cars = dataSnapshot.children
-                    var fltr = emptyList<CarClass>()
+                    val fltr = mutableListOf<CarClass>()
                     dataSnapshot.children.forEach {
                         val car = it.getValue(CarClass::class.java)
                         if (car != null && car.title in lst) {
-                            fltr.plus(car)
+                            fltr.add(car)
                         }
                     }
                     callback(fltr)

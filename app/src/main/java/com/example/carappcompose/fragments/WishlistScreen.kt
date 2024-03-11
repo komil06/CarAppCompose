@@ -1,6 +1,7 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -78,8 +79,10 @@ import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserClass
 import com.example.carappcompose.Database.UserData
+import com.example.carappcompose.Item
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
+import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
@@ -328,7 +331,7 @@ fun WishlistScreen(navController: NavController){
 
 
 
-            MyLazyColumn()
+            MyLazyColumn(navController)
 
 
 
@@ -344,21 +347,59 @@ fun WishlistScreen(navController: NavController){
 
 
 @Composable
-fun MyLazyColumn() {
+fun MyLazyColumn(navController: NavController) {
 
     var cars by remember { mutableStateOf<List<CarClass>>(emptyList()) }
     val context = LocalContext.current
-//    CarData.FavouritesFilter(UserData.getUserSaved(context), ) { list ->
-//        cars = list
-//    }
-    if (cars.isEmpty()) {
-        LazyColumn {
-            items(cars) { item ->
-                // Your item UI here
-            }
+    UserData.FavouriteGet(UserData.getUserSaved(context)) { lst ->
+        CarData.FavouritesFilter(lst) {
+            cars = it
+            Log.d("TAGi", cars.toString())
         }
+    }
+    if (cars.isEmpty()) {
+
+        EmptyIcon()
+
     } else {
-     EmptyIcon()
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp, top =100.dp)
+        ) {
+            items(items = cars) { item ->
+                item.title?.let {
+                    item.price?.let { it1 ->
+                        item.condition?.let { it2 ->
+                            item.description?.let { it3 ->
+                                item.imageUrl?.let { it4 ->
+                                    item.year?.let { it5 ->
+                                        item.mileage?.let { it6 ->
+                                            RecommendItem(
+                                                name = it,
+                                                price = it1,
+                                                condition = it2,
+                                                description = it3,
+                                                imgUrl = it4,
+                                                year = it5,
+                                                mile = it6,
+                                                navController
+                                            )
+
+                                        }
+
+                                    }
+
+                                }
+                            }
+                        }
+//
+                    }
+                }
+            }
+
+
+        }
     }
 }
 

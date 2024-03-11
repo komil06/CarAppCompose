@@ -357,36 +357,32 @@ fun MainScreen(navController: NavController){
 
 
 
+//
+//            Row(
+//                modifier = Modifier
+//                    .width(300.dp)
+//                    .height(200.dp)
+//                    .clickable {
+//                        navController.navigate(Screens.SeeAllScreen.route)
+//                    }
+//
+//                ,
+//
+//                horizontalArrangement = Arrangement.SpaceEvenly
+//
+//            ) {
 
-            Row(
-                modifier = Modifier
-                    .width(300.dp)
-                    .height(150.dp)
-                    .padding(top = 70.dp)
-                    .clickable {
-                        navController.navigate(Screens.SeeAllScreen.route)
-                    }
-                ,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
 
-
-                Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Start){
 //                    Text("Hello, ", fontFamily = poppinsFamily, color = Color.Black, fontSize = 20.sp, fontWeight = FontWeight.SemiBold )
-                    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(animations))
+                val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(animations))
 
-                    LottieAnimation(
-                        composition = composition,
-                        iterations = LottieConstants.IterateForever,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    Text( UserData.getUserSaved(context), fontFamily = poppinsFamily, color = primaryColor, fontSize = 18.sp)
+                LottieAnimation(
+                    composition = composition,
+                    modifier = Modifier.width(200.dp).height(150.dp)
+                )
 
 
-                }
-
-
-
+            Text( UserData.getUserSaved(context), fontFamily = poppinsFamily, color = primaryColor, fontSize = 18.sp)
 
 
 
@@ -401,20 +397,22 @@ fun MainScreen(navController: NavController){
 
 
 
-                IconButton(
-                    onClick = { navController.navigate("Filter") },
-                    modifier = Modifier.padding(top = 10.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.List, contentDescription = null,
-                        modifier = Modifier
-                            .width(50.dp)
-                            .height(75.dp),
-                    )
-                }
+//                IconButton(
+//                    onClick = { navController.navigate("Filter") },
+//                    modifier = Modifier.padding(top = 10.dp)
+//                ) {
+//                    Icon(
+//                        imageVector = Icons.Default.List, contentDescription = null,
+//                        modifier = Modifier
+//                            .width(50.dp)
+//                            .height(75.dp),
+//                    )
+//                }
 
 
-            }
+
+
+
 
             Row(
                 modifier = Modifier
