@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -32,6 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,9 +54,12 @@ import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.navigation.NavigationItem
 import com.example.carappcompose.Items.RecommendItem
+import com.example.carappcompose.effects.AnimatedShimmer
+import com.example.carappcompose.effects.AnimatedShimmer1
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import com.example.carappcompose.ui.theme.secondaryColor
+import kotlinx.coroutines.delay
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,6 +79,9 @@ fun SeeAllScreen(navController: NavController){
     CarData.GetCars { list ->
         cars = list
     }
+
+    val carslength1: Int = cars.size
+
 
 
     var selectedItemIndex by rememberSaveable {
@@ -170,10 +178,17 @@ fun SeeAllScreen(navController: NavController){
 
     }
 
+    var loading by remember { mutableStateOf(true) }
 
 
 
-
+    LaunchedEffect(
+        key1 = true,
+        block = {
+            delay(1000)
+            loading = false
+        }
+    )
 
 
 
@@ -201,42 +216,59 @@ fun SeeAllScreen(navController: NavController){
             it.title?.contains(searchText.value.text, ignoreCase = true) == true
 
         }
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
-        ) {
-            items(items = filteredCars) { item ->
-                item.title?.let {
-                    item.price?.let { it1 ->
-                        item.condition?.let { it2 ->
-                            item.description?.let { it3 ->
-                                item.imageUrl?.let { it4 ->
-                                    item.year?.let { it5 ->
-                                        item.mileage?.let { it6 ->
-                                            RecommendItem(
-                                                name = it,
-                                                price = it1,
-                                                condition = it2,
-                                                description = it3,
-                                                imgUrl = it4,
-                                                year = it5,
-                                                mile = it6,
-                                                navController
-                                            )
+
+        if (loading) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
+            )
+            {
+                items(carslength1) {
+                    AnimatedShimmer()
+
+                }
+
+            }
+        }
+        else{
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
+            ) {
+                items(items = filteredCars) { item ->
+                    item.title?.let {
+                        item.price?.let { it1 ->
+                            item.condition?.let { it2 ->
+                                item.description?.let { it3 ->
+                                    item.imageUrl?.let { it4 ->
+                                        item.year?.let { it5 ->
+                                            item.mileage?.let { it6 ->
+                                                RecommendItem(
+                                                    name = it,
+                                                    price = it1,
+                                                    condition = it2,
+                                                    description = it3,
+                                                    imgUrl = it4,
+                                                    year = it5,
+                                                    mile = it6,
+                                                    navController
+                                                )
+
+                                            }
 
                                         }
 
                                     }
-
                                 }
                             }
                         }
                     }
                 }
+
+
             }
-
-
         }
+
 
 
     }
@@ -255,13 +287,13 @@ fun SearchView(state: MutableState<TextFieldValue>, placeHolder: String, modifie
     },
 
 
-    modifier = Modifier.fillMaxWidth().padding(10.dp).border(1.dp, primaryColor, RoundedCornerShape(30.dp)).clip(RoundedCornerShape(30.dp))
+    modifier = Modifier.fillMaxWidth().padding(10.dp).border(1.dp, Color.LightGray, RoundedCornerShape(30.dp)).clip(RoundedCornerShape(30.dp))
         .background(Color.White)
             ,
 
     placeholder = {
         Text(text  = placeHolder,
-            fontFamily = poppinsFamily, fontWeight = FontWeight.SemiBold
+            fontFamily = poppinsFamily, fontWeight = FontWeight.SemiBold, color = primaryColor
         )
     },
 

@@ -238,15 +238,27 @@ fun MainScreen(navController: NavController) {
 
                     modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
                     title = {
-                        Text(
-                            "Wishlist",
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            fontFamily = poppinsFamily,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 24.sp,
-                            color = primaryColor
-                        )
+
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
+                            Text(
+                                text = "Hello ",
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                fontFamily = poppinsFamily,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 20.sp,
+                                color = Color.Black
+                            )
+                            Text(
+                                text = UserData.getUserSaved(context),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                fontFamily = poppinsFamily,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 20.sp,
+                                color = primaryColor
+                            )
+                        }
                     },
                     navigationIcon = {
                         IconButton(modifier = Modifier
@@ -355,7 +367,7 @@ fun MainScreen(navController: NavController) {
         LaunchedEffect(
             key1 = true,
             block = {
-                delay(2000)
+                delay(1000)
                 loading = false
             }
         )
@@ -448,7 +460,7 @@ fun MainScreen(navController: NavController) {
 
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
-                    modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
+                    modifier = Modifier.padding(bottom = 110.dp, start = 10.dp, end = 10.dp)
                 )
                 {
                     items(carslength1) {
@@ -461,7 +473,7 @@ fun MainScreen(navController: NavController) {
 
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
-                    modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
+                    modifier = Modifier.padding(bottom = 110.dp, start = 10.dp, end = 10.dp)
                 ) {
                     items(items = cars) { item ->
                         item.title?.let {

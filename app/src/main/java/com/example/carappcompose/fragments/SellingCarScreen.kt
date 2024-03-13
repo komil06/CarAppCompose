@@ -8,6 +8,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -72,6 +73,7 @@ import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.Items.MyCarItem
+import com.example.carappcompose.effects.LeadingRowItem
 import com.example.carappcompose.navigation.NavigationItem
 import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.navigation.Screens
@@ -328,7 +330,6 @@ fun SellingCarScreen(navController: NavController){
                         val cars = mutableListOf<CarClass>()
                         dataSnapshot.children.forEach {
                             val car = it.getValue(CarClass::class.java)
-                            Log.d("TAG", car.toString())
                             if (car!!.user ==  UserData.getUserSaved(context)) {
                                 cars.add(car)
                             }
@@ -353,10 +354,12 @@ fun SellingCarScreen(navController: NavController){
 
 
 
-
             LazyColumn(modifier = Modifier.padding(top = 65.dp, bottom = 130.dp))
             {
 
+                item {
+                    LeadingRowItem(navController)
+                }
                 items(mycars) { item ->
                     item.title?.let {
                         item.price?.let { it1 ->
@@ -389,15 +392,15 @@ fun SellingCarScreen(navController: NavController){
                 }
 
            }
-           Column(modifier = Modifier.fillMaxSize().padding(bottom = 105.dp, end = 30.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Bottom,){
-               FloatingActionButton(
-                   onClick = { navController.navigate("NewCar") },
-               ) {
-                   Icon(Icons.Filled.Add, "Floating action button.")
-               }
-
-
-           }
+//           Column(modifier = Modifier.fillMaxSize().padding(bottom = 105.dp, end = 30.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Bottom,){
+//               FloatingActionButton(
+//                   onClick = { navController.navigate("NewCar") },
+//               ) {
+//                   Icon(Icons.Filled.Add, "Floating action button.")
+//               }
+//
+//
+//           }
 
 
         }

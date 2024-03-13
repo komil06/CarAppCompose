@@ -88,24 +88,29 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                     title = {},
                     navigationIcon = {
                         IconButton(onClick = { navController.navigate("Main") }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Localized description",
-                                modifier = Modifier
-                                    .height(35.dp)
-                                    .width(40.dp)
+//                            Icon(
+//                                imageVector = Icons.Filled.ArrowBack,
+//                                contentDescription = "Localized description",
+//                                modifier = Modifier
+//                                    .height(35.dp)
+//                                    .width(60.dp)
+//                            )
+
+                            Image(
+                                painter = painterResource(id = R.drawable.baseline_keyboard_backspace_24),
+                                contentDescription = null,
+                                modifier = Modifier.width(80.dp).height(50.dp)
                             )
                         }
 
                     },
                     actions = {
                         IconButton(onClick = { /* do something */ }) {
-                            Icon(
-                                imageVector = Icons.Default.Share,
-                                contentDescription = "Localized description",
-                                modifier = Modifier
-                                    .height(35.dp)
-                                    .width(40.dp)
+
+                            Image(
+                                painter = painterResource(id = R.drawable.baseline_local_phone_24),
+                                contentDescription = null,
+                                modifier = Modifier.width(50.dp).height(35.dp)
                             )
                         }
                     },
@@ -226,7 +231,7 @@ fun TelegramIntegrationScreen() {
         verticalArrangement = Arrangement.Center
     ) {
         // Replace "username" with the actual username or user ID you want to open
-        TelegramButton(username = "ssardorbekk")
+        TelegramButton(username = "komil_shukhratov")
     }
 }
 

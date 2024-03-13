@@ -31,13 +31,13 @@ import com.example.carappcompose.ui.theme.poppinsFamily
 fun MyCarItem(name: String, price:String, condition: String,description: String,imgUrl:String,year:String,mile:String,navController: NavController){
 
 
-    Card(modifier = Modifier.padding(8.dp).fillMaxWidth().height(200.dp)
+    Card(modifier = Modifier.padding(10.dp).fillMaxWidth().height(200.dp)
         .clickable {
             navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,year = year,description = description, mile = mile))
 
 
         }        .border(
-            BorderStroke(1.dp, Color.White),
+            BorderStroke(1.dp, Color.LightGray),
             shape = RoundedCornerShape(12.dp),
 
       ),

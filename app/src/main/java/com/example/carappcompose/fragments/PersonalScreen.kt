@@ -81,10 +81,9 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(navController: NavController){
+fun ProfileScreen(navController: NavController) {
     val context = LocalContext.current
-    var showDialog by remember { mutableStateOf(false)}
-
+    var showDialog by remember { mutableStateOf(false) }
 
 
     val items = listOf(
@@ -118,23 +117,45 @@ fun ProfileScreen(navController: NavController){
         ModalNavigationDrawer(
             drawerContent = {
                 ModalDrawerSheet {
-                    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
-                        Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Column(
+                            modifier = Modifier.fillMaxWidth().padding(top = 50.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
 
                             ) {
 
                             firebaseUI(LocalContext.current)
 
                         }
-                        Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
-                        Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            text = "Welcome to CarStore",
+                            fontFamily = poppinsFamily,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(168, 175, 185)
+                        )
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            text = UserData.getUserSaved(context),
+                            fontFamily = poppinsFamily,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = primaryColor
+                        )
 
                     }
                     Spacer(modifier = Modifier.height(50.dp))
                     items.forEachIndexed { index, item ->
                         NavigationDrawerItem(
                             label = {
-                                Text(text = item.title,
+                                Text(
+                                    text = item.title,
                                     fontFamily = poppinsFamily,
                                     fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
 
@@ -160,8 +181,8 @@ fun ProfileScreen(navController: NavController){
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
                                 .clickable {
-                                }
-                            ,)
+                                },
+                        )
                     }
                     Button(modifier = Modifier
                         .padding(top = 5.dp)
@@ -171,7 +192,8 @@ fun ProfileScreen(navController: NavController){
                             UserData.UserSave(context, "")
                             navController.navigate("SignIn")
                         }) {
-                        Text(text = "Log out", fontSize = 20.sp,
+                        Text(
+                            text = "Log out", fontSize = 20.sp,
                             fontFamily = poppinsFamily,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.Black
@@ -201,8 +223,7 @@ fun ProfileScreen(navController: NavController){
                         navigationIcon = {
                             IconButton(modifier = Modifier
                                 .clip(shape = RoundedCornerShape(25))
-                                .background(Color.Black)
-                                ,
+                                .background(Color.Black),
                                 onClick = {
                                     scope.launch {
                                         drawerState.open()
@@ -218,41 +239,24 @@ fun ProfileScreen(navController: NavController){
                                 )
                             }
                         },
-                        actions = {
-                            IconButton(onClick = {
-
-                                navController.navigate(Screens.SeeAllScreen.route)
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Filled.Search,
-                                    contentDescription = "Search Icon",
-                                    tint = Color.Black,
-                                    modifier = Modifier.size(32.dp)
-                                )
-                            }
-                        },
                     )
 
                 },
                 bottomBar = {
 
-                    NavigationBar(modifier = Modifier
-                        .zIndex(3f)
-                        .padding(
-                            bottom = 20.dp,
-                            start = 25.dp, end = 25.dp, top = 20.dp
-                        )
-                        .clip(RoundedCornerShape(25.dp))
-                        .border(
-                            BorderStroke(1.dp, Color.LightGray),
-                            shape = RoundedCornerShape(25.dp),
-                        )
-
-
-                        ,
+                    NavigationBar(
+                        modifier = Modifier
+                            .zIndex(3f)
+                            .padding(
+                                bottom = 20.dp,
+                                start = 25.dp, end = 25.dp, top = 20.dp
+                            )
+                            .clip(RoundedCornerShape(25.dp))
+                            .border(
+                                BorderStroke(1.dp, Color.LightGray),
+                                shape = RoundedCornerShape(25.dp),
+                            ),
                         containerColor = secondaryColor
-
-
 
 
                     ) {
@@ -267,7 +271,7 @@ fun ProfileScreen(navController: NavController){
                                 icon = {
                                     BadgedBox(
                                         badge = {
-                                            if(item.badgeCount != null) {
+                                            if (item.badgeCount != null) {
                                                 Badge {
                                                     Text(text = item.badgeCount.toString())
                                                 }
@@ -289,38 +293,24 @@ fun ProfileScreen(navController: NavController){
                         }
                     }
                 },
-                )
+            )
             {
 
             }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Shu yerga yoziladi
 
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 50.dp), verticalArrangement = Arrangement.Center) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp), verticalArrangement = Arrangement.Center
+            ) {
 
-                Column(modifier = Modifier.fillMaxWidth().padding(top = 20.dp).clickable { showDialog = true }, horizontalAlignment = Alignment.CenterHorizontally,
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(top = 20.dp)
+                        .clickable { showDialog = true },
+                    horizontalAlignment = Alignment.CenterHorizontally,
 
                     ) {
 
@@ -331,9 +321,11 @@ fun ProfileScreen(navController: NavController){
 
 
 
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp, top =15.dp).clickable { }, horizontalArrangement = Arrangement.SpaceEvenly,
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { },
+                    horizontalArrangement = Arrangement.SpaceEvenly,
 
                     ) {
 
@@ -349,11 +341,7 @@ fun ProfileScreen(navController: NavController){
                             .border(0.5.dp, Color.Gray),
 
 
-
-
-
-
-                        ){
+                        ) {
                         Text(
                             text = "My Username: ",
 
@@ -375,17 +363,17 @@ fun ProfileScreen(navController: NavController){
                             color = Color.Black,
                             overflow = TextOverflow.Ellipsis
                         )
-                      
+
                     }
-
-
 
 
                 }
 
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { }, horizontalArrangement = Arrangement.SpaceEvenly,
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { },
+                    horizontalArrangement = Arrangement.SpaceEvenly,
 
                     ) {
 
@@ -401,11 +389,7 @@ fun ProfileScreen(navController: NavController){
                             .border(0.5.dp, Color.Gray),
 
 
-
-
-
-
-                    ){
+                        ) {
                         Text(
                             text = "My cars",
                             fontFamily = poppinsFamily,
@@ -423,13 +407,13 @@ fun ProfileScreen(navController: NavController){
                     }
 
 
+                }
 
-
-                    }
-
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { }, horizontalArrangement = Arrangement.SpaceEvenly,
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { },
+                    horizontalArrangement = Arrangement.SpaceEvenly,
 
                     ) {
 
@@ -445,11 +429,7 @@ fun ProfileScreen(navController: NavController){
                             .border(0.5.dp, Color.Gray),
 
 
-
-
-
-
-                        ){
+                        ) {
                         Text(
                             text = "Change Password",
                             fontFamily = poppinsFamily,
@@ -467,74 +447,60 @@ fun ProfileScreen(navController: NavController){
                     }
 
 
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, top = 15.dp)
+                        .clickable { },
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+
+                    ) {
 
 
+                    OutlinedButton(
+                        onClick = {
+                            UserData.UserSave(context, "")
+                            navController.navigate("SignIn")
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 20.dp)
+                            .clip(CircleShape)
+                            .border(0.5.dp, Color.Gray),
+
+
+                        ) {
+                        Text(
+                            text = "Log out",
+                            fontFamily = poppinsFamily,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color.Black,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Icon(
+                            imageVector = Icons.Filled.KeyboardArrowRight,
+                            contentDescription = "Localized description",
+                            modifier = Modifier
+                                .padding(start = 150.dp, end = 10.dp)
+                        )
+                    }
                 }
 
 
 
 
-//                Row(modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { }, horizontalArrangement = Arrangement.SpaceEvenly,
-//
-//                    ) {
-//
-//
-//                    OutlinedButton(
-//                        onClick = {
-//                            navController.navigate("ChangeImage")
-//                        },
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .padding(start = 20.dp, end = 20.dp)
-//                            .clip(CircleShape)
-//                            .border(0.5.dp, Color.Gray),
-//
-//
-//
-//
-//
-//
-//                        ){
-//                        Text(
-//                            text = "Change Image",
-//                            fontFamily = poppinsFamily,
-//                            fontSize = 20.sp,
-//                            fontWeight = FontWeight.SemiBold,
-//                            color = primaryColor,
-//                            overflow = TextOverflow.Ellipsis
-//                        )
-//                        Icon(
-//                            imageVector = Icons.Filled.KeyboardArrowRight,
-//                            contentDescription = "Localized description",
-//                            modifier = Modifier
-//                                .padding(start = 45.dp, end = 10.dp)
-//                        )
-//                    }
-//
-//
-//
-//
-//                }
-
-
-
-
-                }
-
-                }
 
             }
 
-
-
-
-
-
-
-
         }
+
+    }
+
+
+}
 
 
 
