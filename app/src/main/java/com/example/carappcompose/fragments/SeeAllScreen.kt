@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -53,6 +54,7 @@ import com.example.carappcompose.navigation.NavigationItem
 import com.example.carappcompose.Items.RecommendItem
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
+import com.example.carappcompose.ui.theme.secondaryColor
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -110,20 +112,26 @@ fun SeeAllScreen(navController: NavController){
 
         bottomBar = {
 
-            NavigationBar(
-                modifier = Modifier.zIndex(3f).padding(
+            NavigationBar(modifier = Modifier
+                .zIndex(3f)
+                .padding(
                     bottom = 20.dp,
                     start = 25.dp, end = 25.dp, top = 20.dp
                 )
-                    .clip(RoundedCornerShape(25.dp))
-//                        .background(Color.White)
-                    .border(
-                        BorderStroke(1.dp, Color.LightGray),
-                        shape = RoundedCornerShape(25.dp),
-                    ),
+                .clip(RoundedCornerShape(25.dp))
+                .border(
+                    BorderStroke(1.dp, Color.LightGray),
+                    shape = RoundedCornerShape(25.dp),
+                )
 
 
-                ) {
+                ,
+                containerColor = secondaryColor
+
+
+
+
+            ) {
                 items.forEachIndexed { index, item ->
                     NavigationBarItem(
                         selected = selectedItemIndex == index,
@@ -132,19 +140,10 @@ fun SeeAllScreen(navController: NavController){
                             navController.navigate("${item.title}")
 
                         },
-                        label = {
-                            Text(
-                                text = item.title,
-                                fontFamily = poppinsFamily,
-                                fontWeight = FontWeight.SemiBold,
-                                modifier = Modifier.padding(top = 20.dp)
-                            )
-                        },
-                        alwaysShowLabel = false,
                         icon = {
                             BadgedBox(
                                 badge = {
-                                    if (item.badgeCount != null) {
+                                    if(item.badgeCount != null) {
                                         Badge {
                                             Text(text = item.badgeCount.toString())
                                         }
@@ -156,15 +155,16 @@ fun SeeAllScreen(navController: NavController){
                                         item.selectedIcon
                                     } else item.unselectedIcon,
                                     contentDescription = item.title,
+                                    modifier = Modifier.size(35.dp),
+                                    tint = primaryColor
 
-                                    )
+                                )
                             }
                         }
                     )
                 }
             }
         },
-
         )
     {
 

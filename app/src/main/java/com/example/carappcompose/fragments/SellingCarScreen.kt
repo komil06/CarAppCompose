@@ -2,7 +2,9 @@ package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -75,6 +77,7 @@ import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
+import com.example.carappcompose.ui.theme.secondaryColor
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -87,28 +90,16 @@ fun SellingCarScreen(navController: NavController){
 
 
     val context = LocalContext.current
-    var cars2 by remember {
-        mutableStateOf<List<CarClass>>(emptyList())
-    }
-    UserData.FavouriteGet(UserData.getUserSaved(context)) { lst ->
-        CarData.FavouritesFilter(lst) {
-            cars2 = it
-        }
-    }
-
-    val carsLength: Int = cars2.size
     val items = listOf(
         NavigationItem(
             title = "Main",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
         ),
-
         NavigationItem(
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
-            badgeCount = carsLength
 
             ),
         NavigationItem(
@@ -117,8 +108,6 @@ fun SellingCarScreen(navController: NavController){
             unselectedIcon = Icons.Outlined.Person,
 //            badgeCount = 45
         ),
-
-
     )
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -253,18 +242,26 @@ fun SellingCarScreen(navController: NavController){
                 },
                 bottomBar = {
 
-                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
-                        start = 25.dp, end = 25.dp, top = 20.dp
-                    )
-                        .clip(RoundedCornerShape(25.dp)),
-//                        .border(
-//                            BorderStroke(2.dp, primaryColor),
-//                            shape = RoundedCornerShape(25.dp),),
+                    NavigationBar(modifier = Modifier
+                        .zIndex(3f)
+                        .padding(
+                            bottom = 20.dp,
+                            start = 25.dp, end = 25.dp, top = 20.dp
+                        )
+                        .clip(RoundedCornerShape(25.dp))
+                        .border(
+                            BorderStroke(1.dp, Color.LightGray),
+                            shape = RoundedCornerShape(25.dp),
+                        )
 
-                        containerColor = primaryColor
+
+                        ,
+                        containerColor = secondaryColor
 
 
-                        ) {
+
+
+                    ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
                                 selected = selectedItemIndex == index,
@@ -273,14 +270,6 @@ fun SellingCarScreen(navController: NavController){
                                     navController.navigate("${item.title}")
 
                                 },
-                                label = {
-                                    Text(text = item.title,
-                                        fontFamily = poppinsFamily,
-                                        fontWeight = FontWeight.SemiBold,
-                                        modifier = Modifier.padding(top = 25.dp)
-                                    )
-                                },
-                                alwaysShowLabel = false,
                                 icon = {
                                     BadgedBox(
                                         badge = {
@@ -296,15 +285,16 @@ fun SellingCarScreen(navController: NavController){
                                                 item.selectedIcon
                                             } else item.unselectedIcon,
                                             contentDescription = item.title,
+                                            modifier = Modifier.size(35.dp),
+                                            tint = primaryColor
 
-                                            )
+                                        )
                                     }
                                 }
                             )
                         }
                     }
                 },
-
                 )
             {
 

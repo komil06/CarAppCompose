@@ -74,6 +74,7 @@ import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
+import com.example.carappcompose.ui.theme.secondaryColor
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -256,20 +257,26 @@ val items = listOf(
                 },
                 bottomBar = {
 
-                    NavigationBar(
-                        modifier = Modifier.zIndex(3f).padding(
+                    NavigationBar(modifier = Modifier
+                        .zIndex(3f)
+                        .padding(
                             bottom = 20.dp,
                             start = 25.dp, end = 25.dp, top = 20.dp
                         )
-                            .clip(RoundedCornerShape(25.dp))
-//                        .background(Color.White)
-                            .border(
-                                BorderStroke(1.dp, Color.LightGray),
-                                shape = RoundedCornerShape(25.dp),
-                            ),
+                        .clip(RoundedCornerShape(25.dp))
+                        .border(
+                            BorderStroke(1.dp, Color.LightGray),
+                            shape = RoundedCornerShape(25.dp),
+                        )
 
 
-                        ) {
+                        ,
+                        containerColor = secondaryColor
+
+
+
+
+                    ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
                                 selected = selectedItemIndex == index,
@@ -278,19 +285,10 @@ val items = listOf(
                                     navController.navigate("${item.title}")
 
                                 },
-                                label = {
-                                    Text(
-                                        text = item.title,
-                                        fontFamily = poppinsFamily,
-                                        fontWeight = FontWeight.SemiBold,
-                                        modifier = Modifier.padding(top = 20.dp)
-                                    )
-                                },
-                                alwaysShowLabel = false,
                                 icon = {
                                     BadgedBox(
                                         badge = {
-                                            if (item.badgeCount != null) {
+                                            if(item.badgeCount != null) {
                                                 Badge {
                                                     Text(text = item.badgeCount.toString())
                                                 }
@@ -302,15 +300,16 @@ val items = listOf(
                                                 item.selectedIcon
                                             } else item.unselectedIcon,
                                             contentDescription = item.title,
+                                            modifier = Modifier.size(35.dp),
+                                            tint = primaryColor
 
-                                            )
+                                        )
                                     }
                                 }
                             )
                         }
                     }
                 },
-
                 )
             {
 

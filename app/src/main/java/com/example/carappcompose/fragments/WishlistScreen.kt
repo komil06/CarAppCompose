@@ -2,7 +2,9 @@ package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -80,6 +82,7 @@ import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
+import com.example.carappcompose.ui.theme.secondaryColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -94,7 +97,7 @@ fun WishlistScreen(navController: NavController){
     UserData.FavouriteGet(UserData.getUserSaved(context)) { lst ->
         CarData.FavouritesFilter(lst) {
             cars = it
-            Log.d("TAGi", cars.toString())
+            Log.d("", cars.toString())
         }
     }
 
@@ -111,7 +114,6 @@ fun WishlistScreen(navController: NavController){
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
-            badgeCount = carsLength
 
             ),
         NavigationItem(
@@ -250,17 +252,26 @@ fun WishlistScreen(navController: NavController){
                 },
                 bottomBar = {
 
-                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
-                        start = 25.dp, end = 25.dp, top = 20.dp
-                    )
+                    NavigationBar(modifier = Modifier
+                        .zIndex(3f)
+                        .padding(
+                            bottom = 20.dp,
+                            start = 25.dp, end = 25.dp, top = 20.dp
+                        )
                         .clip(RoundedCornerShape(25.dp))
-                       ,
-                        containerColor = primaryColor
+                        .border(
+                            BorderStroke(1.dp, Color.LightGray),
+                            shape = RoundedCornerShape(25.dp),
+                        )
+
+
+                        ,
+                        containerColor = secondaryColor
 
 
 
 
-                        ) {
+                    ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
                                 selected = selectedItemIndex == index,
@@ -269,14 +280,6 @@ fun WishlistScreen(navController: NavController){
                                     navController.navigate("${item.title}")
 
                                 },
-                                label = {
-                                    Text(text = item.title,
-                                        fontFamily = poppinsFamily,
-                                        fontWeight = FontWeight.SemiBold,
-                                        modifier = Modifier.padding(top = 25.dp)
-                                    )
-                                },
-                                alwaysShowLabel = false,
                                 icon = {
                                     BadgedBox(
                                         badge = {
@@ -292,8 +295,10 @@ fun WishlistScreen(navController: NavController){
                                                 item.selectedIcon
                                             } else item.unselectedIcon,
                                             contentDescription = item.title,
+                                            modifier = Modifier.size(35.dp),
+                                            tint = primaryColor
 
-                                            )
+                                        )
                                     }
                                 }
                             )

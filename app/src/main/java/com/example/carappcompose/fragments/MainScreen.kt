@@ -2,7 +2,9 @@ package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,7 +33,6 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -66,6 +67,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -82,6 +84,8 @@ import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
+import com.example.carappcompose.ui.theme.secondaryColor
+import com.example.carappcompose.ui.theme.tickColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -89,43 +93,25 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavController){
-
-    var searchText = remember{
-        mutableStateOf(TextFieldValue(""))
-    }
+fun MainScreen(navController: NavController) {
 
     val context = LocalContext.current
 
 
-
-
     var cars by remember {
-    mutableStateOf<List<CarClass>>(emptyList())
+        mutableStateOf<List<CarClass>>(emptyList())
     }
 
     CarData.GetCars { list ->
         cars = list
     }
 
-    val carslenth1: Int = cars.size
+    val carslength1: Int = cars.size
 
 
-    var cars2 by remember {
-        mutableStateOf<List<CarClass>>(emptyList())
-    }
-    UserData.FavouriteGet(UserData.getUserSaved(context)) { lst ->
-        CarData.FavouritesFilter(lst) {
-            cars2 = it
-            Log.d("TAGi", cars.toString())
-        }
-    }
-
-    val carsLength: Int = cars2.size
 
 
-    var loading by remember{mutableStateOf(true)}
-
+    var loading by remember { mutableStateOf(true) }
 
 
     val items = listOf(
@@ -135,15 +121,13 @@ fun MainScreen(navController: NavController){
             unselectedIcon = Icons.Outlined.Home,
 
 
-
-        ),
+            ),
         NavigationItem(
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
-            badgeCount = carsLength
 
-            ),
+        ),
         NavigationItem(
             title = "Profile",
             selectedIcon = Icons.Filled.Person,
@@ -163,10 +147,12 @@ fun MainScreen(navController: NavController){
             mutableStateOf(0)
         }
 
-        ModalNavigationDrawer(
 
-            drawerContent = {
-                ModalDrawerSheet {
+
+    ModalNavigationDrawer(
+
+        drawerContent = {
+            ModalDrawerSheet {
 
                 Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
 
@@ -185,368 +171,333 @@ fun MainScreen(navController: NavController){
                     Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
 
                 }
-                    Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(50.dp))
 
 
-                    items.forEachIndexed { index, item ->
-                        NavigationDrawerItem(
-                            label = {
-                                Text(text = item.title,
-                                    fontFamily = poppinsFamily,
-                                    fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-                                    )
-                            },
-                            selected = index == selectedItemIndex,
-                            onClick = {
+                items.forEachIndexed { index, item ->
+                    NavigationDrawerItem(
+                        label = {
+                            Text(text = item.title,
+                                fontFamily = poppinsFamily,
+                                fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
+                            )
+                        },
+                        selected = index == selectedItemIndex,
+                        onClick = {
 
-                                selectedItemIndex = index
-                                navController.navigate("${item.title}")
-                                scope.launch {
-                                    drawerState.close()
-                                }
-                            },
-                            icon = {
-                                Icon(
-                                    imageVector = if (index == selectedItemIndex) {
-                                        item.selectedIcon
-                                    } else item.unselectedIcon,
-                                    contentDescription = item.title
-                                )
-                            },
-                            badge = {
-                                item.badgeCount?.let {
-                                    Text(text = item.badgeCount.toString())
-                                }
-                            },
-                            modifier = Modifier
-                                .padding(NavigationDrawerItemDefaults.ItemPadding)
-                                .clickable {
-                                }
-                            ,
+                            selectedItemIndex = index
+                            navController.navigate("${item.title}")
+                            scope.launch {
+                                drawerState.close()
+                            }
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = if (index == selectedItemIndex) {
+                                    item.selectedIcon
+                                } else item.unselectedIcon,
+                                contentDescription = item.title
+                            )
+                        },
+                        badge = {
+                            item.badgeCount?.let {
+                                Text(text = item.badgeCount.toString())
+                            }
+                        },
+                        modifier = Modifier
+                            .padding(NavigationDrawerItemDefaults.ItemPadding)
+                            .clickable {
+                            }
+                        ,
 
 
                         )
-                    }
+                }
+                Button(modifier = Modifier
+                    .padding(top = 5.dp)
+                    .fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(Color.Transparent),
+                    onClick = {
+                        UserData.UserSave(context, "")
+                        navController.navigate("SignIn")
+                    }) {
+                    Text(text = "Log out", fontSize = 20.sp,
+                        fontFamily = poppinsFamily,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color.Black
+                    )
+                }
+            }
+        },
+        drawerState = drawerState
+    ) {
+        Scaffold(
 
+            topBar = {
+                CenterAlignedTopAppBar(
 
-
-
-                    Button(modifier = Modifier
-                        .padding(top = 5.dp)
-                        .fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(Color.Transparent),
-                        onClick = {
-                            UserData.UserSave(context, "")
-                            navController.navigate("SignIn")
-                        }) {
-                        Text(text = "Log out", fontSize = 20.sp,
+                    modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
+                    title = {
+                        Text(
+                            "Wishlist",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                             fontFamily = poppinsFamily,
-                             fontWeight = FontWeight.SemiBold,
-                            color = Color.Black
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 24.sp,
+                            color = primaryColor
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(modifier = Modifier
+                            .clip(shape = RoundedCornerShape(25))
+                            .background(Color.Black)
+                            ,
+                            onClick = {
+                                scope.launch {
+                                    drawerState.open()
+                                }
+                            }) {
+                            Icon(
+                                imageVector = Icons.Default.Menu,
+                                contentDescription = "Menu",
+                                tint = Color.White,
+                                modifier = Modifier
+                                    .height(35.dp)
+                                    .width(40.dp)
+                            )
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = {
+
+                            navController.navigate(Screens.SeeAllScreen.route)
+                        }) {
+                            Icon(
+                                imageVector = Icons.Filled.Search,
+                                contentDescription = "Search Icon",
+                                tint = Color.Black,
+                                modifier = Modifier.size(32.dp)
+                            )
+                        }
+                    },
+                )
+
+            },
+            bottomBar = {
+
+                NavigationBar(modifier = Modifier
+                    .zIndex(3f)
+                    .padding(
+                        bottom = 20.dp,
+                        start = 25.dp, end = 25.dp, top = 20.dp
+                    )
+                    .clip(RoundedCornerShape(25.dp))
+                    .border(
+                        BorderStroke(1.dp, Color.LightGray),
+                        shape = RoundedCornerShape(25.dp),
+                    )
+
+
+                    ,
+                    containerColor = secondaryColor
+
+
+
+
+                ) {
+                    items.forEachIndexed { index, item ->
+                        NavigationBarItem(
+                            selected = selectedItemIndex == index,
+                            onClick = {
+                                selectedItemIndex = index
+                                navController.navigate("${item.title}")
+
+                            },
+                            icon = {
+                                BadgedBox(
+                                    badge = {
+                                        if(item.badgeCount != null) {
+                                            Badge {
+                                                Text(text = item.badgeCount.toString())
+                                            }
+                                        }
+                                    }
+                                ) {
+                                    Icon(
+                                        imageVector = if (index == selectedItemIndex) {
+                                            item.selectedIcon
+                                        } else item.unselectedIcon,
+                                        contentDescription = item.title,
+                                        modifier = Modifier.size(35.dp),
+                                        tint = primaryColor
+
+                                        )
+                                }
+                            }
                         )
                     }
                 }
             },
-            drawerState = drawerState
+
+            )
+        {
+
+        }
+
+
+
+
+        //  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        //  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        //  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+        LaunchedEffect(
+            key1 = true,
+            block = {
+                delay(2000)
+                loading = false
+            }
+        )
+
+
+
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 100.dp)
         ) {
+            if (loading) {
+                LazyRow() {
+                    items(carslength1) {
+                        AnimatedShimmer1()
 
+                    }
 
-            Scaffold(
+                }
+            } else {
+                LazyRow(
+                ) {
+                    items(cars) { item ->
+                        item.title?.let {
+                            item.price?.let { it1 ->
+                                item.condition?.let { it2 ->
+                                    item.description?.let { it3 ->
+                                        item.imageUrl?.let { it4 ->
+                                            item.year?.let { it5 ->
+                                                item.mileage?.let { it6 ->
+                                                    Item(
+                                                        name = it,
+                                                        price = it1,
+                                                        condition = it2,
+                                                        description = it3,
+                                                        imgUrl = it4,
+                                                        year = it5,
+                                                        mile = it6,
+                                                        navController
+                                                    )
 
-                topBar = {
-                    CenterAlignedTopAppBar(
-
-                        modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
-                        title = {
-                            Text(
-                                "Wishlist",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                fontFamily = poppinsFamily,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 24.sp,
-                                color = primaryColor
-                            )
-                        },
-                        navigationIcon = {
-                            IconButton(modifier = Modifier
-                                .clip(shape = RoundedCornerShape(25))
-                                .background(Color.Black)
-                                ,
-                                onClick = {
-                                    scope.launch {
-                                        drawerState.open()
-                                    }
-                                }) {
-                                Icon(
-                                    imageVector = Icons.Default.Menu,
-                                    contentDescription = "Menu",
-                                    tint = Color.White,
-                                    modifier = Modifier
-                                        .height(35.dp)
-                                        .width(40.dp)
-                                )
-                            }
-                        },
-                        actions = {
-                            IconButton(onClick = {
-
-                                navController.navigate(Screens.SeeAllScreen.route)
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Filled.Search,
-                                    contentDescription = "Search Icon",
-                                    tint = Color.Black,
-                                    modifier = Modifier.size(32.dp)
-                                )
-                            }
-                        },
-                    )
-
-                },
-                bottomBar = {
-
-                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
-                        start = 25.dp, end = 25.dp, top = 20.dp
-                    )
-                        .clip(RoundedCornerShape(25.dp))
-                        ,
-                        containerColor = primaryColor
-
-
-
-
-                    ) {
-                        items.forEachIndexed { index, item ->
-                            NavigationBarItem(
-                                selected = selectedItemIndex == index,
-                                onClick = {
-                                    selectedItemIndex = index
-                                    navController.navigate("${item.title}")
-
-                                },
-                                label = {
-                                    Text(text = item.title,
-                                        fontFamily = poppinsFamily,
-                                        fontWeight = FontWeight.SemiBold,
-                                        modifier = Modifier.padding(top = 25.dp)
-                                    )
-                                },
-                                alwaysShowLabel = false,
-                                icon = {
-                                    BadgedBox(
-                                        badge = {
-                                            if(item.badgeCount != null) {
-                                                Badge {
-                                                    Text(text = item.badgeCount.toString())
                                                 }
+
                                             }
                                         }
-                                    ) {
-                                        Icon(
-                                            imageVector = if (index == selectedItemIndex) {
-                                                item.selectedIcon
-                                            } else item.unselectedIcon,
-                                            contentDescription = item.title,
-
-                                            )
                                     }
                                 }
-                            )
+//
+                            }
                         }
-                    }
-                },
 
-                )
-            {
+
+                    }
+                }
 
             }
+        }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-LaunchedEffect(
-    key1= true,
-    block = {
-        delay(2000)
-        loading = false
-    }
-)
-
-
-
-
+        Column(modifier = Modifier) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 100.dp)
+                    .padding(top = 280.dp, start = 15.dp, end = 15.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                if(loading){
-                    LazyRow(){
-                        items(carslenth1){
-                    AnimatedShimmer1()
-
-                        }
-
+                Text(
+                    text = "Recommended",
+                    fontFamily = poppinsFamily,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    text = "See all",
+                    fontFamily = poppinsFamily,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color(168, 175, 185),
+                    modifier = Modifier.clickable {
+                        navController.navigate(Screens.SeeAllScreen.route)
                     }
-                }
-                else{
-                    LazyRow(
-                    ) {
-                        items(cars) { item ->
-//
+                )
 
-                            item.title?.let {
-                                item.price?.let { it1 ->
-                                    item.condition?.let { it2 ->
-                                        item.description?.let { it3 ->
-                                            item.imageUrl?.let { it4 ->
-                                                item.year?.let { it5 ->
-                                                    item.mileage?.let { it6 ->
-                                                        Item(
-                                                            name = it,
-                                                            price = it1,
-                                                            condition = it2,
-                                                            description = it3,
-                                                            imgUrl = it4,
-                                                            year = it5,
-                                                            mile = it6,
-                                                            navController
-                                                        )
-
-                                                    }
-
-                                                }
-                                            }
-                                        }
-                                    }
-//
-                                }
-                            }
-
-
-
-                        }
-                }
-
-                }
             }
 
+            if (loading) {
 
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
+                )
+                {
+                    items(carslength1) {
+                        AnimatedShimmer()
 
+                    }
 
-            Column(modifier = Modifier) {
-
-                val filteredCars = cars.filter {
-                    it.title?.contains(searchText.value.text, ignoreCase = true) == true
-//                    ||
-//                      it.description?.contains(searchText.value.text, ignoreCase = true) == true
-//            // You can add more fields to search if needed
                 }
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 280.dp, start = 15.dp, end = 15.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+            } else {
+
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
                 ) {
-                    Text(
-                        text = "Recommended",
-                        fontFamily = poppinsFamily,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    Text(
-                        text = "See all",
-                        fontFamily = poppinsFamily,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color(168, 175, 185),
-                        modifier = Modifier.clickable {
-                            navController.navigate(Screens.SeeAllScreen.route)
-                        }
-                    )
-
-                }
-
-                if(loading){
-
-                    LazyVerticalGrid(columns = GridCells.Fixed(2),
-                        modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
-                    )
-{
-                        items(carslenth1){
-                            AnimatedShimmer()
-
-                        }
-
-                    }
-                }
-                else{
-
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
-                    ) {
-                        items(items = filteredCars) { item ->
-                            item.title?.let {
-                                item.price?.let { it1 ->
-                                    item.condition?.let { it2 ->
-                                        item.description?.let { it3 ->
-                                            item.imageUrl?.let { it4 ->
-                                                item.year?.let { it5 ->
-                                                    item.mileage?.let { it6 ->
-                                                        RecommendItem(
-                                                            name = it,
-                                                            price = it1,
-                                                            condition = it2,
-                                                            description = it3,
-                                                            imgUrl = it4,
-                                                            year = it5,
-                                                            mile = it6,
-                                                            navController
-                                                        )
-
-                                                    }
+                    items(items = cars) { item ->
+                        item.title?.let {
+                            item.price?.let { it1 ->
+                                item.condition?.let { it2 ->
+                                    item.description?.let { it3 ->
+                                        item.imageUrl?.let { it4 ->
+                                            item.year?.let { it5 ->
+                                                item.mileage?.let { it6 ->
+                                                    RecommendItem(
+                                                        name = it,
+                                                        price = it1,
+                                                        condition = it2,
+                                                        description = it3,
+                                                        imgUrl = it4,
+                                                        year = it5,
+                                                        mile = it6,
+                                                        navController
+                                                    )
 
                                                 }
 
                                             }
+
                                         }
                                     }
-//
                                 }
                             }
                         }
-
-
                     }
-
                 }
-
-
-
-
-
             }
-
+        }
+    }
 
         }
-}
 }
 
 

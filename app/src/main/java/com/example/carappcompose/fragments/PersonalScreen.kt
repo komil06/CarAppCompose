@@ -1,6 +1,7 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -74,6 +75,7 @@ import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
+import com.example.carappcompose.ui.theme.secondaryColor
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -82,17 +84,9 @@ import kotlinx.coroutines.launch
 fun ProfileScreen(navController: NavController){
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false)}
-    var cars2 by remember {
-        mutableStateOf<List<CarClass>>(emptyList())
-    }
-    UserData.FavouriteGet(UserData.getUserSaved(context)) { lst ->
-        CarData.FavouritesFilter(lst) {
-            cars2 = it
-//            Log.d("TAGi", cars.toString())
-        }
-    }
 
-    val carsLength: Int = cars2.size
+
+
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -103,7 +97,6 @@ fun ProfileScreen(navController: NavController){
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
-            badgeCount = carsLength
 
             ),
         NavigationItem(
@@ -243,12 +236,21 @@ fun ProfileScreen(navController: NavController){
                 },
                 bottomBar = {
 
-                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
-                        start = 25.dp, end = 25.dp, top = 20.dp
-                    )
-                        .clip(RoundedCornerShape(25.dp)),
-//                        .background(Color.White)
-                            containerColor = primaryColor
+                    NavigationBar(modifier = Modifier
+                        .zIndex(3f)
+                        .padding(
+                            bottom = 20.dp,
+                            start = 25.dp, end = 25.dp, top = 20.dp
+                        )
+                        .clip(RoundedCornerShape(25.dp))
+                        .border(
+                            BorderStroke(1.dp, Color.LightGray),
+                            shape = RoundedCornerShape(25.dp),
+                        )
+
+
+                        ,
+                        containerColor = secondaryColor
 
 
 
@@ -262,14 +264,6 @@ fun ProfileScreen(navController: NavController){
                                     navController.navigate("${item.title}")
 
                                 },
-                                label = {
-                                    Text(text = item.title,
-                                        fontFamily = poppinsFamily,
-                                        fontWeight = FontWeight.SemiBold,
-                                        modifier = Modifier.padding(top = 25.dp)
-                                    )
-                                },
-                                alwaysShowLabel = false,
                                 icon = {
                                     BadgedBox(
                                         badge = {
@@ -285,15 +279,16 @@ fun ProfileScreen(navController: NavController){
                                                 item.selectedIcon
                                             } else item.unselectedIcon,
                                             contentDescription = item.title,
+                                            modifier = Modifier.size(35.dp),
+                                            tint = primaryColor
 
-                                            )
+                                        )
                                     }
                                 }
                             )
                         }
                     }
                 },
-
                 )
             {
 
