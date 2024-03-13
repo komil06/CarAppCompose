@@ -1,4 +1,4 @@
-package com.example.carappcompose
+package com.example.carappcompose.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

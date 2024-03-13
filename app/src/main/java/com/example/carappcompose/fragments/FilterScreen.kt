@@ -42,8 +42,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
-import com.example.carappcompose.Database.UserData
-import com.example.carappcompose.RecommendItem
 import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.launch
 

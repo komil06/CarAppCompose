@@ -2,23 +2,18 @@ package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -28,9 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.FavoriteBorder
@@ -68,9 +61,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -78,23 +69,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import androidx.core.app.ActivityCompat.finishAffinity
-import androidx.core.app.ComponentActivity
 import androidx.navigation.NavController
-import coil.compose.rememberAsyncImagePainter
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.carappcompose.AnimatedShimmer
+import com.example.carappcompose.effects.AnimatedShimmer
+import com.example.carappcompose.effects.AnimatedShimmer1
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserData
-import com.example.carappcompose.Item
-import com.example.carappcompose.NavigationItem
-import com.example.carappcompose.R
-import com.example.carappcompose.RecommendItem
-import com.example.carappcompose.ShimmerCard2
+import com.example.carappcompose.Items.Item
+import com.example.carappcompose.navigation.NavigationItem
+import com.example.carappcompose.Items.RecommendItem
 import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
@@ -188,7 +171,9 @@ fun MainScreen(navController: NavController){
                 Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
 
 
-                    Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,
+                    Column(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,
 
                         ) {
 
@@ -273,27 +258,15 @@ fun MainScreen(navController: NavController){
 
                         modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
                         title = {
-//                            Text(
-//                                "CarStore",
-//                                maxLines = 1,
-//                                overflow = TextOverflow.Ellipsis,
-//                                fontFamily = poppinsFamily,
-//                                fontWeight = FontWeight.Bold,
-//                                fontSize = 24.sp,
-//                                color = primaryColor
-//                            )
-
-
-                            Row(modifier = Modifier.width(150.dp), horizontalArrangement = Arrangement.SpaceEvenly){
-//
-
-
-
-                                Text( "Hello ", fontFamily = poppinsFamily, color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
-
-                                Text( UserData.getUserSaved(context), fontFamily = poppinsFamily, color = primaryColor, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
-
-                            }
+                            Text(
+                                "Wishlist",
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                fontFamily = poppinsFamily,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 24.sp,
+                                color = primaryColor
+                            )
                         },
                         navigationIcon = {
                             IconButton(modifier = Modifier
@@ -301,10 +274,10 @@ fun MainScreen(navController: NavController){
                                 .background(Color.Black)
                                 ,
                                 onClick = {
-                                scope.launch {
-                                    drawerState.open()
-                                }
-                            }) {
+                                    scope.launch {
+                                        drawerState.open()
+                                    }
+                                }) {
                                 Icon(
                                     imageVector = Icons.Default.Menu,
                                     contentDescription = "Menu",
@@ -333,35 +306,27 @@ fun MainScreen(navController: NavController){
                 },
                 bottomBar = {
 
-                    BottomAppBar(
-                        modifier = Modifier.zIndex(3f).padding(
-                            bottom = 20.dp,
-                            start = 25.dp, end = 25.dp, top = 20.dp
-                        )
-                            .clip(RoundedCornerShape(25.dp)),
+                    NavigationBar(modifier = Modifier.zIndex(3f).padding(bottom = 20.dp,
+                        start = 25.dp, end = 25.dp, top = 20.dp
+                    )
+                        .clip(RoundedCornerShape(25.dp))
+                        ,
                         containerColor = primaryColor
 
 
 
 
-
-
-                        ) {
+                    ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
-
                                 selected = selectedItemIndex == index,
-
                                 onClick = {
                                     selectedItemIndex = index
                                     navController.navigate("${item.title}")
 
-
-
                                 },
                                 label = {
-                                    Text(
-                                        text = item.title,
+                                    Text(text = item.title,
                                         fontFamily = poppinsFamily,
                                         fontWeight = FontWeight.SemiBold,
                                         modifier = Modifier.padding(top = 25.dp)
@@ -371,7 +336,7 @@ fun MainScreen(navController: NavController){
                                 icon = {
                                     BadgedBox(
                                         badge = {
-                                            if (item.badgeCount != null) {
+                                            if(item.badgeCount != null) {
                                                 Badge {
                                                     Text(text = item.badgeCount.toString())
                                                 }
@@ -414,69 +379,11 @@ fun MainScreen(navController: NavController){
 
 
 
-//
-//            Row(
-//                modifier = Modifier
-//                    .width(300.dp)
-//                    .height(200.dp)
-//                    .clickable {
-//                        navController.navigate(Screens.SeeAllScreen.route)
-//                    }
-//
-//                ,
-//
-//                horizontalArrangement = Arrangement.SpaceEvenly
-//
-//            ) {
-
-
-//                    Text("Hello, ", fontFamily = poppinsFamily, color = Color.Black, fontSize = 20.sp, fontWeight = FontWeight.SemiBold )
-
-
-//Row(modifier = Modifier.fillMaxWidth().height(150.dp), verticalAlignment = Alignment.CenterVertically){
-//    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(animations))
-//
-//    LottieAnimation(
-//        composition = composition,
-//        modifier = Modifier.width(180.dp).fillMaxHeight()
-//    )
-//
-//
-//    Text( UserData.getUserSaved(context), fontFamily = poppinsFamily, color = primaryColor, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
-//
-//}
-
-
-
-
-//                SearchView(
-//                    state = searchText, placeHolder = "Search Here... ", modifier = Modifier.clickable {
-//                        navController.navigate(Screens.SeeAllScreen.route)
-//                    }
-//
-//                )
-
-
-
-
-//                IconButton(
-//                    onClick = { navController.navigate("Filter") },
-//                    modifier = Modifier.padding(top = 10.dp)
-//                ) {
-//                    Icon(
-//                        imageVector = Icons.Default.List, contentDescription = null,
-//                        modifier = Modifier
-//                            .width(50.dp)
-//                            .height(75.dp),
-//                    )
-//                }
-
-
 
 LaunchedEffect(
     key1= true,
     block = {
-        delay(4000)
+        delay(2000)
         loading = false
     }
 )
@@ -492,7 +399,7 @@ LaunchedEffect(
                 if(loading){
                     LazyRow(){
                         items(carslenth1){
-//                            ShimmerCard()
+                    AnimatedShimmer1()
 
                         }
 
@@ -578,10 +485,10 @@ LaunchedEffect(
 
                 if(loading){
 
-//                    LazyVerticalGrid(columns = GridCells.Fixed(2),
-//                        modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
-//                    )
-                    LazyColumn(){
+                    LazyVerticalGrid(columns = GridCells.Fixed(2),
+                        modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
+                    )
+{
                         items(carslenth1){
                             AnimatedShimmer()
 

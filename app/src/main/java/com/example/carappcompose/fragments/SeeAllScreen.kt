@@ -49,8 +49,8 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
-import com.example.carappcompose.NavigationItem
-import com.example.carappcompose.RecommendItem
+import com.example.carappcompose.navigation.NavigationItem
+import com.example.carappcompose.Items.RecommendItem
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 

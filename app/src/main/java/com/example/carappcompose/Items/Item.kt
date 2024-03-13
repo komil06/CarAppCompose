@@ -1,4 +1,4 @@
-package com.example.carappcompose
+package com.example.carappcompose.Items
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
