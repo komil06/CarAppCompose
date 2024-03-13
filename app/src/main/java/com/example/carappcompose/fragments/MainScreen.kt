@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -56,6 +57,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -84,6 +86,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.carappcompose.AnimatedShimmer
 import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserData
@@ -91,10 +94,12 @@ import com.example.carappcompose.Item
 import com.example.carappcompose.NavigationItem
 import com.example.carappcompose.R
 import com.example.carappcompose.RecommendItem
+import com.example.carappcompose.ShimmerCard2
 import com.example.carappcompose.firebaseUI
 import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -108,8 +113,7 @@ fun MainScreen(navController: NavController){
     }
 
     val context = LocalContext.current
-    val animations =
-        R.raw.hello
+
 
 
 
@@ -120,6 +124,9 @@ fun MainScreen(navController: NavController){
     CarData.GetCars { list ->
         cars = list
     }
+
+    val carslenth1: Int = cars.size
+
 
     var cars2 by remember {
         mutableStateOf<List<CarClass>>(emptyList())
@@ -132,6 +139,11 @@ fun MainScreen(navController: NavController){
     }
 
     val carsLength: Int = cars2.size
+
+
+    var loading by remember{mutableStateOf(true)}
+
+
 
     val items = listOf(
         NavigationItem(
@@ -461,6 +473,14 @@ fun MainScreen(navController: NavController){
 
 
 
+LaunchedEffect(
+    key1= true,
+    block = {
+        delay(4000)
+        loading = false
+    }
+)
+
 
 
 
@@ -469,38 +489,54 @@ fun MainScreen(navController: NavController){
                     .fillMaxWidth()
                     .padding(top = 100.dp)
             ) {
-                LazyRow(
-                ) {
-                    items(cars) { item ->
+                if(loading){
+                    LazyRow(){
+                        items(carslenth1){
+//                            ShimmerCard()
+
+                        }
+
+                    }
+                }
+                else{
+                    LazyRow(
+                    ) {
+                        items(cars) { item ->
 //
-                        item.title?.let {
-                            item.price?.let { it1 ->
-                                item.condition?.let { it2 ->
-                                    item.description?.let { it3 ->
-                                        item.imageUrl?.let { it4 ->
-                                            item.year?.let { it5 ->
-                                                item.mileage?.let { it6 ->
-                                                    Item(
-                                                        name = it,
-                                                        price = it1,
-                                                        condition = it2,
-                                                        description = it3,
-                                                        imgUrl = it4,
-                                                        year = it5,
-                                                        mile = it6,
-                                                        navController
-                                                    )
+
+                            item.title?.let {
+                                item.price?.let { it1 ->
+                                    item.condition?.let { it2 ->
+                                        item.description?.let { it3 ->
+                                            item.imageUrl?.let { it4 ->
+                                                item.year?.let { it5 ->
+                                                    item.mileage?.let { it6 ->
+                                                        Item(
+                                                            name = it,
+                                                            price = it1,
+                                                            condition = it2,
+                                                            description = it3,
+                                                            imgUrl = it4,
+                                                            year = it5,
+                                                            mile = it6,
+                                                            navController
+                                                        )
+
+                                                    }
 
                                                 }
-
                                             }
                                         }
                                     }
-                                }
 //
+                                }
                             }
+
+
+
                         }
-                    }
+                }
+
                 }
             }
 
@@ -539,43 +575,66 @@ fun MainScreen(navController: NavController){
                     )
 
                 }
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
-                ) {
-                    items(items = filteredCars) { item ->
-                        item.title?.let {
-                            item.price?.let { it1 ->
-                                item.condition?.let { it2 ->
-                                    item.description?.let { it3 ->
-                                        item.imageUrl?.let { it4 ->
-                                            item.year?.let { it5 ->
-                                                item.mileage?.let { it6 ->
-                                                    RecommendItem(
-                                                        name = it,
-                                                        price = it1,
-                                                        condition = it2,
-                                                        description = it3,
-                                                        imgUrl = it4,
-                                                        year = it5,
-                                                        mile = it6,
-                                                        navController
-                                                    )
+
+                if(loading){
+
+//                    LazyVerticalGrid(columns = GridCells.Fixed(2),
+//                        modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
+//                    )
+                    LazyColumn(){
+                        items(carslenth1){
+                            AnimatedShimmer()
+
+                        }
+
+                    }
+                }
+                else{
+
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
+                    ) {
+                        items(items = filteredCars) { item ->
+                            item.title?.let {
+                                item.price?.let { it1 ->
+                                    item.condition?.let { it2 ->
+                                        item.description?.let { it3 ->
+                                            item.imageUrl?.let { it4 ->
+                                                item.year?.let { it5 ->
+                                                    item.mileage?.let { it6 ->
+                                                        RecommendItem(
+                                                            name = it,
+                                                            price = it1,
+                                                            condition = it2,
+                                                            description = it3,
+                                                            imgUrl = it4,
+                                                            year = it5,
+                                                            mile = it6,
+                                                            navController
+                                                        )
+
+                                                    }
 
                                                 }
 
                                             }
-
                                         }
                                     }
-                                }
 //
+                                }
                             }
                         }
+
+
                     }
 
-
                 }
+
+
+
+
+
             }
 
 

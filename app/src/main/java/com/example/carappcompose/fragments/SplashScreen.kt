@@ -24,21 +24,17 @@ fun SplashScreen(navController: NavController,) {
 
 
     LaunchedEffect(key1 = true) {
-//        scale.animateTo(
-//            targetValue =1.5f,
-//            animationSpec = tween(
-//                durationMillis = 4000,
-//                easing = {
-//
-//                    OvershootInterpolator(1f).getInterpolation(it)
-//                })
-//        )
+
 
         delay(1500)
-//        if (UserData.getUserSaved(context) == "")
+        if (UserData.getUserSaved(context) == ""){
             navController.navigate("SignIn")
-//        navController.navigate("Main")
-//        navController.navigate("SignIn")
+
+        }
+        else{
+        navController.navigate("Main")
+
+        }
     }
 
     Box(
