@@ -6,7 +6,7 @@ data class UserClass(
     var password: String?,
     var favourites: List<String>,
     var imageUrl:String,
-    val userTelegram:String?,
+
 ) {
-    constructor() : this(null, null, null, emptyList(), null.toString(),null)
+    constructor() : this(null, null, null, emptyList(), null.toString())
 }

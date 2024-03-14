@@ -29,8 +29,10 @@ import com.example.carappcompose.navigation.DESCRIPTION_KEY
 import com.example.carappcompose.navigation.MILE_KEY
 import com.example.carappcompose.navigation.NAME_KEY
 import com.example.carappcompose.navigation.Navigation
+import com.example.carappcompose.navigation.PHONE_KEY
 import com.example.carappcompose.navigation.PRICE_KEY
 import com.example.carappcompose.navigation.Screens
+import com.example.carappcompose.navigation.TGUSERNAME_KEY
 import com.example.carappcompose.navigation.YEAR_KEY
 import com.example.carappcompose.ui.theme.CarAppComposeTheme
 
@@ -81,6 +83,12 @@ class MainActivity : ComponentActivity() {
                        navArgument(MILE_KEY) {
                            type = NavType.StringType
                        },
+                       navArgument(TGUSERNAME_KEY) {
+                           type = NavType.StringType
+                       },
+                       navArgument(PHONE_KEY) {
+                           type = NavType.StringType
+                       },
                        ),
 
 
@@ -92,10 +100,13 @@ class MainActivity : ComponentActivity() {
                        val description = navBackStackEntry.arguments?.getString(DESCRIPTION_KEY)
                        val year = navBackStackEntry.arguments?.getString(YEAR_KEY)
                        val mile = navBackStackEntry.arguments?.getString(MILE_KEY)
+                       val tg_username = navBackStackEntry.arguments?.getString(TGUSERNAME_KEY)
+
+                       val phone = navBackStackEntry.arguments?.getString(PHONE_KEY)
 
 
-                       if (name != null && price!= null && condition!= null && description!= null && year!= null&& mile!= null ) {
-                           DetailsScreen(name = name,price= price, condition = condition,description = description,year = year, mile = mile, navController)
+                       if (name != null && price!= null && condition!= null && description!= null && year!= null && mile!= null && tg_username!= null && phone!= null ) {
+                           DetailsScreen(name = name,price= price, condition = condition,description = description,year = year, mile = mile, tg_username = tg_username, phone = phone, navController)
                        }
                    }
 

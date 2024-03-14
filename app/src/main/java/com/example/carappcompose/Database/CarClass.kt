@@ -9,8 +9,10 @@ data class CarClass(
     val condition:String?, //+
     val color:String?, //-
     val description:String?, //+
-    var imageUrl:String //+
+    var imageUrl:String,
+    val userTelegram:String?,
+    val phonenumber:String?
 
     ) {
-    constructor() : this(null,null, null,null, null, null,null,null, null.toString())
+    constructor() : this(null,null, null,null, null, null,null,null, null.toString(), null, null)
 }

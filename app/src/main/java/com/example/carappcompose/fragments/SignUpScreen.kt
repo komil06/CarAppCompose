@@ -91,7 +91,6 @@ fun SignUpScreen(navController: NavController){
     var fullname by remember { mutableStateOf(TextFieldValue("")) }
     val context = LocalContext.current
     var passwordVisibility by remember { mutableStateOf(false) }
-    var telegramUsername by remember { mutableStateOf(TextFieldValue("")) }
 
     val icon = if (passwordVisibility)
         painterResource(id = R.drawable.baseline_visibility_24)
@@ -236,25 +235,6 @@ fun SignUpScreen(navController: NavController){
             )
 
             Spacer(modifier = Modifier.height(15.dp))
-
-
-            OutlinedTextField(
-                value = telegramUsername,
-                leadingIcon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
-                onValueChange = { telegramUsername = it },
-                label = { Text("Telegram Username",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next,
-
-                    ),
-
-                shape = RoundedCornerShape(12.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = primaryColor,
-                ),
-            )
-
-            Spacer(modifier = Modifier.height(15.dp))
             OutlinedTextField(
                 value = password,
                 leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null, modifier = Modifier.padding(8.dp)) },
@@ -293,7 +273,7 @@ fun SignUpScreen(navController: NavController){
                     .fillMaxWidth(),
                 onClick = {
 
-                    if (username.text == "" || fullname.text =="" || password == "" || bitmap ==null || telegramUsername.text == "") {
+                    if (username.text == "" || fullname.text =="" || password == "" || bitmap ==null) {
                         isUploading.value = false
 
                         Toast.makeText(context, "Fill all", Toast.LENGTH_SHORT)
@@ -313,7 +293,7 @@ fun SignUpScreen(navController: NavController){
                                                 imageUrl.let{
                                                     imgUrl = it
                                                 }
-                                                        UserData.UserCreate(UserClass(fullname.text, username.text, password, emptyList(), imgUrl, telegramUsername.text))
+                                                        UserData.UserCreate(UserClass(fullname.text, username.text, password, emptyList(), imgUrl, ))
                                                 UserData.UserSave(context, username.text)
                                                 Toast.makeText(context, "User Saved Succesfully", Toast.LENGTH_SHORT).show()
                                                 Toast.makeText(context,"Welcome, ${username.text} ", Toast.LENGTH_LONG)

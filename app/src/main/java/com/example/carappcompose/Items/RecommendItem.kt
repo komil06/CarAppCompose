@@ -41,7 +41,7 @@ import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 
 @Composable
-fun RecommendItem(name: String, price:String, condition: String,description: String,imgUrl:String,year:String, mile:String,navController: NavController){
+fun RecommendItem(name: String, price:String, condition: String,description: String,imgUrl:String,year:String, mile:String, tg_username:String, phonenumber:String, navController: NavController){
     val context = LocalContext.current
     var cars by remember {
         mutableStateOf<List<CarClass>>(emptyList())
@@ -60,7 +60,7 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
         .clickable {
 
 
-            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description, year = year, mile = mile))
+            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description, year = year, mile = mile, tg_username = tg_username, phone = phonenumber))
 
         },   colors = CardDefaults.cardColors(
         containerColor = Color.White,

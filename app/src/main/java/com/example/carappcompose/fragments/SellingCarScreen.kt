@@ -73,6 +73,7 @@ import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.Items.MyCarItem
+import com.example.carappcompose.Items.RecommendItem
 import com.example.carappcompose.effects.LeadingRowItem
 import com.example.carappcompose.navigation.NavigationItem
 import com.example.carappcompose.firebaseUI
@@ -369,16 +370,24 @@ fun SellingCarScreen(navController: NavController){
                                         item.year?.let { it5 ->
                                             item.mileage?.let { it6 ->
 
-                                                MyCarItem(
-                                                    name = it,
-                                                    price = it1,
-                                                    condition = it2,
-                                                    description = it3,
-                                                    imgUrl = it4,
-                                                    year=it5,
-                                                    mile = it6,
-                                                    navController
-                                                )
+                                                item.userTelegram?.let { it7 ->
+
+                                                    item.phonenumber?.let { it8 ->
+                                                        MyCarItem(
+                                                            name = it,
+                                                            price = it1,
+                                                            condition = it2,
+                                                            description = it3,
+                                                            imgUrl = it4,
+                                                            year = it5,
+                                                            mile = it6,
+                                                            tg_username = it7,
+                                                            phonenumber = it8,
+                                                            navController
+                                                        )
+
+                                                    }
+                                                }
                                             }
 
                                         }

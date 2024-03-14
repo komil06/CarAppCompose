@@ -33,6 +33,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -76,6 +77,7 @@ import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.R
+import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 
@@ -86,25 +88,20 @@ fun AddNewCarScreen(navController: NavController){
 
 
     val context = LocalContext.current
-
-            var title by remember { mutableStateOf(TextFieldValue("")) }
+    var title by remember { mutableStateOf(TextFieldValue("")) }
     var year by remember { mutableStateOf(TextFieldValue("")) }
-
     var mileage by remember { mutableStateOf(TextFieldValue("")) }
     var condition by remember { mutableStateOf(TextFieldValue(""))}
     var color by remember { mutableStateOf(TextFieldValue(""))}
+    var phone by remember { mutableStateOf(TextFieldValue(""))}
+    var tg_username by remember { mutableStateOf(TextFieldValue(""))}
+
     var price by remember { mutableStateOf(TextFieldValue("")) }
-
     var description by remember { mutableStateOf(TextFieldValue("")) }
-
-
     var imgUrl by remember {mutableStateOf("") }
     val isUploading  = remember { mutableStateOf(false) }
-    var password by remember { mutableStateOf("") }
     var bitmap by remember { mutableStateOf<Bitmap?>(null)}
     var showDialog by remember { mutableStateOf(false)}
-
-
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ){uri: Uri? ->
@@ -118,60 +115,33 @@ fun AddNewCarScreen(navController: NavController){
             }
         }
     }
-
-
     val cLauncher = rememberLauncherForActivityResult (
         contract = ActivityResultContracts.TakePicturePreview()
-
     ){
-
         bitmap = it
     }
-
-
-
-
-
-
-
 
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-        val scope = rememberCoroutineScope()
-        var selectedItemIndex by rememberSaveable {
-            mutableStateOf(2)
-        }
 
         Scaffold(
             topBar = {
                 CenterAlignedTopAppBar(
                     title = {},
                     navigationIcon = {
-                        IconButton(onClick = { navController.navigate("Main") }) {
-                            Icon(
-                                imageVector = Icons.Filled.ArrowBack,
-                                contentDescription = "Localized description",
-                                modifier = Modifier
-                                    .height(35.dp)
-                                    .width(40.dp)
+                        IconButton(onClick = { navController.navigate(Screens.NewCar.route) }) {
+
+                            Image(
+                                painter = painterResource(id = R.drawable.baseline_keyboard_backspace_24),
+                                contentDescription = null,
+                                modifier = Modifier.width(80.dp).height(50.dp)
                             )
                         }
 
                     },
-                    actions = {
-                        IconButton(onClick = { /* do something */ }) {
-                            Icon(
-                                imageVector = Icons.Filled.Notifications,
-                                contentDescription = "Localized description",
-                                modifier = Modifier
-                                    .height(35.dp)
-                                    .width(40.dp)
-                            )
-                        }
-                    },
+
 
                     )
             }
@@ -214,10 +184,10 @@ fun AddNewCarScreen(navController: NavController){
                 else{
 
                     Image(
-                        painter = painterResource(id = R.drawable.plus),
+                        painter = painterResource(id = R.drawable.baseline_add_circle_outline_24),
+
                         contentDescription = null,
                         modifier = Modifier
-                            .clip(CircleShape)
 
                             .size(130.dp)
 
@@ -231,7 +201,7 @@ fun AddNewCarScreen(navController: NavController){
 
                 modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
                 value = title,
-                leadingIcon = {Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                leadingIcon = {Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp),tint = primaryColor) },
 
                 onValueChange = { title = it },
                 label = { Text("Car Name",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
@@ -251,7 +221,7 @@ fun AddNewCarScreen(navController: NavController){
 
 //                        modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
                         value = year,
-                        leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                        leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp),tint = primaryColor) },
 
                         onValueChange = { year = it },
                         label = { Text("Year",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
@@ -272,7 +242,8 @@ fun AddNewCarScreen(navController: NavController){
 
 //                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 10.dp).fillMaxWidth(),
                         value = mileage,
-                        leadingIcon = {Icon(imageVector =Icons.Default.Star, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                        leadingIcon = {
+                            Icon(imageVector =Icons.Default.Star, contentDescription = null, modifier = Modifier.padding(8.dp),tint = primaryColor) },
 
                         onValueChange = { mileage = it },
                         label = { Text("Mileage",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
@@ -293,7 +264,8 @@ fun AddNewCarScreen(navController: NavController){
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
                     value = color,
-                    leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp)) },
+                    leadingIcon = {
+                        Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp),   tint = primaryColor) },
 
                     onValueChange = { color = it },
                     label = { Text("Color",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
@@ -316,6 +288,7 @@ fun AddNewCarScreen(navController: NavController){
                                 painter = painterResource(id = R.drawable.baseline_vpn_key_24),
                                 contentDescription = "Komilni puli",
 //                        modifier = Modifier.width(30.dp).height(20.dp)
+
                             )
                                       },
 
@@ -338,7 +311,8 @@ fun AddNewCarScreen(navController: NavController){
                         value = price,
                     leadingIcon = {Image(
                         painter = painterResource(id = R.drawable.baseline_attach_money_24),
-                        contentDescription = "Komilni puli",
+                        contentDescription = "null",
+
 //                        modifier = Modifier.width(30.dp).height(20.dp)
                     )},
                         onValueChange = { price = it },
@@ -354,6 +328,46 @@ fun AddNewCarScreen(navController: NavController){
                     )
 
                 }
+
+
+
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
+                    value = phone,
+                    leadingIcon = {Icon(imageVector =Icons.Default.Phone, contentDescription = null, modifier = Modifier.padding(8.dp),tint = primaryColor) },
+
+                    onValueChange = { phone = it },
+
+                    label = { Text("Telefon Raqam",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Next,
+
+                        ),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = primaryColor,
+                    )
+                )
+
+
+
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
+                    value = tg_username,
+                    leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp), tint = primaryColor) },
+
+                    onValueChange = { tg_username = it },
+                    label = { Text("Telegram Username",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Next,
+
+                        ),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = primaryColor,
+                    )
+                )
+
 
 
                 OutlinedTextField(
@@ -381,7 +395,7 @@ fun AddNewCarScreen(navController: NavController){
 
 
             if (title.text == "" || mileage.text =="" || condition.text == ""|| year.text == ""
-                || year.text == "" || description.text == "" || price.text == ""
+                || year.text == "" || description.text == "" || price.text == "" || phone.text == "" || tg_username.text == ""
                 || bitmap ==null) {
                 isUploading.value = false
 
@@ -400,7 +414,7 @@ fun AddNewCarScreen(navController: NavController){
                             imageUrl.let{
                                 imgUrl = it
                             }
-                            CarData.CreateCar(CarClass(UserData.getUserSaved(context),title.text, year.text, price.text,mileage.text,condition.text,color.text, description.text, imgUrl))
+                            CarData.CreateCar(CarClass(UserData.getUserSaved(context),title.text, year.text, price.text,mileage.text,condition.text,color.text, description.text, imgUrl, tg_username.text, phone.text))
 
                             Toast.makeText(
                                 context, "Mashina muvaqqiyatli qo'shildi", Toast.LENGTH_SHORT

@@ -28,12 +28,12 @@ import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 
 @Composable
-fun MyCarItem(name: String, price:String, condition: String,description: String,imgUrl:String,year:String,mile:String,navController: NavController){
+fun MyCarItem(name: String, price:String, condition: String,description: String,imgUrl:String,year:String,mile:String,tg_username:String, phonenumber:String,navController: NavController){
 
 
     Card(modifier = Modifier.padding(10.dp).fillMaxWidth().height(200.dp)
         .clickable {
-            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,year = year,description = description, mile = mile))
+            navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,year = year,description = description, mile = mile, tg_username = tg_username, phone = phonenumber))
 
 
         }        .border(

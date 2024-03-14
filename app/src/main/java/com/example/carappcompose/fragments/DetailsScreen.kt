@@ -76,11 +76,10 @@ import java.nio.file.WatchEvent
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
 @Composable
-fun DetailsScreen(name:String, price:String,condition:String, description:String,year:String,mile:String, navController: NavController) {
+fun DetailsScreen(name:String, price:String,condition:String, description:String,year:String,mile:String, tg_username:String, phone:String, navController: NavController) {
     var img by remember { mutableStateOf("") }
     CarData.GetCarImage(name) {
         img = it
-        Log.d("tag", img)
     }
         Scaffold(
             topBar = {
@@ -88,13 +87,6 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
                     title = {},
                     navigationIcon = {
                         IconButton(onClick = { navController.navigate("Main") }) {
-//                            Icon(
-//                                imageVector = Icons.Filled.ArrowBack,
-//                                contentDescription = "Localized description",
-//                                modifier = Modifier
-//                                    .height(35.dp)
-//                                    .width(60.dp)
-//                            )
 
                             Image(
                                 painter = painterResource(id = R.drawable.baseline_keyboard_backspace_24),
@@ -206,9 +198,18 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
 
                     )
 
+                    Text(text = "Telefon: $phone",
+                        modifier = Modifier.border(
+                            BorderStroke(1.dp, primaryColor),
+                            shape = RoundedCornerShape(12.dp),
+                        )
+                            .padding(10.dp).fillMaxWidth(),
+                        fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold
+
+                    )
 
 
-                    TelegramIntegrationScreen()
+                    TelegramIntegrationScreen(tg_username)
 
 
                 }
@@ -222,7 +223,7 @@ fun DetailsScreen(name:String, price:String,condition:String, description:String
 
 
 @Composable
-fun TelegramIntegrationScreen() {
+fun TelegramIntegrationScreen(tg_username: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -231,7 +232,7 @@ fun TelegramIntegrationScreen() {
         verticalArrangement = Arrangement.Center
     ) {
         // Replace "username" with the actual username or user ID you want to open
-        TelegramButton(username = "komil_shukhratov")
+        TelegramButton(username = tg_username)
     }
 }
 

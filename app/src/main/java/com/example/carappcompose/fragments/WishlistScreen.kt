@@ -410,16 +410,24 @@ fun MyLazyColumn(navController: NavController, carlength:Int, cars: List<CarClas
                                     item.imageUrl?.let { it4 ->
                                         item.year?.let { it5 ->
                                             item.mileage?.let { it6 ->
-                                                RecommendItem(
-                                                    name = it,
-                                                    price = it1,
-                                                    condition = it2,
-                                                    description = it3,
-                                                    imgUrl = it4,
-                                                    year = it5,
-                                                    mile = it6,
-                                                    navController
-                                                )
+                                                item.userTelegram?.let { it7 ->
+
+                                                    item.phonenumber?.let { it8 ->
+                                                        RecommendItem(
+                                                            name = it,
+                                                            price = it1,
+                                                            condition = it2,
+                                                            description = it3,
+                                                            imgUrl = it4,
+                                                            year = it5,
+                                                            mile = it6,
+                                                            tg_username = it7,
+                                                            phonenumber = it8,
+                                                            navController
+                                                        )
+
+                                                    }
+                                                }
 
                                             }
 

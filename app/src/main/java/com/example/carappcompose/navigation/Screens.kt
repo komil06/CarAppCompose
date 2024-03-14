@@ -10,6 +10,9 @@ const val YEAR_KEY = "year_key"
 
 const val MILE_KEY = "mile_key"
 
+const val TGUSERNAME_KEY = "username_key"
+const val PHONE_KEY = "phone_key"
+
 sealed class Screens(val route:String){
      object Splash:Screens("Splash")
      object SignIn:Screens("SignIn")
@@ -22,9 +25,9 @@ sealed class Screens(val route:String){
 
 object OnBoarding:Screens("OnBoarding")
 
-     object Details : Screens("Details/{$NAME_KEY}/{$PRICE_KEY}/{$CONDITION_KEY}/{$DESCRIPTION_KEY}/{$YEAR_KEY}/{$MILE_KEY}") {
-          fun getFullRoute(name: String, price:String, condition:String, description:String, year:String,mile:String ): String {
-               return "Details/$name/$price/$condition/$description/$year/$mile"
+     object Details : Screens("Details/{$NAME_KEY}/{$PRICE_KEY}/{$CONDITION_KEY}/{$DESCRIPTION_KEY}/{$YEAR_KEY}/{$MILE_KEY}/{$TGUSERNAME_KEY}/{$PHONE_KEY}") {
+          fun getFullRoute(name: String, price:String, condition:String, description:String, year:String,mile:String, tg_username:String, phone:String ): String {
+               return "Details/$name/$price/$condition/$description/$year/$mile/$tg_username/$phone"
           }
      }
 
@@ -39,6 +42,6 @@ object OnBoarding:Screens("OnBoarding")
      object ChangePassword:Screens("ChangePassword")
      object SeeAllScreen:Screens("SeeAllScreen")
 
-//     object ChangeImage:Screens("ChangeImage")
+//
 
 }
