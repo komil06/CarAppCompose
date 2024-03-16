@@ -52,7 +52,6 @@ import com.example.carappcompose.R
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(navController: NavController){
@@ -61,7 +60,6 @@ fun SignInScreen(navController: NavController){
     val context = LocalContext.current
     val isUploading  = remember { mutableStateOf(false) }
     var passwordVisibility by remember { mutableStateOf(false) }
-
     val icon = if (passwordVisibility)
         painterResource(id = R.drawable.baseline_visibility_24)
     else
@@ -70,11 +68,9 @@ fun SignInScreen(navController: NavController){
         .fillMaxSize()
         .padding(10.dp)
         .background(primaryColor)
-        .verticalScroll(rememberScrollState())
-        ,
+        .verticalScroll(rememberScrollState()),
         ) {
         Column(modifier = Modifier.fillMaxWidth().padding(top = 10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-
             if(isUploading.value){
                 CircularProgressIndicator(
                     modifier = Modifier.width(60.dp).height(60.dp),
@@ -82,38 +78,24 @@ fun SignInScreen(navController: NavController){
                 )
             }
         }
-
-
-
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(top = 90.dp),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = "Login", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(255,165,0))
-
             Spacer(modifier = Modifier.height(10.dp))
             Text(text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
             Spacer(modifier = Modifier.height(10.dp))
 
-
-           OutlinedTextField(
+            OutlinedTextField(
                 value = username,
                 leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
-
-                onValueChange = { username = it
-
-                                },
+                onValueChange = { username = it },
                 label = { Text("Username",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next,
-                    ),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next,),
                 shape = RoundedCornerShape(12.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                      focusedBorderColor = primaryColor,
+                colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = primaryColor,)
                 )
-                )
-
-
 
             Spacer(modifier = Modifier.height(10.dp))
             OutlinedTextField(
@@ -122,12 +104,10 @@ fun SignInScreen(navController: NavController){
                 onValueChange = { password = it },
                 label = { Text("Password",   color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) },
                 shape = RoundedCornerShape(12.dp),
-                        keyboardOptions = KeyboardOptions(
-
-                autoCorrect = true,
+                keyboardOptions = KeyboardOptions(
+                    autoCorrect = true,
                 keyboardType = KeyboardType.Password,
                             imeAction = ImeAction.Done,
-
             ),
 
                 colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -148,7 +128,6 @@ fun SignInScreen(navController: NavController){
 
             )
 
-
             Spacer(modifier = Modifier.height(20.dp))
             Text(text="Forgot Password?",fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium,   color = Color(168,175,185))
             Spacer(modifier = Modifier.height(20.dp))
@@ -157,11 +136,8 @@ fun SignInScreen(navController: NavController){
                     .padding(20.dp)
                     .fillMaxWidth(),
                 onClick = {
-
-
                     if (username.text =="" || password.text =="" ) {
                         isUploading.value = false
-
                         Toast.makeText(context,"Username or password empty" , Toast.LENGTH_SHORT)
                             .show()
                     }
@@ -177,7 +153,6 @@ fun SignInScreen(navController: NavController){
                         }
                         else{
                             isUploading.value = false
-
                             Toast.makeText(context, "Username or password is incorrect " , Toast.LENGTH_LONG)
                                 .show()
                         }
@@ -196,39 +171,18 @@ fun SignInScreen(navController: NavController){
             Spacer(modifier = Modifier.height(30.dp))
             Row{
                 Text(text="Don't have an account?", fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium,   color = Color(168,175,185))
-
-
-
-//
-//                Text(text="  Sign Up", fontFamily = FontFamily.SansSerif, fontSize = 15.sp,
-//                    color = Color(255,165,0),
-//
-//                    )
-
-
-
             }
             Button(
                 modifier = Modifier
                     .padding(20.dp)
                     .height(50.dp)
-                    .width(150.dp)
-                ,
+                    .width(150.dp),
                 onClick = { navController.navigate("OnBoarding")},
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(Color(255,165,0))
             ){
-                Text(
-                    modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
-                    text = "Sign Up",
-                    fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium)
-
+                Text(modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp), text = "Sign Up", fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium)
             }
         }
-
-
-
-
-
     }
 }

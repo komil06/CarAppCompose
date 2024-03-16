@@ -21,31 +21,21 @@ import com.google.firebase.storage.storage
 //import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 
-class UserData {
-    companion object {
+class UserData { companion object {
         private val users = FirebaseDatabase.getInstance().reference.child("users")
-
-
-        fun UserCreate(user: UserClass) {
+         fun UserCreate(user: UserClass) {
             user.username?.let { username ->
                 users.child(username).setValue(user)
             }
         }
-
-
-
-
-
-        fun getUserSaved(context: Context): String {
+         fun getUserSaved(context: Context): String {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             return preferences.getString("user", "") ?: ""
         }
-
         fun UserSave(context: Context, user: String) {
             val preferences = context.getSharedPreferences("db", Context.MODE_PRIVATE)
             preferences.edit().putString("user", user).apply()
         }
-
         fun Usercheck(user: String, callback: (Boolean) -> Unit) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -69,12 +59,6 @@ class UserData {
                 }
             })
         }
-
-
-
-
-
-
         fun UserGet(user: TextFieldValue, password: TextFieldValue, callback: (String) -> Unit) {
             val userText = user.text
             val passwordText = password.text
@@ -95,7 +79,6 @@ class UserData {
                 }
             })
         }
-
 
         fun FavouriteGet(user: String, callback: (List<String>) -> Unit) {
 
@@ -144,8 +127,6 @@ class UserData {
                 }
             })
         }
-
-
 
         fun isFavourite(user: String, model:String, callback: (Boolean) -> Unit) {
 

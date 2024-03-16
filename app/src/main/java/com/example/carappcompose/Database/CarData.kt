@@ -15,12 +15,8 @@ import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 
 class CarData {
-
-
     companion object {
-
         val cars = FirebaseDatabase.getInstance().reference.child("cars")
-
         fun CreateCar(car: CarClass) {
             car.title?.let { title ->
               cars.child(title).setValue(car)
@@ -49,7 +45,6 @@ class CarData {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     callback(dataSnapshot.getValue(CarClass::class.java)!!.imageUrl)
                 }
-
                 override fun onCancelled(databaseError: DatabaseError) {
                     callback("")
                 }
@@ -57,7 +52,6 @@ class CarData {
         }
 
         fun FavouritesFilter(lst: List<String>, callback: (List<CarClass>) -> Unit) {
-
             cars.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val fltr = mutableListOf<CarClass>()
@@ -74,7 +68,6 @@ class CarData {
                 }
             })
         }
-
         fun GetCar(name: String, callback: (CarClass) -> Unit) {
             cars.child(name).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -83,23 +76,17 @@ class CarData {
                         callback(car)
                     }
                 }
-
                 override fun onCancelled(databaseError: DatabaseError) {
                     callback(CarClass())
                 }
             })
         }
         fun uploadImageToFirebase(bitmap: Bitmap, context: ComponentActivity, callback :(Boolean, String) -> Unit){
-
-
             val storageRef = Firebase.storage.reference
             val imageRef = storageRef.child("carimages/${bitmap}")
-
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
             val imageData = baos.toByteArray()
-
-
 
             imageRef.putBytes(imageData).addOnSuccessListener {
                 imageRef.downloadUrl.addOnSuccessListener { uri->

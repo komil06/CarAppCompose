@@ -21,26 +21,17 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(navController: NavController,) {
     val context = LocalContext.current
-
-
     LaunchedEffect(key1 = true) {
-
-
         delay(1500)
         if (UserData.getUserSaved(context) == ""){
             navController.navigate("SignIn")
-
         }
         else{
-        navController.navigate("Main")
-
+             navController.navigate("Main")
         }
     }
-
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-        ,
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     )
     {

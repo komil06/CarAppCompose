@@ -91,8 +91,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun WishlistScreen(navController: NavController){
     val context = LocalContext.current
-
-
     var cars by remember { mutableStateOf<List<CarClass>>(emptyList()) }
     UserData.FavouriteGet(UserData.getUserSaved(context)) { lst ->
         CarData.FavouritesFilter(lst) {
@@ -100,10 +98,7 @@ fun WishlistScreen(navController: NavController){
             Log.d("", cars.toString())
         }
     }
-
-
     val carsLength: Int = cars.size
-
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -114,7 +109,6 @@ fun WishlistScreen(navController: NavController){
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
-
             ),
         NavigationItem(
             title = "Profile",
@@ -135,16 +129,11 @@ fun WishlistScreen(navController: NavController){
             drawerContent = {
                 ModalDrawerSheet {
                     Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
-                        Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,
-
-                            ) {
-
+                        Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,) {
                             firebaseUI(LocalContext.current)
-
                         }
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
-
                     }
                     Spacer(modifier = Modifier.height(50.dp))
                     items.forEachIndexed { index, item ->
@@ -152,13 +141,10 @@ fun WishlistScreen(navController: NavController){
                             label = {
                                 Text(text = item.title,
                                     fontFamily = poppinsFamily,
-                                    fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-
-                                    )
+                                    fontSize = 15.sp, fontWeight = FontWeight.SemiBold,)
                             },
                             selected = index == selectedItemIndex,
                             onClick = {
-
                                 selectedItemIndex = index
                                 navController.navigate("${item.title}")
                                 scope.launch {
@@ -176,8 +162,7 @@ fun WishlistScreen(navController: NavController){
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
                                 .clickable {
-                                }
-                            ,)
+                                },)
                     }
                     Button(modifier = Modifier
                         .padding(top = 5.dp)
@@ -198,10 +183,8 @@ fun WishlistScreen(navController: NavController){
             drawerState = drawerState
         ) {
             Scaffold(
-
                 topBar = {
                     CenterAlignedTopAppBar(
-
                         modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
                         title = {
                             Text(
@@ -217,8 +200,7 @@ fun WishlistScreen(navController: NavController){
                         navigationIcon = {
                             IconButton(modifier = Modifier
                                 .clip(shape = RoundedCornerShape(25))
-                                .background(Color.Black)
-                                ,
+                                .background(Color.Black),
                                 onClick = {
                                     scope.launch {
                                         drawerState.open()
@@ -236,7 +218,6 @@ fun WishlistScreen(navController: NavController){
                         },
                         actions = {
                             IconButton(onClick = {
-
                                 navController.navigate(Screens.SeeAllScreen.route)
                             }) {
                                 Icon(
@@ -248,10 +229,8 @@ fun WishlistScreen(navController: NavController){
                             }
                         },
                     )
-
                 },
                 bottomBar = {
-
                     NavigationBar(modifier = Modifier
                         .zIndex(3f)
                         .padding(
@@ -262,15 +241,8 @@ fun WishlistScreen(navController: NavController){
                         .border(
                             BorderStroke(1.dp, Color.LightGray),
                             shape = RoundedCornerShape(25.dp),
-                        )
-
-
-                        ,
+                        ),
                         containerColor = secondaryColor
-
-
-
-
                     ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
@@ -278,8 +250,7 @@ fun WishlistScreen(navController: NavController){
                                 onClick = {
                                     selectedItemIndex = index
                                     navController.navigate("${item.title}")
-
-                                },
+                                          },
                                 icon = {
                                     BadgedBox(
                                         badge = {
@@ -297,7 +268,6 @@ fun WishlistScreen(navController: NavController){
                                             contentDescription = item.title,
                                             modifier = Modifier.size(35.dp),
                                             tint = primaryColor
-
                                         )
                                     }
                                 }
@@ -305,68 +275,16 @@ fun WishlistScreen(navController: NavController){
                         }
                     }
                 },
-
                 )
-            {
-
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//            LazyVerticalGrid(
-//                columns = GridCells.Fixed(2), modifier = Modifier
-//                    .padding(top = 50.dp, bottom = 100.dp)
-//
-//            ) {
-//                items(cars) { item ->
-//
-//                }}
-
-
-
+            {}
             MyLazyColumn(navController, carlength = carsLength, cars = cars )
-
-
-
-
         }
-
-
-
     }
-
-
 }
-
 
 @Composable
 fun MyLazyColumn(navController: NavController, carlength:Int, cars: List<CarClass>) {
-
-
     var loading by remember{mutableStateOf(true)}
-
-
-
     LaunchedEffect(
         key1= true,
         block = {
@@ -374,30 +292,20 @@ fun MyLazyColumn(navController: NavController, carlength:Int, cars: List<CarClas
             loading = false
         }
     )
-
-
-
     if (cars.isEmpty()) {
-
         EmptyIcon()
-
     } else {
-
         if(loading){
-
             LazyVerticalGrid(columns = GridCells.Fixed(2),
                 modifier = Modifier.padding(top = 100.dp, start = 10.dp, end = 10.dp)
             )
             {
                 items(carlength){
                     AnimatedShimmer()
-
                 }
-
             }
         }
         else{
-
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp, top =100.dp)
@@ -411,7 +319,6 @@ fun MyLazyColumn(navController: NavController, carlength:Int, cars: List<CarClas
                                         item.year?.let { it5 ->
                                             item.mileage?.let { it6 ->
                                                 item.userTelegram?.let { it7 ->
-
                                                     item.phonenumber?.let { it8 ->
                                                         RecommendItem(
                                                             name = it,
@@ -425,40 +332,19 @@ fun MyLazyColumn(navController: NavController, carlength:Int, cars: List<CarClas
                                                             phonenumber = it8,
                                                             navController
                                                         )
-
                                                     }
                                                 }
-
                                             }
-
                                         }
-
                                     }
                                 }
                             }
-//
                         }
                     }
                 }
-
-
             }
-
         }
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 @Composable

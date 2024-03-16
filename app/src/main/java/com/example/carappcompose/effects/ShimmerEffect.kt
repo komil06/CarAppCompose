@@ -32,8 +32,6 @@ fun AnimatedShimmer() {
         Color.LightGray.copy(alpha = 0.6f),
         Color.LightGray.copy(alpha = 0.2f),
         Color.LightGray.copy(alpha = 0.6f)
-
-
     )
     val transition = rememberInfiniteTransition(label = "")
     val alpha  = transition.animateFloat(
@@ -42,24 +40,18 @@ fun AnimatedShimmer() {
         animationSpec = infiniteRepeatable(
             animation = tween(1000,
                 easing = FastOutSlowInEasing,
-
                 ),
             repeatMode = RepeatMode.Restart
         ),
         label = "",
     ).value
 
-
     val brush = Brush.linearGradient(
         colors = shimmerColors,
         start = Offset.Zero,
         end  = Offset(x = alpha, y =alpha)
     )
-
-//    background(color = Color(0XFFC3C3C3).copy(alpha = alpha))
-
     ShimmerCard2(brush = brush)
-
 }
 
 
@@ -69,8 +61,6 @@ fun AnimatedShimmer1() {
         Color.LightGray.copy(alpha = 0.6f),
         Color.LightGray.copy(alpha = 0.2f),
         Color.LightGray.copy(alpha = 0.6f)
-
-
     )
     val transition = rememberInfiniteTransition(label = "")
     val alpha  = transition.animateFloat(
@@ -79,46 +69,30 @@ fun AnimatedShimmer1() {
         animationSpec = infiniteRepeatable(
             animation = tween(1000,
                 easing = FastOutSlowInEasing,
-
                 ),
             repeatMode = RepeatMode.Restart
         ),
         label = "",
     ).value
 
-
     val brush = Brush.linearGradient(
         colors = shimmerColors,
         start = Offset.Zero,
         end  = Offset(x = alpha, y =alpha)
     )
-
-//    background(color = Color(0XFFC3C3C3).copy(alpha = alpha))
-
     ShimmerCard(brush = brush)
-
 }
-
 @Composable
 fun ShimmerCard2(brush: Brush){
 
- Column(modifier = Modifier.fillMaxHeight().padding(all = 10.dp),
-
-
- horizontalAlignment = Alignment.CenterHorizontally
- ){
-
+ Column(modifier = Modifier.fillMaxHeight().padding(all = 10.dp), horizontalAlignment = Alignment.CenterHorizontally){
      Spacer(modifier = Modifier.size(80.dp).clip(CircleShape).background(brush))
 
      Spacer(modifier = Modifier.height(10.dp))
 
-
      Column( verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally){
          Spacer(
-             modifier = Modifier.height(20.dp).fillMaxWidth(fraction = 0.8f).background(brush)
-
-                 .clip(RoundedCornerShape(10.dp))
-
+             modifier = Modifier.height(20.dp).fillMaxWidth(fraction = 0.8f).background(brush).clip(RoundedCornerShape(10.dp))
          )
          Spacer(modifier = Modifier.padding(5.dp))
          Spacer(
@@ -131,31 +105,12 @@ fun ShimmerCard2(brush: Brush){
  }
 }
 
-
-
-
-
-
 @Composable
-fun ShimmerCard(brush: Brush){
-
-    Column(modifier = Modifier.fillMaxHeight().padding(all = 10.dp),
-
-
+fun ShimmerCard(brush: Brush) {
+    Column(
+        modifier = Modifier.fillMaxHeight().padding(all = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
-
+    ) {
         Spacer(modifier = Modifier.size(120.dp).clip(CircleShape).background(brush))
-
     }
 }
-
-
-
-
-
-
-
-
-
-

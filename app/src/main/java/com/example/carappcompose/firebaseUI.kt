@@ -33,74 +33,34 @@ import com.google.firebase.database.ValueEventListener
 
 @Composable
 fun firebaseUI(context: Context) {
-
-    // on below line creating
-    // variable for message.
     val message = remember {
         mutableStateOf("")
     }
-    // on below line creating variable for firebase
-    // database and database reference.
     val firebaseDatabase = FirebaseDatabase.getInstance();
 
     val userimage  = firebaseDatabase.reference.child("users")
 
     val user = userimage.child(UserData.getUserSaved(context))
     val image = user.child("imageUrl")
-//    val databaseReference = firebaseDatabase.getReference("Data");
-
     image.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
-
             val value = snapshot.getValue(String::class.java)
-
-            // after getting the value we are setting
-            // our value to message.
             if (value != null) {
                 message.value = value
             }
         }
-
         override fun onCancelled(error: DatabaseError) {
-            // calling on cancelled method when we receive
-            // any error or we are not able to get the data.
             Toast.makeText(context, "Fail to get data.", Toast.LENGTH_SHORT).show()
         }
     })
-
-    // on below line creating a column
-    // to display our retrieved image view.
-    Column(
-        // adding modifier for our column
-
-
-        // on below line adding vertical and
-        // horizontal alignment for column.
-        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // on below line we are creating an image
+    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
-            // on below line we are adding the image url
-            // from which we will be loading our image.
             painter = rememberAsyncImagePainter(message.value),
-
-            // on below line we are adding content
-            // description for our image.
             contentDescription = "gfg image",
-
-            // on below line we are adding modifier for our
-            // image as wrap content for height and width.
             modifier = Modifier
-//                .wrapContentSize()
-//                .wrapContentHeight()
-//                .wrapContentWidth()
                     .clip(CircleShape)
-                .size(120.dp)
-            ,
-
+                .size(120.dp),
             contentScale = ContentScale.Crop,
-
         )
-
     }
 }

@@ -2,10 +2,8 @@ package com.example.carappcompose.fragments
 
 import android.content.Context
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,7 +37,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -63,7 +60,6 @@ fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
         "Detailed Screens",
         "Variety Options"
     )
-
     val descriptions = listOf(
         "Optimizing the efforts of doing paper work for car selling and maximize the productivity through digial platform.",
         "Enter Car details, engine details, diamensions and features and location. ",
@@ -72,19 +68,11 @@ fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
     val pagerState = rememberPagerState(
         pageCount = { animations.size }
     )
-
-
     Column(
-        Modifier.fillMaxSize()
-            .verticalScroll(rememberScrollState())
-        ,
+        Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        HorizontalPager(
-            state = pagerState,
-            Modifier.wrapContentSize()
-        ) { currentPage ->
+        HorizontalPager(state = pagerState, Modifier.wrapContentSize()) { currentPage ->
             Column(
                 Modifier
                     .wrapContentSize()
@@ -111,8 +99,7 @@ fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
                     textAlign = TextAlign.Center,
                     fontSize = 18.sp,
                     fontFamily = poppinsFamily,
-
-                )
+                    )
             }
         }
 
@@ -134,7 +121,6 @@ fun OnboardingScreen(navController: NavHostController, context: MainActivity) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ButtonsSection(pagerState: PagerState, navController: NavHostController, context: MainActivity) {
-
     val scope = rememberCoroutineScope()
 
     Box(modifier = Modifier
@@ -145,7 +131,6 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .clickable {
-
                         scope.launch {
                             val nextPage = pagerState.currentPage + 1
                             pagerState.scrollToPage(nextPage)
@@ -174,24 +159,15 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
             )
         }else{
             OutlinedButton(onClick = {
-
                 onBoardingIsFinished(context = context)
                 navController.popBackStack()
                 navController.navigate("SignUp")
             },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-//                    .border(
-//                        BorderStroke(1.dp, Color.Black),
-//                        shape = RoundedCornerShape(25.dp),)
-                ,
+                    .align(Alignment.BottomCenter),
                 shape = RoundedCornerShape(20.dp),
-                colors = ButtonDefaults.buttonColors(Color(255,165,0)),
-
-
-
-            ) {
+                colors = ButtonDefaults.buttonColors(Color(255,165,0))) {
                 Text(
                     text = "Get Started",
                     fontSize = 20.sp,
@@ -206,7 +182,6 @@ fun ButtonsSection(pagerState: PagerState, navController: NavHostController, con
 
 @Composable
 fun PageIndicator(pageCount: Int, currentPage: Int, modifier: Modifier) {
-
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
@@ -214,14 +189,11 @@ fun PageIndicator(pageCount: Int, currentPage: Int, modifier: Modifier) {
         repeat(pageCount){
             IndicatorSingleDot(isSelected = it == currentPage )
         }
-
-
     }
 }
 
 @Composable
 fun IndicatorSingleDot(isSelected: Boolean) {
-
     val width = animateDpAsState(targetValue = if (isSelected) 35.dp else 15.dp, label = "")
     Box(modifier = Modifier
         .padding(2.dp)
@@ -231,7 +203,6 @@ fun IndicatorSingleDot(isSelected: Boolean) {
         .background(if (isSelected) Color(0xFFE92F1E) else Color(0x25E92F1E))
     )
 }
-
 private fun onBoardingIsFinished(context: MainActivity) {
     val sharedPreferences = context.getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
     val editor = sharedPreferences.edit()

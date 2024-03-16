@@ -1,7 +1,6 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -64,10 +63,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -85,7 +82,6 @@ import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import com.example.carappcompose.ui.theme.secondaryColor
-import com.example.carappcompose.ui.theme.tickColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -97,7 +93,6 @@ fun MainScreen(navController: NavController) {
 
     val context = LocalContext.current
 
-
     var cars by remember {
         mutableStateOf<List<CarClass>>(emptyList())
     }
@@ -108,33 +103,22 @@ fun MainScreen(navController: NavController) {
 
     val carslength1: Int = cars.size
 
-
     var loading by remember { mutableStateOf(true) }
-
 
     val items = listOf(
         NavigationItem(
             title = "Main",
             selectedIcon = Icons.Filled.Home,
-            unselectedIcon = Icons.Outlined.Home,
-
-
-            ),
+            unselectedIcon = Icons.Outlined.Home,),
         NavigationItem(
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
-            unselectedIcon = Icons.Outlined.FavoriteBorder,
-
-            ),
+            unselectedIcon = Icons.Outlined.FavoriteBorder,),
         NavigationItem(
             title = "Profile",
             selectedIcon = Icons.Filled.Person,
-            unselectedIcon = Icons.Outlined.Person,
-        ),
+            unselectedIcon = Icons.Outlined.Person,),
     )
-
-
-
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -145,29 +129,20 @@ fun MainScreen(navController: NavController) {
             mutableStateOf(0)
         }
 
-
-
         ModalNavigationDrawer(
-
             drawerContent = {
                 ModalDrawerSheet {
-
                     Column(
                         modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.Center
                     ) {
-
-
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 50.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
-
                             ) {
-
                             firebaseUI(LocalContext.current)
-
                         }
 
                         Text(
@@ -228,8 +203,6 @@ fun MainScreen(navController: NavController) {
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
                                 .clickable {
                                 },
-
-
                             )
                     }
                     Button(modifier = Modifier
@@ -252,13 +225,10 @@ fun MainScreen(navController: NavController) {
             drawerState = drawerState
         ) {
             Scaffold(
-
                 topBar = {
                     CenterAlignedTopAppBar(
-
                         modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
                         title = {
-
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.Center
@@ -304,7 +274,6 @@ fun MainScreen(navController: NavController) {
                         },
                         actions = {
                             IconButton(onClick = {
-
                                 navController.navigate(Screens.SeeAllScreen.route)
                             }) {
                                 Icon(
@@ -316,10 +285,8 @@ fun MainScreen(navController: NavController) {
                             }
                         },
                     )
-
                 },
                 bottomBar = {
-
                     NavigationBar(
                         modifier = Modifier
                             .zIndex(3f)
@@ -333,8 +300,6 @@ fun MainScreen(navController: NavController) {
                                 shape = RoundedCornerShape(25.dp),
                             ),
                         containerColor = secondaryColor
-
-
                     ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
@@ -342,7 +307,6 @@ fun MainScreen(navController: NavController) {
                                 onClick = {
                                     selectedItemIndex = index
                                     navController.navigate("${item.title}")
-
                                 },
                                 icon = {
                                     BadgedBox(
@@ -361,7 +325,6 @@ fun MainScreen(navController: NavController) {
                                             contentDescription = item.title,
                                             modifier = Modifier.size(35.dp),
                                             tint = primaryColor
-
                                         )
                                     }
                                 }
@@ -369,16 +332,8 @@ fun MainScreen(navController: NavController) {
                         }
                     }
                 },
-
                 )
-            {
-
-            }
-
-
-            //  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            //  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            //  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+            {}
 
             LaunchedEffect(
                 key1 = true,
@@ -388,25 +343,15 @@ fun MainScreen(navController: NavController) {
                 }
             )
 
-
-
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 100.dp)
-            ) {
+            Row(modifier = Modifier.fillMaxWidth().padding(top = 100.dp)) {
                 if (loading) {
                     LazyRow() {
                         items(carslength1) {
                             AnimatedShimmer1()
-
                         }
-
                     }
                 } else {
-                    LazyRow(
-                    ) {
+                    LazyRow() {
                         items(cars) { item ->
                             item.title?.let {
                                 item.price?.let { it1 ->
@@ -416,7 +361,6 @@ fun MainScreen(navController: NavController) {
                                                 item.year?.let { it5 ->
                                                     item.mileage?.let { it6 ->
                                                         item.userTelegram?.let { it7 ->
-
                                                             item.phonenumber?.let { it8 ->
                                                                 Item(
                                                                     name = it,
@@ -430,36 +374,24 @@ fun MainScreen(navController: NavController) {
                                                                     phonenumber = it8,
                                                                     navController
                                                                 )
-
                                                             }
                                                         }
-
-
                                                     }
-
                                                 }
                                             }
                                         }
                                     }
-//
                                 }
                             }
-
-
                         }
                     }
-
                 }
             }
 
 
-
-
             Column(modifier = Modifier) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 280.dp, start = 15.dp, end = 15.dp),
+                    modifier = Modifier.fillMaxWidth().padding(top = 280.dp, start = 15.dp, end = 15.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
@@ -478,11 +410,9 @@ fun MainScreen(navController: NavController) {
                             navController.navigate(Screens.SeeAllScreen.route)
                         }
                     )
-
                 }
 
                 if (loading) {
-
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
                         modifier = Modifier.padding(bottom = 110.dp, start = 10.dp, end = 10.dp)
@@ -490,12 +420,9 @@ fun MainScreen(navController: NavController) {
                     {
                         items(carslength1) {
                             AnimatedShimmer()
-
                         }
-
                     }
                 } else {
-
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
                         modifier = Modifier.padding(bottom = 110.dp, start = 10.dp, end = 10.dp)
@@ -509,7 +436,6 @@ fun MainScreen(navController: NavController) {
                                                 item.year?.let { it5 ->
                                                     item.mileage?.let { it6 ->
                                                         item.userTelegram?.let { it7 ->
-
                                                             item.phonenumber?.let { it8 ->
                                                                 RecommendItem(
                                                                     name = it,
@@ -523,15 +449,10 @@ fun MainScreen(navController: NavController) {
                                                                     phonenumber = it8,
                                                                     navController
                                                                 )
-
                                                             }
                                                         }
-
-
                                                     }
-
                                                 }
-
                                             }
                                         }
                                     }
@@ -542,11 +463,5 @@ fun MainScreen(navController: NavController) {
                 }
             }
         }
-
     }
 }
-
-
-
-
-

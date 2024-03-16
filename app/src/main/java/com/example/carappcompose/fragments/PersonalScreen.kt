@@ -84,8 +84,6 @@ import kotlinx.coroutines.launch
 fun ProfileScreen(navController: NavController) {
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
-
-
     val items = listOf(
         NavigationItem(
             title = "Main",
@@ -102,7 +100,6 @@ fun ProfileScreen(navController: NavController) {
             title = "Profile",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
-//            badgeCount = 45
         ),
     )
     Surface(
@@ -123,12 +120,8 @@ fun ProfileScreen(navController: NavController) {
                     ) {
                         Column(
                             modifier = Modifier.fillMaxWidth().padding(top = 50.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-
-                            ) {
-
+                            horizontalAlignment = Alignment.CenterHorizontally) {
                             firebaseUI(LocalContext.current)
-
                         }
                         Text(
                             modifier = Modifier.fillMaxWidth(),
@@ -157,13 +150,10 @@ fun ProfileScreen(navController: NavController) {
                                 Text(
                                     text = item.title,
                                     fontFamily = poppinsFamily,
-                                    fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-
-                                    )
+                                    fontSize = 15.sp, fontWeight = FontWeight.SemiBold,)
                             },
                             selected = index == selectedItemIndex,
                             onClick = {
-
                                 selectedItemIndex = index
                                 navController.navigate("${item.title}")
                                 scope.launch {
@@ -180,8 +170,7 @@ fun ProfileScreen(navController: NavController) {
                             },
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
-                                .clickable {
-                                },
+                                .clickable {},
                         )
                     }
                     Button(modifier = Modifier
@@ -204,10 +193,8 @@ fun ProfileScreen(navController: NavController) {
             drawerState = drawerState
         ) {
             Scaffold(
-
                 topBar = {
                     CenterAlignedTopAppBar(
-
                         modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
                         title = {
                             Text(
@@ -240,10 +227,8 @@ fun ProfileScreen(navController: NavController) {
                             }
                         },
                     )
-
                 },
                 bottomBar = {
-
                     NavigationBar(
                         modifier = Modifier
                             .zIndex(3f)
@@ -257,8 +242,6 @@ fun ProfileScreen(navController: NavController) {
                                 shape = RoundedCornerShape(25.dp),
                             ),
                         containerColor = secondaryColor
-
-
                     ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
@@ -266,7 +249,6 @@ fun ProfileScreen(navController: NavController) {
                                 onClick = {
                                     selectedItemIndex = index
                                     navController.navigate("${item.title}")
-
                                 },
                                 icon = {
                                     BadgedBox(
@@ -285,7 +267,6 @@ fun ProfileScreen(navController: NavController) {
                                             contentDescription = item.title,
                                             modifier = Modifier.size(35.dp),
                                             tint = primaryColor
-
                                         )
                                     }
                                 }
@@ -293,33 +274,16 @@ fun ProfileScreen(navController: NavController) {
                         }
                     }
                 },
-            )
-            {
+            ) {}
 
-            }
-
-
-// Shu yerga yoziladi
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 50.dp), verticalArrangement = Arrangement.Center
-            ) {
-
+            Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), verticalArrangement = Arrangement.Center) {
                 Column(
                     modifier = Modifier.fillMaxWidth().padding(top = 20.dp)
                         .clickable { showDialog = true },
                     horizontalAlignment = Alignment.CenterHorizontally,
-
                     ) {
-
                     firebaseUI(LocalContext.current)
-
                 }
-
-
-
 
                 Row(
                     modifier = Modifier
@@ -329,22 +293,16 @@ fun ProfileScreen(navController: NavController) {
 
                     ) {
 
-
                     OutlinedButton(
-                        onClick = {
-//                            navController.navigate("Selling")
-                        },
+                        onClick = {},
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 20.dp, end = 20.dp)
                             .clip(CircleShape)
                             .border(0.5.dp, Color.Gray),
-
-
                         ) {
                         Text(
                             text = "My Username: ",
-
                             fontFamily = poppinsFamily,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold,
@@ -356,7 +314,6 @@ fun ProfileScreen(navController: NavController) {
                             modifier = Modifier.padding(start = 10.dp),
                             text = UserData.getUserSaved(context),
 
-
                             fontFamily = poppinsFamily,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold,
@@ -366,7 +323,6 @@ fun ProfileScreen(navController: NavController) {
 
                     }
 
-
                 }
 
                 Row(
@@ -374,10 +330,7 @@ fun ProfileScreen(navController: NavController) {
                         .fillMaxWidth()
                         .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { },
                     horizontalArrangement = Arrangement.SpaceEvenly,
-
                     ) {
-
-
                     OutlinedButton(
                         onClick = {
                             navController.navigate("Selling")
@@ -387,8 +340,6 @@ fun ProfileScreen(navController: NavController) {
                             .padding(start = 20.dp, end = 20.dp)
                             .clip(CircleShape)
                             .border(0.5.dp, Color.Gray),
-
-
                         ) {
                         Text(
                             text = "My cars",
@@ -405,8 +356,6 @@ fun ProfileScreen(navController: NavController) {
                                 .padding(start = 150.dp, end = 10.dp)
                         )
                     }
-
-
                 }
 
                 Row(
@@ -414,10 +363,7 @@ fun ProfileScreen(navController: NavController) {
                         .fillMaxWidth()
                         .padding(start = 10.dp, end = 10.dp, top = 15.dp).clickable { },
                     horizontalArrangement = Arrangement.SpaceEvenly,
-
                     ) {
-
-
                     OutlinedButton(
                         onClick = {
                             navController.navigate("ChangePassword")
@@ -427,8 +373,6 @@ fun ProfileScreen(navController: NavController) {
                             .padding(start = 20.dp, end = 20.dp)
                             .clip(CircleShape)
                             .border(0.5.dp, Color.Gray),
-
-
                         ) {
                         Text(
                             text = "Change Password",
@@ -445,8 +389,6 @@ fun ProfileScreen(navController: NavController) {
                                 .padding(start = 45.dp, end = 10.dp)
                         )
                     }
-
-
                 }
 
                 Row(
@@ -455,10 +397,7 @@ fun ProfileScreen(navController: NavController) {
                         .padding(start = 10.dp, end = 10.dp, top = 15.dp)
                         .clickable { },
                     horizontalArrangement = Arrangement.SpaceEvenly,
-
                     ) {
-
-
                     OutlinedButton(
                         onClick = {
                             UserData.UserSave(context, "")
@@ -469,8 +408,6 @@ fun ProfileScreen(navController: NavController) {
                             .padding(start = 20.dp, end = 20.dp)
                             .clip(CircleShape)
                             .border(0.5.dp, Color.Gray),
-
-
                         ) {
                         Text(
                             text = "Log out",
@@ -488,20 +425,7 @@ fun ProfileScreen(navController: NavController) {
                         )
                     }
                 }
-
-
-
-
-
             }
-
         }
-
     }
-
-
 }
-
-
-
-
