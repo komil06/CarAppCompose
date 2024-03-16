@@ -81,7 +81,7 @@ import com.example.carappcompose.navigation.Screens
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "RestrictedApi")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNewCarScreen(navController: NavController){
@@ -131,7 +131,7 @@ fun AddNewCarScreen(navController: NavController){
                 CenterAlignedTopAppBar(
                     title = {},
                     navigationIcon = {
-                        IconButton(onClick = { navController.navigate(Screens.NewCar.route) }) {
+                        IconButton(onClick = { navController.navigate("Selling") }) {
 
                             Image(
                                 painter = painterResource(id = R.drawable.baseline_keyboard_backspace_24),
