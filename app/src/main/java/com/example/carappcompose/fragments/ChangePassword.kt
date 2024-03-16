@@ -81,39 +81,22 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChangePassword(navController: NavController){
-
-
     val context = LocalContext.current
-
-
     val isUploading  = remember { mutableStateOf(false) }
-
-val items = listOf(
+    val items = listOf(
         NavigationItem(
             title = "Main",
             selectedIcon = Icons.Filled.Home,
-            unselectedIcon = Icons.Outlined.Home,
-
-
-
-            ),
+            unselectedIcon = Icons.Outlined.Home,),
         NavigationItem(
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
-            unselectedIcon = Icons.Outlined.FavoriteBorder,
-
-            ),
+            unselectedIcon = Icons.Outlined.FavoriteBorder,),
         NavigationItem(
             title = "Profile",
             selectedIcon = Icons.Filled.Person,
-            unselectedIcon = Icons.Outlined.Person,
-        ),
-
+            unselectedIcon = Icons.Outlined.Person,),
     )
-
-
-
-
     Surface(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -122,73 +105,36 @@ val items = listOf(
         var selectedItemIndex by rememberSaveable {
             mutableStateOf(2)
         }
-
-//        var images = UserData.getSavedImage(context,)
         ModalNavigationDrawer(
-
             drawerContent = {
                 ModalDrawerSheet {
-
                     Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
-
-                        Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,
-
-                            ) {
-
+                        Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,) {
                             firebaseUI(LocalContext.current)
-
                         }
-
-
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
-
                     }
                     Spacer(modifier = Modifier.height(50.dp))
 
 
                     items.forEachIndexed { index, item ->
                         NavigationDrawerItem(
-                            label = {
-                                Text(text = item.title,
-                                    fontFamily = poppinsFamily,
-                                    fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-                                )
-                            },
+                            label = { Text(text = item.title, fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,) },
                             selected = index == selectedItemIndex,
                             onClick = {
-
                                 selectedItemIndex = index
                                 navController.navigate("${item.title}")
                                 scope.launch {
                                     drawerState.close()
                                 }
                             },
-                            icon = {
-                                Icon(
-                                    imageVector = if (index == selectedItemIndex) {
-                                        item.selectedIcon
-                                    } else item.unselectedIcon,
-                                    contentDescription = item.title
-                                )
-                            },
-//                            badge = {
-//                                item.badgeCount?.let {
-//                                    Text(text = item.badgeCount.toString())
-//                                }
-//                            },
+                            icon = { Icon(imageVector = if (index == selectedItemIndex) { item.selectedIcon } else item.unselectedIcon, contentDescription = item.title)},
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
-                                .clickable {
-                                }
-                            ,
-
-
+                                .clickable {},
                             )
                     }
-
-
-
 
                     Button(modifier = Modifier
                         .padding(top = 5.dp)
@@ -198,32 +144,21 @@ val items = listOf(
                             UserData.UserSave(context, "",)
                             navController.navigate("SignIn")
                         }) {
-                        Text(text = "Log out", fontSize = 20.sp,
-                            fontFamily = poppinsFamily,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.Black
-                        )
+                        Text(text = "Log out", fontSize = 20.sp, fontFamily = poppinsFamily, fontWeight = FontWeight.SemiBold, color = Color.Black)
                     }
                 }
             },
             drawerState = drawerState
         ) {
-
-
             Scaffold(
-
                 topBar = {
                     CenterAlignedTopAppBar(
-
                         modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
-                        title = {
-
-                        },
+                        title = {},
                         navigationIcon = {
                             IconButton(modifier = Modifier
                                 .clip(shape = RoundedCornerShape(25))
-                                .background(Color.Black)
-                                ,
+                                .background(Color.Black),
                                 onClick = {
                                     scope.launch {
                                         drawerState.open()
@@ -233,15 +168,12 @@ val items = listOf(
                                     imageVector = Icons.Default.Menu,
                                     contentDescription = "Menu",
                                     tint = Color.White,
-                                    modifier = Modifier
-                                        .height(35.dp)
-                                        .width(40.dp)
+                                    modifier = Modifier.height(35.dp).width(40.dp)
                                 )
                             }
                         },
                         actions = {
                             IconButton(onClick = {
-
                                 navController.navigate(Screens.SeeAllScreen.route)
                             }) {
                                 Icon(
@@ -253,10 +185,8 @@ val items = listOf(
                             }
                         },
                     )
-
                 },
                 bottomBar = {
-
                     NavigationBar(modifier = Modifier
                         .zIndex(3f)
                         .padding(
@@ -267,23 +197,14 @@ val items = listOf(
                         .border(
                             BorderStroke(1.dp, Color.LightGray),
                             shape = RoundedCornerShape(25.dp),
-                        )
-
-
-                        ,
+                        ),
                         containerColor = secondaryColor
-
-
-
-
                     ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
                                 selected = selectedItemIndex == index,
-                                onClick = {
-                                    selectedItemIndex = index
+                                onClick = { selectedItemIndex = index
                                     navController.navigate("${item.title}")
-
                                 },
                                 icon = {
                                     BadgedBox(
@@ -302,7 +223,6 @@ val items = listOf(
                                             contentDescription = item.title,
                                             modifier = Modifier.size(35.dp),
                                             tint = primaryColor
-
                                         )
                                     }
                                 }
@@ -311,27 +231,17 @@ val items = listOf(
                     }
                 },
                 )
-            {
-
-            }
-
-
-
-
+            {}
 
             var password by remember { mutableStateOf(TextFieldValue("")) }
             var old_password by remember { mutableStateOf(TextFieldValue("")) }
 
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 70.dp, start = 10.dp,end =10.dp)
+                modifier = Modifier.fillMaxWidth().padding(top = 70.dp, start = 10.dp,end =10.dp)
             ) {
                 Text(
                     modifier = Modifier.padding(top = 10.dp).align(Alignment.CenterHorizontally),
                     text = "Change Password",
-
-
                     color = primaryColor,
                     fontFamily = poppinsFamily,
                     fontSize = 20.sp, fontWeight = FontWeight.SemiBold,
@@ -340,67 +250,43 @@ val items = listOf(
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp),
                     value = old_password,
-//                    leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
-
                     onValueChange = { old_password = it },
-                    label = { Text("Current Password",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    label = { Text("Current Password", color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     shape = RoundedCornerShape(12.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = primaryColor,
-                    )
+                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = primaryColor,)
                 )
 
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp),
-
                     value = password,
-//                    leadingIcon = {Icon(imageVector =Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp)) },
-
                     onValueChange = { password = it },
-                    label = { Text("New Password",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    label = { Text("New Password", color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     shape = RoundedCornerShape(12.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = primaryColor,
-                    )
+                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = primaryColor,)
                 )
                 Button(modifier = Modifier.padding(top = 11.9999.dp)
-                    .align(Alignment.CenterHorizontally)
-                    ,
-
+                    .align(Alignment.CenterHorizontally),
                     colors = ButtonDefaults.buttonColors(Color(255,165,0)),
-
-                    onClick = {
-
-                    isUploading.value = true
-
-
-                    UserData.ChangePassword(UserData.getUserSaved(context), password.text, old_password.text){result ->
-
-                        if (result == "Changed Successfully") {
-                            isUploading.value = true
-
-                            Toast.makeText(context,"Changed Successfully", Toast.LENGTH_SHORT)
-                                .show()
-                            navController.navigate("Profile")
+                    onClick = { isUploading.value = true
+                        UserData.ChangePassword(UserData.getUserSaved(context), password.text, old_password.text){result ->
+                            if (result == "Changed Successfully") {
+                                 isUploading.value = true
+                                 Toast.makeText(context,"Changed Successfully", Toast.LENGTH_SHORT)
+                                      .show()
+                                  navController.navigate("Profile")
                         }
                         else{
                             isUploading.value = false
-
-                            Toast.makeText(context, "Changing Failed" , Toast.LENGTH_LONG)
-                                .show()
+                                Toast.makeText(context, "Changing Failed" , Toast.LENGTH_LONG)
+                                     .show()
                         }
                     }
-
-
-                }) {
+                    }) {
                     Text(text = "Change", fontSize = 20.sp)
-
                 }
-
                 Column(modifier = Modifier.fillMaxWidth().padding(top = 10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-
                     if(isUploading.value){
                         CircularProgressIndicator(
                             modifier = Modifier.width(60.dp).height(60.dp),
@@ -408,9 +294,5 @@ val items = listOf(
                         )
                     }
                 }
-
-
             }
-
-
         }}}

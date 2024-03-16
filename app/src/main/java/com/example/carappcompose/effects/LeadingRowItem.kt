@@ -36,7 +36,6 @@ fun LeadingRowItem(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .height(150.dp)
-
             .padding(top = 15.dp)
             .padding(10.dp)
             .drawBehind {
@@ -61,10 +60,8 @@ fun LeadingRowItem(navController: NavController) {
 
         contentAlignment = Alignment.Center
     ) {
-        Column(
-        ) {
-
-                Text(
+        Column() {
+            Text(
                     "Yangi E'lon",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 25.sp,
@@ -72,8 +69,5 @@ fun LeadingRowItem(navController: NavController) {
                     color = Color.Black
                 )
             }
-
-
-
     }
 }

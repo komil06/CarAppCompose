@@ -46,7 +46,6 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
     var cars by remember {
         mutableStateOf<List<CarClass>>(emptyList())
     }
-
     CarData.GetCars { list ->
         cars = list
     }
@@ -58,8 +57,6 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
             BorderStroke(1.dp, Color.White),
             shape = RoundedCornerShape(12.dp),)
         .clickable {
-
-
             navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,description = description, year = year, mile = mile, tg_username = tg_username, phone = phonenumber))
 
         },   colors = CardDefaults.cardColors(
@@ -74,25 +71,15 @@ fun RecommendItem(name: String, price:String, condition: String,description: Str
         }
 
 
-
 Column(modifier = Modifier){
-
-
-
 
     Image(
         painter = rememberAsyncImagePainter(imgUrl),
-
-
         contentDescription = "gfg image",
-
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
-        ,
-
+            .height(200.dp),
         contentScale = ContentScale.Crop,
-
         )
 
 
@@ -122,16 +109,10 @@ Column(modifier = Modifier){
     }
 
     Spacer(modifier = Modifier.height(5.dp))
-
-
     Text(text = "$name".uppercase(),modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 18.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
-
     Spacer(modifier = Modifier.height(5.dp))
     Text(text = "$price".uppercase() + " $",modifier = Modifier.fillMaxWidth(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.Medium,textAlign = TextAlign.Center, color = Color(255,165,0))
     Spacer(modifier = Modifier.height(3.dp))
-
-
 }
-
     }
 }

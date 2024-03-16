@@ -1,14 +1,12 @@
 package com.example.carappcompose.fragments
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +19,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
@@ -37,7 +34,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -73,7 +69,6 @@ import com.example.carappcompose.Database.CarClass
 import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.Database.UserData
 import com.example.carappcompose.Items.MyCarItem
-import com.example.carappcompose.Items.RecommendItem
 import com.example.carappcompose.effects.LeadingRowItem
 import com.example.carappcompose.navigation.NavigationItem
 import com.example.carappcompose.firebaseUI
@@ -90,8 +85,6 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SellingCarScreen(navController: NavController){
-
-
     val context = LocalContext.current
     val items = listOf(
         NavigationItem(
@@ -103,13 +96,11 @@ fun SellingCarScreen(navController: NavController){
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
-
             ),
         NavigationItem(
             title = "Profile",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
-//            badgeCount = 45
         ),
     )
     Surface(
@@ -125,12 +116,8 @@ fun SellingCarScreen(navController: NavController){
             drawerContent = {
                 ModalDrawerSheet {
                     Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
-                        Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,
-
-                            ) {
-
+                        Column(modifier = Modifier.fillMaxWidth().padding(top = 50.dp), horizontalAlignment = Alignment.CenterHorizontally,) {
                             firebaseUI(LocalContext.current)
-
                         }
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = "Welcome to CarStore", fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
                         Text(modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,text = UserData.getUserSaved(context), fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = primaryColor)
@@ -143,12 +130,10 @@ fun SellingCarScreen(navController: NavController){
                                 Text(text = item.title,
                                     fontFamily = poppinsFamily,
                                     fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-
                                     )
                             },
                             selected = index == selectedItemIndex,
                             onClick = {
-
                                 selectedItemIndex = index
                                 navController.navigate("${item.title}")
                                 scope.launch {
@@ -166,12 +151,9 @@ fun SellingCarScreen(navController: NavController){
                             modifier = Modifier
                                 .padding(NavigationDrawerItemDefaults.ItemPadding)
                                 .clickable {
-                                }
-                            ,)
+                                },)
                     }
-                    Button(modifier = Modifier
-                        .padding(top = 5.dp)
-                        .fillMaxWidth(),
+                    Button(modifier = Modifier.padding(top = 5.dp).fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color.Transparent),
                         onClick = {
                             UserData.UserSave(context, "")
@@ -184,17 +166,12 @@ fun SellingCarScreen(navController: NavController){
                         )
                     }
                 }
-
             },
             drawerState = drawerState
-
-
         ) {
             Scaffold(
-
                 topBar = {
                     CenterAlignedTopAppBar(
-
                         modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
                         title = {
                             Text(
@@ -229,7 +206,6 @@ fun SellingCarScreen(navController: NavController){
                         },
                         actions = {
                             IconButton(onClick = {
-
                                 navController.navigate(Screens.SeeAllScreen.route)
                             }) {
                                 Icon(
@@ -241,10 +217,8 @@ fun SellingCarScreen(navController: NavController){
                             }
                         },
                     )
-
                 },
                 bottomBar = {
-
                     NavigationBar(modifier = Modifier
                         .zIndex(3f)
                         .padding(
@@ -255,24 +229,15 @@ fun SellingCarScreen(navController: NavController){
                         .border(
                             BorderStroke(1.dp, Color.LightGray),
                             shape = RoundedCornerShape(25.dp),
-                        )
-
-
-                        ,
+                        ),
                         containerColor = secondaryColor
-
-
-
-
                     ) {
                         items.forEachIndexed { index, item ->
                             NavigationBarItem(
                                 selected = selectedItemIndex == index,
                                 onClick = {
                                     selectedItemIndex = index
-                                    navController.navigate("${item.title}")
-
-                                },
+                                    navController.navigate("${item.title}") },
                                 icon = {
                                     BadgedBox(
                                         badge = {
@@ -299,32 +264,7 @@ fun SellingCarScreen(navController: NavController){
                     }
                 },
                 )
-            {
-
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            {}
             fun GetMyCars(callback: (List<CarClass>) -> Unit) {
                 CarData.cars.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -337,13 +277,11 @@ fun SellingCarScreen(navController: NavController){
                         }
                         callback(cars)
                     }
-
                     override fun onCancelled(databaseError: DatabaseError) {
                         callback(emptyList())
                     }
                 })
             }
-
             var cars by remember { mutableStateOf<List<CarClass>>(emptyList()) }
             CarData.GetCars { list ->
                 cars = list
@@ -353,11 +291,7 @@ fun SellingCarScreen(navController: NavController){
                 mycars = list
             }
 
-
-
-            LazyColumn(modifier = Modifier.padding(top = 65.dp, bottom = 130.dp))
-            {
-
+            LazyColumn(modifier = Modifier.padding(top = 65.dp, bottom = 130.dp)) {
                 item {
                     LeadingRowItem(navController)
                 }
@@ -369,9 +303,7 @@ fun SellingCarScreen(navController: NavController){
                                     item.imageUrl?.let { it4 ->
                                         item.year?.let { it5 ->
                                             item.mileage?.let { it6 ->
-
                                                 item.userTelegram?.let { it7 ->
-
                                                     item.phonenumber?.let { it8 ->
                                                         MyCarItem(
                                                             name = it,
@@ -385,36 +317,19 @@ fun SellingCarScreen(navController: NavController){
                                                             phonenumber = it8,
                                                             navController
                                                         )
-
                                                     }
                                                 }
                                             }
-
                                         }
-
                                     }
                                 }
                             }
-//
                         }
                     }
                 }
 
            }
-//           Column(modifier = Modifier.fillMaxSize().padding(bottom = 105.dp, end = 30.dp), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Bottom,){
-//               FloatingActionButton(
-//                   onClick = { navController.navigate("NewCar") },
-//               ) {
-//                   Icon(Icons.Filled.Add, "Floating action button.")
-//               }
-//
-//
-//           }
-
 
         }
-
-
-
     }
 }

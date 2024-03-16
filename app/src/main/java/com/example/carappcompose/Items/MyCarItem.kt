@@ -30,43 +30,25 @@ import com.example.carappcompose.ui.theme.poppinsFamily
 @Composable
 fun MyCarItem(name: String, price:String, condition: String,description: String,imgUrl:String,year:String,mile:String,tg_username:String, phonenumber:String,navController: NavController){
 
-
     Card(modifier = Modifier.padding(10.dp).fillMaxWidth().height(200.dp)
         .clickable {
             navController.navigate(route = Screens.Details.getFullRoute(name = name, price = price,condition = condition,year = year,description = description, mile = mile, tg_username = tg_username, phone = phonenumber))
-
-
         }        .border(
             BorderStroke(1.dp, Color.LightGray),
             shape = RoundedCornerShape(12.dp),
 
       ),
 
-
-
-
-
         colors = CardDefaults.cardColors(
             containerColor = Color.White),
-
-
-
-
         ){
 
         Column(modifier = Modifier.fillMaxWidth().height(200.dp)){
-
             Image(
                 painter = rememberAsyncImagePainter(imgUrl),
-
-
                 contentDescription = null,
-
-                modifier = Modifier.fillMaxWidth().height(140.dp)
-                ,
-
+                modifier = Modifier.fillMaxWidth().height(140.dp),
                 contentScale = ContentScale.Crop,
-
                 )
 Row(modifier = Modifier.fillMaxWidth().padding(top = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly,){
     Text(textAlign = TextAlign.Center,text = name.uppercase(), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
@@ -74,12 +56,6 @@ Row(modifier = Modifier.fillMaxWidth().padding(top = 5.dp), horizontalArrangemen
 
 }
 
-
-//            Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceEvenly){
-//
-////                Text(textAlign = TextAlign.Center,text = name, fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold,   color = Color(168,175,185))
-//
-//            }
 
         }
 

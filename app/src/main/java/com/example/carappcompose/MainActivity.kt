@@ -48,7 +48,6 @@ class MainActivity : ComponentActivity() {
                    composable(route = Screens.Splash.route) {
                        SplashScreen(navController = navController)
                    }
-
                    composable(route = Screens.OnBoarding.route) {
                        OnboardingScreen(navController = navController, this@MainActivity)
                    }
@@ -90,9 +89,6 @@ class MainActivity : ComponentActivity() {
                            type = NavType.StringType
                        },
                        ),
-
-
-
                        ) { navBackStackEntry ->
                        val name = navBackStackEntry.arguments?.getString(NAME_KEY)
                        val price = navBackStackEntry.arguments?.getString(PRICE_KEY)
@@ -101,16 +97,11 @@ class MainActivity : ComponentActivity() {
                        val year = navBackStackEntry.arguments?.getString(YEAR_KEY)
                        val mile = navBackStackEntry.arguments?.getString(MILE_KEY)
                        val tg_username = navBackStackEntry.arguments?.getString(TGUSERNAME_KEY)
-
                        val phone = navBackStackEntry.arguments?.getString(PHONE_KEY)
-
-
                        if (name != null && price!= null && condition!= null && description!= null && year!= null && mile!= null && tg_username!= null && phone!= null ) {
                            DetailsScreen(name = name,price= price, condition = condition,description = description,year = year, mile = mile, tg_username = tg_username, phone = phone, navController)
                        }
                    }
-
-
                    composable(route = Screens.Wishlist.route) {
                        WishlistScreen(navController = navController)
                    }

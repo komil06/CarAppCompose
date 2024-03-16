@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -55,7 +54,6 @@ import com.example.carappcompose.Database.CarData
 import com.example.carappcompose.navigation.NavigationItem
 import com.example.carappcompose.Items.RecommendItem
 import com.example.carappcompose.effects.AnimatedShimmer
-import com.example.carappcompose.effects.AnimatedShimmer1
 import com.example.carappcompose.ui.theme.poppinsFamily
 import com.example.carappcompose.ui.theme.primaryColor
 import com.example.carappcompose.ui.theme.secondaryColor
@@ -64,47 +62,32 @@ import kotlinx.coroutines.delay
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SeeAllScreen(navController: NavController){
-
-
-    var searchText = remember{
+fun SeeAllScreen(navController: NavController) {
+    var searchText = remember {
         mutableStateOf(TextFieldValue(""))
     }
-
-
     var cars by remember {
         mutableStateOf<List<CarClass>>(emptyList())
     }
-
     CarData.GetCars { list ->
         cars = list
     }
-
     val carslength1: Int = cars.size
-
-
 
     var selectedItemIndex by rememberSaveable {
         mutableStateOf(0)
     }
-
-
 
     val items = listOf(
         NavigationItem(
             title = "Main",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
-
-
-
-            ),
+        ),
         NavigationItem(
             title = "WishList",
             selectedIcon = Icons.Filled.Favorite,
             unselectedIcon = Icons.Outlined.FavoriteBorder,
-//            badgeCount = 5
-
         ),
         NavigationItem(
             title = "Profile",
@@ -112,33 +95,21 @@ fun SeeAllScreen(navController: NavController){
             unselectedIcon = Icons.Outlined.Person,
         ),
     )
-
-
-
     Scaffold(
-
-
         bottomBar = {
-
-            NavigationBar(modifier = Modifier
-                .zIndex(3f)
-                .padding(
-                    bottom = 20.dp,
-                    start = 25.dp, end = 25.dp, top = 20.dp
-                )
-                .clip(RoundedCornerShape(25.dp))
-                .border(
-                    BorderStroke(1.dp, Color.LightGray),
-                    shape = RoundedCornerShape(25.dp),
-                )
-
-
-                ,
+            NavigationBar(
+                modifier = Modifier
+                    .zIndex(3f)
+                    .padding(
+                        bottom = 20.dp,
+                        start = 25.dp, end = 25.dp, top = 20.dp
+                    )
+                    .clip(RoundedCornerShape(25.dp))
+                    .border(
+                        BorderStroke(1.dp, Color.LightGray),
+                        shape = RoundedCornerShape(25.dp),
+                    ),
                 containerColor = secondaryColor
-
-
-
-
             ) {
                 items.forEachIndexed { index, item ->
                     NavigationBarItem(
@@ -146,12 +117,11 @@ fun SeeAllScreen(navController: NavController){
                         onClick = {
                             selectedItemIndex = index
                             navController.navigate("${item.title}")
-
                         },
                         icon = {
                             BadgedBox(
                                 badge = {
-                                    if(item.badgeCount != null) {
+                                    if (item.badgeCount != null) {
                                         Badge {
                                             Text(text = item.badgeCount.toString())
                                         }
@@ -165,7 +135,6 @@ fun SeeAllScreen(navController: NavController){
                                     contentDescription = item.title,
                                     modifier = Modifier.size(35.dp),
                                     tint = primaryColor
-
                                 )
                             }
                         }
@@ -173,15 +142,9 @@ fun SeeAllScreen(navController: NavController){
                 }
             }
         },
-        )
-    {
-
-    }
-
+    )
+    {}
     var loading by remember { mutableStateOf(true) }
-
-
-
     LaunchedEffect(
         key1 = true,
         block = {
@@ -189,34 +152,20 @@ fun SeeAllScreen(navController: NavController){
             loading = false
         }
     )
-
-
-
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 20.dp, end = 20.dp, top = 10.dp),
-        horizontalArrangement = Arrangement.Center
-        ,
+        horizontalArrangement = Arrangement.Center,
     ) {
-
-
-
-    SearchView(
-        state = searchText, placeHolder = "Search Here... ", modifier = Modifier
-    )
-
-
-}
-
-
+        SearchView(
+            state = searchText, placeHolder = "Search Here... ", modifier = Modifier
+        )
+    }
     Column(modifier = Modifier.padding(top = 90.dp)) {
         val filteredCars = cars.filter {
             it.title?.contains(searchText.value.text, ignoreCase = true) == true
-
         }
-
         if (loading) {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
@@ -225,12 +174,9 @@ fun SeeAllScreen(navController: NavController){
             {
                 items(carslength1) {
                     AnimatedShimmer()
-
                 }
-
             }
-        }
-        else{
+        } else {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 modifier = Modifier.padding(bottom = 100.dp, start = 10.dp, end = 10.dp)
@@ -244,7 +190,6 @@ fun SeeAllScreen(navController: NavController){
                                         item.year?.let { it5 ->
                                             item.mileage?.let { it6 ->
                                                 item.userTelegram?.let { it7 ->
-
                                                     item.phonenumber?.let { it8 ->
                                                         RecommendItem(
                                                             name = it,
@@ -258,65 +203,47 @@ fun SeeAllScreen(navController: NavController){
                                                             phonenumber = it8,
                                                             navController
                                                         )
-
                                                     }
                                                 }
-
                                             }
-
                                         }
-
                                     }
                                 }
                             }
                         }
                     }
                 }
-
-
             }
         }
-
-
-
     }
-
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchView(state: MutableState<TextFieldValue>, placeHolder: String, modifier: Modifier) {
-
-        TextField(
-    value = state.value,
-
-    onValueChange = {value ->
-
-        state.value = value
-    },
-
-
-    modifier = Modifier.fillMaxWidth().padding(10.dp).border(1.dp, Color.LightGray, RoundedCornerShape(30.dp)).clip(RoundedCornerShape(30.dp))
-        .background(Color.White)
-            ,
-
-    placeholder = {
-        Text(text  = placeHolder,
-            fontFamily = poppinsFamily, fontWeight = FontWeight.SemiBold, color = primaryColor
-        )
-    },
-
-    maxLines =1,
-    singleLine =true,
-    textStyle = TextStyle(
-
-        color = Color.Black, fontSize = 20.sp
-    ),
-
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.White,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
+    TextField(
+        value = state.value, onValueChange = { value -> state.value = value },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+            .border(1.dp, Color.LightGray, RoundedCornerShape(30.dp))
+            .clip(RoundedCornerShape(30.dp))
+            .background(Color.White),
+        placeholder = {
+            Text(
+                text = placeHolder,
+                fontFamily = poppinsFamily, fontWeight = FontWeight.SemiBold, color = primaryColor
             )
-
-)
+        },
+        maxLines = 1,
+        singleLine = true,
+        textStyle = TextStyle(
+            color = Color.Black, fontSize = 20.sp
+        ),
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = Color.White,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        )
+    )
 }
