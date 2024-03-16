@@ -149,11 +149,7 @@ fun AddNewCarScreen(navController: NavController){
             {
 
             }
-
-
-
         Column(modifier = Modifier.fillMaxWidth().padding(top = 10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-
             if(isUploading.value){
                 CircularProgressIndicator(
                     modifier = Modifier.width(60.dp).height(60.dp),
@@ -165,7 +161,6 @@ fun AddNewCarScreen(navController: NavController){
                 .verticalScroll(rememberScrollState())
 
                 , horizontalAlignment = Alignment.CenterHorizontally){
-
                 if(bitmap !=null){
                     Image(
                         bitmap = bitmap?.asImageBitmap()!!,
@@ -173,41 +168,27 @@ fun AddNewCarScreen(navController: NavController){
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .clip(CircleShape)
-
                             .size(130.dp)
-
-
                             .clickable { showDialog = true }
                     )
                 }
-
                 else{
-
-                    Image(
+                   Image(
                         painter = painterResource(id = R.drawable.baseline_add_circle_outline_24),
-
                         contentDescription = null,
                         modifier = Modifier
-
                             .size(130.dp)
-
-
-
                             .clickable { showDialog = true }
                     )
                 }
-
             OutlinedTextField(
-
                 modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
                 value = title,
                 leadingIcon = {Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null, modifier = Modifier.padding(8.dp),tint = primaryColor) },
-
                 onValueChange = { title = it },
                 label = { Text("Car Name",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next,
-
                     ),
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -215,19 +196,14 @@ fun AddNewCarScreen(navController: NavController){
                 )
             )
                 Row( modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 10.dp), horizontalArrangement = Arrangement.SpaceAround) {
-
                     OutlinedTextField(
                         modifier = Modifier.weight(0.5f),
-
-//                        modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
                         value = year,
                         leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp),tint = primaryColor) },
-
                         onValueChange = { year = it },
                         label = { Text("Year",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Next,
-
                             ),
                         shape = RoundedCornerShape(12.dp),
                         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -235,50 +211,37 @@ fun AddNewCarScreen(navController: NavController){
                         )
                     )
                     Spacer(modifier = Modifier.width(10.dp))
-
-
                     OutlinedTextField(
                         modifier = Modifier.weight(0.5f),
-
-//                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 10.dp).fillMaxWidth(),
                         value = mileage,
                         leadingIcon = {
                             Icon(imageVector =Icons.Default.Star, contentDescription = null, modifier = Modifier.padding(8.dp),tint = primaryColor) },
-
                         onValueChange = { mileage = it },
                         label = { Text("Mileage",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Next,
-
                             ),
                         shape = RoundedCornerShape(12.dp),
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             focusedBorderColor = primaryColor,
                         )
                     )
-
                 }
-
-
-
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
                     value = color,
                     leadingIcon = {
                         Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp),   tint = primaryColor) },
-
                     onValueChange = { color = it },
                     label = { Text("Color",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Next,
-
                         ),
                     shape = RoundedCornerShape(12.dp),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = primaryColor,
                     )
                 )
-
                 Row( modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 10.dp), horizontalArrangement = Arrangement.SpaceAround){
                     OutlinedTextField(
                         modifier = Modifier.weight(0.5f),
@@ -287,155 +250,112 @@ fun AddNewCarScreen(navController: NavController){
                             Image(
                                 painter = painterResource(id = R.drawable.baseline_vpn_key_24),
                                 contentDescription = "Komilni puli",
-//                        modifier = Modifier.width(30.dp).height(20.dp)
-
                             )
                                       },
-
                         onValueChange = { condition = it },
                         label = { Text("Condition",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Next,
-
                             ),
                         shape = RoundedCornerShape(12.dp),
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             focusedBorderColor = primaryColor,
                         )
                     )
-
                     Spacer(modifier = Modifier.width(10.dp))
-
                     OutlinedTextField(
                         modifier = Modifier.weight(0.5f),
                         value = price,
                     leadingIcon = {Image(
                         painter = painterResource(id = R.drawable.baseline_attach_money_24),
                         contentDescription = "null",
-
-//                        modifier = Modifier.width(30.dp).height(20.dp)
                     )},
                         onValueChange = { price = it },
                         label = { Text("Price",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Next,
-
                             ),
                         shape = RoundedCornerShape(12.dp),
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             focusedBorderColor = primaryColor,
                         )
                     )
-
                 }
-
-
-
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
                     value = phone,
                     leadingIcon = {Icon(imageVector =Icons.Default.Phone, contentDescription = null, modifier = Modifier.padding(8.dp),tint = primaryColor) },
-
                     onValueChange = { phone = it },
-
                     label = { Text("Telefon",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone,
                         imeAction = ImeAction.Next,
-
                         ),
                     shape = RoundedCornerShape(12.dp),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = primaryColor,
                     )
                 )
-
-
-
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp),
                     value = tg_username,
                     leadingIcon = {Icon(imageVector =Icons.Default.Edit, contentDescription = null, modifier = Modifier.padding(8.dp), tint = primaryColor) },
-
                     onValueChange = { tg_username = it },
                     label = { Text("Telegram Username",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Next,
-
                         ),
                     shape = RoundedCornerShape(12.dp),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = primaryColor,
                     )
                 )
-
-
-
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp,top = 10.dp).height(100.dp),
                     value = description,
-//                    leadingIcon =
-//                    {Icon(imageVector =Icons.Default.Info, contentDescription = null, modifier = Modifier.padding(8.dp)) },
                     onValueChange = { description = it },
                     label = { Text("Additional description",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Done,
-
-                        ),
+                        imeAction = ImeAction.Done,),
                     shape = RoundedCornerShape(12.dp),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = primaryColor,
                     )
                 )
-
     Button(
         modifier = Modifier
             .padding(20.dp)
             .fillMaxWidth(),
         onClick = {
-
-
             if (title.text == "" || mileage.text =="" || condition.text == ""|| year.text == ""
                 || year.text == "" || description.text == "" || price.text == "" || phone.text == "" || tg_username.text == ""
                 || bitmap ==null) {
                 isUploading.value = false
-
                 Toast.makeText(context, "Fill all", Toast.LENGTH_SHORT)
                     .show()
             }
             else{
             isUploading.value = true
-
             bitmap.let{bitmap ->
                 if(bitmap != null){
                     CarData.uploadImageToFirebase(bitmap, context as ComponentActivity) { success, imageUrl ->
                         isUploading.value = false
-
                         if(success){
                             imageUrl.let{
                                 imgUrl = it
                             }
                             CarData.CreateCar(CarClass(UserData.getUserSaved(context),title.text, year.text, price.text,mileage.text,condition.text,color.text, description.text, imgUrl, tg_username.text, phone.text))
-
                             Toast.makeText(
                                 context, "Mashina muvaqqiyatli qo'shildi", Toast.LENGTH_SHORT
                             ).show()
-
                             navController.navigate("Main")
                         }
                         else{
                             Toast.makeText(context, "Not Save", Toast.LENGTH_SHORT).show()
-
                         }
-
                     }
                 }
             }
-
             }
-
-
-
-
         },
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(Color(255,165,0))
@@ -444,25 +364,16 @@ fun AddNewCarScreen(navController: NavController){
             modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp),
             text = "Qo'shish",
             fontFamily = poppinsFamily, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
-
     }
-
     }
-
-
-
         Column(
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize(
-
                 )
                 .padding(bottom = 10.dp)
-
         ) {
-
-
             if(showDialog){
                 Row(
                     verticalAlignment =Alignment.CenterVertically,
@@ -472,15 +383,9 @@ fun AddNewCarScreen(navController: NavController){
                         .height(100.dp)
                         .clip(RoundedCornerShape(30.dp))
                         .background(Color(255,165,0))
-
-
-
                 ){
-
                     Column (modifier = Modifier.padding(start = 10.dp)){
-
-
-                        Image(
+                     Image(
                             painter = painterResource(id = R.drawable.baseline_photo_camera_24),
                             contentDescription = null,
                             modifier = Modifier
@@ -490,26 +395,14 @@ fun AddNewCarScreen(navController: NavController){
                                     showDialog = false
                                 }
                         )
-
                         Text(
                             text = "Camera",
-
                             fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
                             color = Color.White
                         )
-
-
                     }
-
-
-
                     Spacer(modifier = Modifier.padding(30.dp))
-
-
-
                     Column(){
-
-
                         Image(
                             painter = painterResource(id = R.drawable.baseline_image_24),
                             contentDescription = null,
@@ -520,24 +413,16 @@ fun AddNewCarScreen(navController: NavController){
                                     showDialog = false
                                 }
                         )
-
                         Text(
                             text = "Gallery",
                             fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-
                             color = Color.White
                         )
                     }
-
                     Column(
                         modifier = Modifier.padding(bottom = 60.dp)
                     ){
-
-
-
-
                         Text(
-
                             text = "X",
                             fontFamily = poppinsFamily, fontWeight = FontWeight.Normal,
                             color = Color.White,
@@ -545,7 +430,6 @@ fun AddNewCarScreen(navController: NavController){
                                 .clickable { showDialog = false }
                         )
                     }
-
                 }
             }
         }

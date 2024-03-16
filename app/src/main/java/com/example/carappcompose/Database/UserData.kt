@@ -41,7 +41,6 @@ class UserData { companion object {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     callback(!dataSnapshot.exists())
                 }
-
                 override fun onCancelled(databaseError: DatabaseError) {
                     callback(false)
                 }
@@ -53,7 +52,6 @@ class UserData { companion object {
                     val users = dataSnapshot.children.mapNotNull { it.key }
                     callback(users)
                 }
-
                 override fun onCancelled(databaseError: DatabaseError) {
                     callback(emptyList())
                 }
@@ -81,11 +79,9 @@ class UserData { companion object {
         }
 
         fun FavouriteGet(user: String, callback: (List<String>) -> Unit) {
-
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val retrievedUser = dataSnapshot.getValue(UserClass::class.java)
-
                     if (retrievedUser != null) {
                         callback(retrievedUser.favourites)
                     }
@@ -96,7 +92,6 @@ class UserData { companion object {
         }
 
         fun FavouritesCreate(user: String, name:String) {
-
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val retrievedUser = dataSnapshot.getValue(UserClass::class.java)
@@ -113,7 +108,6 @@ class UserData { companion object {
 
 
         fun FavouritesDelete(user: String, name:String) {
-
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val retrievedUser = dataSnapshot.getValue(UserClass::class.java)
@@ -127,15 +121,12 @@ class UserData { companion object {
                 }
             })
         }
-
         fun isFavourite(user: String, model:String, callback: (Boolean) -> Unit) {
-
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val retrievedUser = dataSnapshot.getValue(UserClass::class.java)
                     val favourites = retrievedUser!!.favourites
                     var flag = false
-
                     if (dataSnapshot.exists()) {
                         for (item in favourites) {
                             if (item == model) {
@@ -152,15 +143,8 @@ class UserData { companion object {
                     callback(false)
                 }
             }
-
             )
-
-
         }
-
-
-
-
         fun ChangePassword(user: String, password: String, oldPassword:String,callback: (String) -> Unit) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -184,8 +168,6 @@ class UserData { companion object {
                 }
             })
         }
-
-
         fun uploadImageToFirebase(bitmap: Bitmap, context: ComponentActivity, callback :(Boolean, String) -> Unit){
 
 
@@ -209,26 +191,6 @@ class UserData { companion object {
                 callback(false, null.toString())
             }
         }
-
-
-
-
-
-        fun changeImage(user: String, imgUrl: String) {
-            users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val changedImage = dataSnapshot.getValue(UserClass::class.java)
-                    changedImage?.let {
-                        it.imageUrl = imgUrl
-                    }
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle onCancelled if needed
-                }
-            })
-        }
-
 
     }
 }

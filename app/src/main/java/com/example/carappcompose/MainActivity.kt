@@ -14,7 +14,6 @@ import androidx.navigation.navArgument
 import com.example.carappcompose.fragments.AddNewCarScreen
 import com.example.carappcompose.fragments.ChangePassword
 import com.example.carappcompose.fragments.DetailsScreen
-import com.example.carappcompose.fragments.FilterScreen
 import com.example.carappcompose.fragments.MainScreen
 import com.example.carappcompose.fragments.OnboardingScreen
 import com.example.carappcompose.fragments.ProfileScreen
@@ -28,7 +27,6 @@ import com.example.carappcompose.navigation.CONDITION_KEY
 import com.example.carappcompose.navigation.DESCRIPTION_KEY
 import com.example.carappcompose.navigation.MILE_KEY
 import com.example.carappcompose.navigation.NAME_KEY
-import com.example.carappcompose.navigation.Navigation
 import com.example.carappcompose.navigation.PHONE_KEY
 import com.example.carappcompose.navigation.PRICE_KEY
 import com.example.carappcompose.navigation.Screens
@@ -111,9 +109,7 @@ class MainActivity : ComponentActivity() {
                    composable(route = Screens.Selling.route) {
                        SellingCarScreen(navController = navController)
                    }
-                   composable(route = Screens.Filter.route){
-                       FilterScreen(navController = navController)
-                   }
+
                    composable(route = Screens.ChangePassword.route){
                        ChangePassword(navController = navController)
                    }
