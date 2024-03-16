@@ -225,7 +225,7 @@ fun AddNewCarScreen(navController: NavController){
 
                         onValueChange = { year = it },
                         label = { Text("Year",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Next,
 
                             ),
@@ -247,7 +247,7 @@ fun AddNewCarScreen(navController: NavController){
 
                         onValueChange = { mileage = it },
                         label = { Text("Mileage",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Next,
 
                             ),
@@ -317,7 +317,7 @@ fun AddNewCarScreen(navController: NavController){
                     )},
                         onValueChange = { price = it },
                         label = { Text("Price",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number,
                             imeAction = ImeAction.Next,
 
                             ),
@@ -338,8 +338,8 @@ fun AddNewCarScreen(navController: NavController){
 
                     onValueChange = { phone = it },
 
-                    label = { Text("Telefon Raqam",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,
+                    label = { Text("Telefon",    color = Color(168,175,185), fontFamily = poppinsFamily, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)},
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone,
                         imeAction = ImeAction.Next,
 
                         ),
