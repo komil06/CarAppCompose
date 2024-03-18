@@ -155,7 +155,7 @@ fun ProfileScreen(navController: NavController) {
                             selected = index == selectedItemIndex,
                             onClick = {
                                 selectedItemIndex = index
-                                navController.navigate("${item.title}")
+                                navController.navigate(item.title)
                                 scope.launch {
                                     drawerState.close()
                                 }
@@ -248,7 +248,7 @@ fun ProfileScreen(navController: NavController) {
                                 selected = selectedItemIndex == index,
                                 onClick = {
                                     selectedItemIndex = index
-                                    navController.navigate("${item.title}")
+                                    navController.navigate(item.title)
                                 },
                                 icon = {
                                     BadgedBox(

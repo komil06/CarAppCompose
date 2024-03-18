@@ -327,7 +327,7 @@ fun AddNewCarScreen(navController: NavController){
             .fillMaxWidth(),
         onClick = {
             if (title.text == "" || mileage.text =="" || condition.text == ""|| year.text == ""
-                || year.text == "" || description.text == "" || price.text == "" || phone.text == "" || tg_username.text == ""
+                || year.text == "" || description.text == "" || price.text == "" || phone.text == "" || tg_username.text == "" || color.text == ""
                 || bitmap ==null) {
                 isUploading.value = false
                 Toast.makeText(context, "Fill all", Toast.LENGTH_SHORT)

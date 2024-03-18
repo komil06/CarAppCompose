@@ -68,19 +68,6 @@ class CarData {
                 }
             })
         }
-        fun GetCar(name: String, callback: (CarClass) -> Unit) {
-            cars.child(name).addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val car = dataSnapshot.getValue(CarClass::class.java)
-                    if (car != null) {
-                        callback(car)
-                    }
-                }
-                override fun onCancelled(databaseError: DatabaseError) {
-                    callback(CarClass())
-                }
-            })
-        }
         fun uploadImageToFirebase(bitmap: Bitmap, context: ComponentActivity, callback :(Boolean, String) -> Unit){
             val storageRef = Firebase.storage.reference
             val imageRef = storageRef.child("carimages/${bitmap}")

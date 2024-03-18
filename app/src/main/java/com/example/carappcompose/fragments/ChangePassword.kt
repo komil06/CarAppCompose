@@ -77,7 +77,7 @@ import com.example.carappcompose.ui.theme.primaryColor
 import com.example.carappcompose.ui.theme.secondaryColor
 import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChangePassword(navController: NavController){
@@ -124,7 +124,7 @@ fun ChangePassword(navController: NavController){
                             selected = index == selectedItemIndex,
                             onClick = {
                                 selectedItemIndex = index
-                                navController.navigate("${item.title}")
+                                navController.navigate(item.title)
                                 scope.launch {
                                     drawerState.close()
                                 }
@@ -204,7 +204,7 @@ fun ChangePassword(navController: NavController){
                             NavigationBarItem(
                                 selected = selectedItemIndex == index,
                                 onClick = { selectedItemIndex = index
-                                    navController.navigate("${item.title}")
+                                    navController.navigate(item.title)
                                 },
                                 icon = {
                                     BadgedBox(

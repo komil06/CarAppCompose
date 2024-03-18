@@ -46,17 +46,6 @@ class UserData { companion object {
                 }
             })
         }
-        fun UsersGet(callback: (List<String>) -> Unit) {
-            users.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val users = dataSnapshot.children.mapNotNull { it.key }
-                    callback(users)
-                }
-                override fun onCancelled(databaseError: DatabaseError) {
-                    callback(emptyList())
-                }
-            })
-        }
         fun UserGet(user: TextFieldValue, password: TextFieldValue, callback: (String) -> Unit) {
             val userText = user.text
             val passwordText = password.text
@@ -78,18 +67,7 @@ class UserData { companion object {
             })
         }
 
-        fun FavouriteGet(user: String, callback: (List<String>) -> Unit) {
-            users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val retrievedUser = dataSnapshot.getValue(UserClass::class.java)
-                    if (retrievedUser != null) {
-                        callback(retrievedUser.favourites)
-                    }
-                }
-                override fun onCancelled(databaseError: DatabaseError) {
-                }
-            })
-        }
+
 
         fun FavouritesCreate(user: String, name:String) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -121,6 +99,19 @@ class UserData { companion object {
                 }
             })
         }
+
+    fun FavouriteGet(user: String, callback: (List<String>) -> Unit) {
+        users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val retrievedUser = dataSnapshot.getValue(UserClass::class.java)
+                if (retrievedUser != null) {
+                    callback(retrievedUser.favourites)
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        })
+    }
         fun isFavourite(user: String, model:String, callback: (Boolean) -> Unit) {
             users.child(user).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {

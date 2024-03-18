@@ -181,7 +181,7 @@ fun MainScreen(navController: NavController) {
                             onClick = {
 
                                 selectedItemIndex = index
-                                navController.navigate("${item.title}")
+                                navController.navigate(item.title)
                                 scope.launch {
                                     drawerState.close()
                                 }
@@ -234,7 +234,7 @@ fun MainScreen(navController: NavController) {
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Text(
-                                    text = "Hello ",
+                                    text = "Hello, ",
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis,
                                     fontFamily = poppinsFamily,
@@ -306,7 +306,7 @@ fun MainScreen(navController: NavController) {
                                 selected = selectedItemIndex == index,
                                 onClick = {
                                     selectedItemIndex = index
-                                    navController.navigate("${item.title}")
+                                    navController.navigate(item.title)
                                 },
                                 icon = {
                                     BadgedBox(
@@ -357,7 +357,7 @@ fun MainScreen(navController: NavController) {
                                 item.price?.let { it1 ->
                                     item.condition?.let { it2 ->
                                         item.description?.let { it3 ->
-                                            item.imageUrl?.let { it4 ->
+                                            item.imageUrl.let { it4 ->
                                                 item.year?.let { it5 ->
                                                     item.mileage?.let { it6 ->
                                                         item.userTelegram?.let { it7 ->

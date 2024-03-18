@@ -53,7 +53,7 @@ import com.example.carappcompose.ui.theme.primaryColor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
 @ExperimentalMaterial3Api
 @Composable
 fun DetailsScreen(name:String, price:String,condition:String, description:String,year:String,mile:String, tg_username:String, phone:String, navController: NavController) {

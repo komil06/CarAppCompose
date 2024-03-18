@@ -95,7 +95,6 @@ fun WishlistScreen(navController: NavController){
     UserData.FavouriteGet(UserData.getUserSaved(context)) { lst ->
         CarData.FavouritesFilter(lst) {
             cars = it
-            Log.d("", cars.toString())
         }
     }
     val carsLength: Int = cars.size
@@ -146,7 +145,7 @@ fun WishlistScreen(navController: NavController){
                             selected = index == selectedItemIndex,
                             onClick = {
                                 selectedItemIndex = index
-                                navController.navigate("${item.title}")
+                                navController.navigate(item.title)
                                 scope.launch {
                                     drawerState.close()
                                 }
@@ -249,7 +248,7 @@ fun WishlistScreen(navController: NavController){
                                 selected = selectedItemIndex == index,
                                 onClick = {
                                     selectedItemIndex = index
-                                    navController.navigate("${item.title}")
+                                    navController.navigate(item.title)
                                           },
                                 icon = {
                                     BadgedBox(
@@ -315,7 +314,7 @@ fun MyLazyColumn(navController: NavController, carlength:Int, cars: List<CarClas
                         item.price?.let { it1 ->
                             item.condition?.let { it2 ->
                                 item.description?.let { it3 ->
-                                    item.imageUrl?.let { it4 ->
+                                    item.imageUrl.let { it4 ->
                                         item.year?.let { it5 ->
                                             item.mileage?.let { it6 ->
                                                 item.userTelegram?.let { it7 ->

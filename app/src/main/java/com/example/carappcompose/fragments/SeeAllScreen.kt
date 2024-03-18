@@ -116,7 +116,7 @@ fun SeeAllScreen(navController: NavController) {
                         selected = selectedItemIndex == index,
                         onClick = {
                             selectedItemIndex = index
-                            navController.navigate("${item.title}")
+                            navController.navigate(item.title)
                         },
                         icon = {
                             BadgedBox(
@@ -159,7 +159,7 @@ fun SeeAllScreen(navController: NavController) {
         horizontalArrangement = Arrangement.Center,
     ) {
         SearchView(
-            state = searchText, placeHolder = "Search Here... ", modifier = Modifier
+            state = searchText, placeHolder = "Search Here... ",
         )
     }
     Column(modifier = Modifier.padding(top = 90.dp)) {
@@ -186,7 +186,7 @@ fun SeeAllScreen(navController: NavController) {
                         item.price?.let { it1 ->
                             item.condition?.let { it2 ->
                                 item.description?.let { it3 ->
-                                    item.imageUrl?.let { it4 ->
+                                    item.imageUrl.let { it4 ->
                                         item.year?.let { it5 ->
                                             item.mileage?.let { it6 ->
                                                 item.userTelegram?.let { it7 ->
@@ -220,7 +220,7 @@ fun SeeAllScreen(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchView(state: MutableState<TextFieldValue>, placeHolder: String, modifier: Modifier) {
+fun SearchView(state: MutableState<TextFieldValue>, placeHolder: String) {
     TextField(
         value = state.value, onValueChange = { value -> state.value = value },
         modifier = Modifier
